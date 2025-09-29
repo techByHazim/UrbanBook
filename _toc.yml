@@ -38,3 +38,4 @@ parts:
   - caption: Annexes
     chapters:
       - file: markdown
+      - file: jb_install

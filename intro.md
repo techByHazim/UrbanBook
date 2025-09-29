@@ -35,6 +35,7 @@ Vous pouvez suivre le fil proposé, ou bien consulter directement les parties qu
 ---
 
 ## **Ressources**
+- Le site est disponible en ligne ici : [https://techByHazim.github.io/UrbanBook/](https://techByHazim.github.io/UrbanBook/)
 - Dépôt GitHub : [https://github.com/techByHazim/UrbanBook](https://github.com/techByHazim/UrbanBook)  
 - Export possible en **PDF** ou **ePub** (boutons en haut à droite).  
 
