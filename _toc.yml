@@ -1,0 +1,40 @@
+format: jb-book
+root: intro
+
+parts: 
+  - caption: Généralités
+    chapters:
+      - file: 0_Structure
+      - file: 2_install
+      - file: 1_generalites
+
+  - caption: Les équipements urbains
+    chapters:
+      - file: 3_equipements
+      - file: 4_osm_label
+      - file: 5_osm_overpass
+      - file: 6_bpe_simplified
+      - file: 7_transport
+      - file: 8_bpe_simplified_weights
+
+  - caption: Les chemins piétons
+    chapters:
+      - file: 9_reseau
+      - file: 10_projection
+
+  - caption: Indicateurs de proximité
+    chapters:
+      - file: 11_indicateur
+      - file: config
+      - file: 5_fonction
+      - file: temps_calcul
+      - file: 8_Score
+
+  - caption: Analyses des résultats
+    chapters:
+      - file: 6_perspectives
+      - file: 7_validation
+
+  - caption: Annexes
+    chapters:
+      - file: markdown

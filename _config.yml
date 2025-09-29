@@ -1,0 +1,54 @@
+# ================================================================
+# Book settings for AttractiveCity
+# ================================================================
+title: AttractiveCity – Indicateurs d'accessibilité piétonne
+author: Hazim Moindze
+logo: carte.png   # Logo en haut à droite
+language: fr
+
+# ================================================================
+# Execution options
+# ================================================================
+execute:
+  # Options: force | auto | cache | off
+  execute_notebooks: auto   # Exécute seulement si le code n’est pas déjà exécuté
+  timeout: 300              # Temps max d'exécution (en secondes) par cellule
+  allow_errors: false       # Stoppe le build si une erreur apparaît
+  cache: _build/.jupyter_cache  # Active le cache pour éviter de recalculer
+
+# ================================================================
+# PDF/LaTeX output
+# ================================================================
+latex:
+  latex_documents:
+    targetname: AttractiveCity.tex
+
+# ================================================================
+# References (BibTeX)
+# ================================================================
+bibtex_bibfiles:
+  - references.bib
+
+# ================================================================
+# Repository links (GitHub)
+# ================================================================
+repository:
+  url: https://github.com/techByHazim/UrbanBook   
+  path_to_book: .
+  branch: main
+
+html:
+  use_repository_button: true
+  use_issues_button: true
+  home_page_in_navbar: true
+  favicon: carte.png   # Petite icône de l’onglet navigateur
+  google_analytics_id: ""  # (optionnel) suivre l’audience
+
+# ================================================================
+# Launch buttons (Binder, JupyterHub, Colab )
+# ================================================================
+launch_buttons:
+  notebook_interface: jupyterlab
+  binderhub_url: ""
+  colab_url: ""
+  thebe: true   # mettre true si on veut exécuter du code interactif dans le livre

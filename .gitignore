@@ -1,0 +1,26 @@
+# Fichiers temporaires Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Notebooks checkpoints
+.ipynb_checkpoints/
+
+# Données lourdes 
+*.geojson
+*.gpkg
+*.tif
+*.shp
+*.dbf
+*.prj
+*.shx
+
+# Environnements locaux
+.env
+.venv
+*.env
+*.yaml
+
+# Build Jupyter Book
+_build/
