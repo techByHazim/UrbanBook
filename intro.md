@@ -8,7 +8,7 @@ Il rassemble des notes de travail, des synthèses et des analyses reproductibles
 ---
 
 ## **À propos de moi**
-Je suis *Hazim*, doctorant au laboratoire **CINaM** (CNRS / Aix-Marseille Université), co-encadré par **Philippe Dumas**, **Romain Grossier**, **Nicolas Levernier** et **Frédéric Rychen**.  
+Je suis *Hazim*, doctorant au laboratoire **CINaM** (CNRS / Aix-Marseille Université), co-encadré par **Philippe Dumas**, **Romain Grossier**, **Nicolas Levernier** et **Frédéric Rychen** et **RIFKA B**.  
 
 Je travaille principalement avec :  
 - des **données géographiques** (*OpenStreetMap*, données **INSEE**, etc.)  

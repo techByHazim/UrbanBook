@@ -12,7 +12,7 @@ kernelspec:
   name: python3
 ---
 
-# **Les équipements urbains et leur ressource de données**
+# **Les équipements urbains et sources de données**
 
 Les équipements urbains (ou aménités) sont des **points d’intérêt** qui structurent les pratiques quotidiennes et influencent la qualité de vie locale. Ils incluent : 
 * les commerces (boulangerie, supermarché, pharmacie, etc.),
