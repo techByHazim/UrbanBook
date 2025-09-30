@@ -10,7 +10,7 @@ kernelspec:
   name: python3
 ---
 
-# UrbanBook — Proximité urbaine et inéquités
+# UrbanBook - Proximité urbaine et inéquités
 
 **UrbanBook** est le **carnet numérique instrumenté** de ma thèse.  
 Il documente de bout en bout la construction d’un indicateur local de proximité (PAL), du choix des données et paramètres jusqu’aux protocoles, expériences, décisions et résultats. L’objectif est double : **traçabilité scientifique** et **reproductibilité**.
@@ -60,9 +60,9 @@ Les scripts et workflows sont disponibles dans *UrbanProximity* ; l’environnem
 * Méta : journal de décision, changelog, à propos & citation
 
 ```{admonition} Citer ce livre
-Moindze H. (2025). *UrbanBook — Proximité urbaine et inéquités*. Version 0.1.  
+Moindze H. (2025). *UrbanBook - Proximité urbaine et inéquités*. Version 0.1.  
 URL : https://techByHazim.github.io/UrbanBook/  
-Ajoutez le DOI dès l’archivage (Zenodo).
+DOI à ajouter dès l’archivage (Zenodo).
 ```
 
 ## Sommaire

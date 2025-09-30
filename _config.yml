@@ -2,7 +2,7 @@
 # Book settings
 # ================================================================
 title: Proximité urbaine
-author: Hazim Moindze
+author: Hazim Moindze (CINaM/CNRS/AMU)
 logo: images/carte.png
 language: fr
 
@@ -47,11 +47,9 @@ html:
     google_analytics_id: ""   # J'ai pas encore de GA
   extra_footer: |
     <div style="font-size:0.9rem; line-height:1.4; margin-top:0.5rem;">
-      © {{ date.strftime('%Y') }} Hazim Moindze — CINaM (CNRS / AMU).<br>
-      Projet : <a href="https://github.com/techByHazim/UrbanBook" target="_blank" rel="noopener">UrbanBook</a>.
       Code et contenus sous licence <a href="https://opensource.org/license/mit/" target="_blank" rel="noopener">MIT</a> / 
       <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> (sauf mention contraire).<br>
-      Contact : <a href="mailto:hazim@cinam.univ-mrs.fr">hazim@cinam.univ-mrs.fr</a>
+      Contact : <a href="mailto:hazim@cinam.univ-mrs.fr">moindze-boina.hazim@cnrs.fr</a>
     </div>
 
 # ================================================================
