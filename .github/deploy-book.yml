@@ -2,10 +2,19 @@ name: Deploy Jupyter Book
 
 on:
   push:
-    branches: ["main"]
+    branches: [ main ]
+    # Évite le rebuild inutil 
+    paths-ignore:
+      - "README.md"
+      - ".github/**"
+  workflow_dispatch: {}   # bouton "Run workflow" manuel dans l'onglet Actions
 
 permissions:
   contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -13,23 +22,37 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
+      - name: Setup micromamba (conda-forge)
+        uses: mamba-org/setup-micromamba@v1
         with:
-          python-version: "3.10"
+          environment-file: requirements.yml         # à la racine du repo
+          cache-environment: true
+          cache-downloads: true
+          micromamba-version: "1.5.8"
+          init-shell: bash
+          # (optionnel) si env s'appelle différemment :
+          # environment-name: geo_env
 
-      - name: Install Jupyter Book
+      - name: Show environment
+        shell: bash -l {0}
         run: |
-          pip install -U pip
-          pip install jupyter-book
+          micromamba info
+          python -V
+          python -c "import jupyter_book; print('JB OK')"
+          # Sanity-check géo si nécessaire :
+          # python -c "import geopandas, shapely, fiona, pyproj; print('Geo OK')"
 
       - name: Build the book
-        run: jupyter-book build .
+        shell: bash -l {0}
+        run: |
+          jupyter-book build .
+          # Si tu veux échouer sur warnings :
+          # jupyter-book build . --keep-going -W
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_build/html
+      - name: Deploy to GitHub Pages (gh-pages)
+        if: ${{ github.ref == 'refs/heads/main' }}
+        shell: bash -l {0}
+        run: |
+          ghp-import -n -p -f _build/html

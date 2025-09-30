@@ -1,36 +1,37 @@
 # ================================================================
-# Book settings for AttractiveCity
+# Book settings
 # ================================================================
 title: Proximité urbaine
 author: Hazim Moindze
-logo: images/carte.png   # Logo en haut à droite
+logo: images/carte.png
 language: fr
 
 # ================================================================
-# Execution options
+# Execution (myst-nb)
 # ================================================================
 execute:
-  # Options: force | auto | cache | off
-  execute_notebooks: "off"   # Désactive l'exécution côté GitHub
-  timeout: 300               # Temps max d'exécution (en secondes) par cellule
-  allow_errors: false        # Stoppe le build si une erreur apparaît
-  cache: _build/.jupyter_cache  # Active le cache pour éviter de recalculer
+  # "auto" = n’exécute que si sorties manquantes/obsolètes
+  # "force" = réexécute toujours tout
+  execute_notebooks: "auto"
+  timeout: 600            # ↑ si certaines cellules sont longues
+  allow_errors: false     # stoppe le build si erreur
+  cache: _build/.jupyter_cache
 
 # ================================================================
-# PDF/LaTeX output
+# PDF/LaTeX
 # ================================================================
 latex:
   latex_documents:
     targetname: AttractiveCity.tex
 
 # ================================================================
-# References (BibTeX)
+# Références (BibTeX)
 # ================================================================
 bibtex_bibfiles:
   - references.bib
 
 # ================================================================
-# Repository links (GitHub)
+# Liens dépôt
 # ================================================================
 repository:
   url: https://github.com/techByHazim/UrbanBook
@@ -41,14 +42,24 @@ html:
   use_repository_button: true
   use_issues_button: true
   home_page_in_navbar: true
-  favicon: images/carte.png   # Petite icône de l’onglet navigateur
-  google_analytics_id: ""     # (optionnel) suivre l’audience
+  favicon: images/carte.png
+  analytics:
+    google_analytics_id: ""   # J'ai pas encore de GA
+  extra_footer: |
+    <div style="font-size:0.9rem; line-height:1.4; margin-top:0.5rem;">
+      © {{ date.strftime('%Y') }} Hazim Moindze — CINaM (CNRS / AMU).<br>
+      Projet : <a href="https://github.com/techByHazim/UrbanBook" target="_blank" rel="noopener">UrbanBook</a>.
+      Code et contenus sous licence <a href="https://opensource.org/license/mit/" target="_blank" rel="noopener">MIT</a> / 
+      <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> (sauf mention contraire).<br>
+      Contact : <a href="mailto:hazim@cinam.univ-mrs.fr">hazim@cinam.univ-mrs.fr</a>
+    </div>
 
 # ================================================================
-# Launch buttons (Binder, JupyterHub, Colab )
+# Lancement interactif
 # ================================================================
+
 launch_buttons:
   notebook_interface: jupyterlab
-  binderhub_url: ""
-  colab_url: ""
-  thebe: true   # mettre true si on veut exécuter du code interactif dans le livre
+  binderhub_url: ""   # à activer plus tard si j'allèges l'env
+  colab_url: ""       # à activer seulement pour des .ipynb ciblés
+  thebe: false        # Je garde off (env lourd)

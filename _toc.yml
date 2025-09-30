@@ -1,41 +1,35 @@
 format: jb-book
 root: intro
-
-parts: 
-  - caption: Généralités
+parts:
+  - caption: Projet
     chapters:
-      - file: 0_Structure
-      - file: 2_install
-      - file: 1_generalites
-
-  - caption: Les équipements urbains
+      - file: 00_Projet/objectifs
+      - file: 00_Projet/questions_recherche
+      - file: 00_Projet/hypotheses
+  - caption: Données
     chapters:
-      - file: 3_equipements
-      - file: 4_osm_label
-      - file: 5_osm_overpass
-      - file: 6_bpe_simplified
-      - file: 7_transport
-      - file: 8_bpe_simplified_weights
-
-  - caption: Les chemins piétons
+      - file: 10_Donnees/catalogue_donnees
+      - file: 10_Donnees/dictionnaire_variables
+  - caption: Indicateurs
     chapters:
-      - file: 9_reseau
-      - file: 10_projection
-
-  - caption: Indicateurs de proximité
+      - file: 20_Indicateurs/specification_PAL
+      - file: 20_Indicateurs/mapping_amenites
+      - file: 20_Indicateurs/parametrages
+  - caption: Protocoles
     chapters:
-      - file: 11_indicateur
-      - file: config
-      - file: 5_fonction
-      - file: temps_calcul
-      - file: 8_Score
-
-  - caption: Analyses des résultats
+      - file: 30_Protocoles/protocole_calcul_PAL
+      - file: 30_Protocoles/protocole_validation
+  - caption: Expériences
     chapters:
-      - file: 6_perspectives
-      - file: 7_validation
-
-  - caption: Annexes
+      - file: 40_Experiences/carnet_resultats
+      - file: 40_Experiences/xp_template
+  - caption: Reproductibilité
     chapters:
-      - file: markdown
-      - file: jb_install
+      - file: 50_Reproductibilite/environnement
+      - file: 50_Reproductibilite/comment_reproduire
+  - caption: Méta
+    chapters:
+      - file: 60_Meta/index
+      - file: 60_Meta/journal_decision
+      - file: 60_Meta/changelog
+      - file: 60_Meta/a_propos_citation

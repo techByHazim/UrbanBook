@@ -1,0 +1,75 @@
+name: geo_env
+channels:
+  - conda-forge
+dependencies:
+  # Base Python
+  - python=3.10
+  - pip
+
+  # NumPy / DataFrame / calcul
+  - numpy
+  - pandas
+  - dask
+  - xarray
+  - rioxarray
+
+  # Géospatial (conda-forge = indispensable)
+  - geopandas
+  - shapely
+  - fiona
+  - pyproj
+  - rtree
+  - gdal
+  - rasterio
+  - contextily
+  - networkx
+
+  # Stats / ML / viz ---
+  - matplotlib
+  - seaborn
+  - scikit-learn
+  - statsmodels
+
+  # PySAL (analyse spatiale)
+  - pysal
+  - libpysal
+  - esda
+  - segregation
+  - splot
+  - mgwr
+  - tobler
+  - momepy
+  - spopt
+  - spreg
+  - spint
+  - spglm
+  - giddy
+  - spaghetti
+  - quantecon
+
+  # Jupyter
+  - jupyter
+  - ipykernel
+
+  # Paquets via pip (ceux non/moins bien packagés en conda)
+  - pip:
+      # Build & déploiement du livre
+      - jupyter-book
+      - ghp-import
+      - folium
+      - plotly
+      - pydeck
+      - osmnx
+      - osmium
+      - mapclassify
+      - myst-nb
+      - myst-parser
+      - rich
+      - tqdm
+      - tabulate
+      - unidecode
+      - simplejson
+      - requests
+
+      (Optionnel) Export PDF HTML
+      - playwright

@@ -1,46 +1,71 @@
-# **Bienvenue**
-
-**Ville, proximités et inéquités.**  
-
-Ce livre est le récit de mon projet de thèse interdisciplinaire, qui explore **les proximités urbaines et ses inéquités**.  
-Il rassemble des notes de travail, des synthèses et des analyses reproductibles, que j'organise pour être consultées facilement.
-
+---
+jupytext:
+  formats: md:myst
+  text_representation:
+    extension: .md
+    format_name: myst
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
 ---
 
-## **À propos de moi**
-Je suis *Hazim*, doctorant au laboratoire **CINaM** (CNRS / Aix-Marseille Université), co-encadré par **Philippe Dumas**, **Romain Grossier**, **Nicolas Levernier** et **Frédéric Rychen**.  
+# UrbanBook — Proximité urbaine et inéquités
 
-Dans ce travail de recherche, j'utilise principalement : 
+**UrbanBook** est le **carnet numérique instrumenté** de ma thèse.  
+Il documente de bout en bout la construction d’un indicateur local de proximité (PAL), du choix des données et paramètres jusqu’aux protocoles, expériences, décisions et résultats. L’objectif est double : **traçabilité scientifique** et **reproductibilité**.
 
-- des **données géographiques** (types *OpenStreetMap*, données **INSEE**, etc.)  
-- des outils numériques de **data science** et de **géographie quantitative** (*Python*, *QGIS*, etc.)
+```{admonition} Positionnement
+:class: important
+Ce livre n’est pas une simple vitrine. C’est un outil de travail versionné : il fixe les conventions (données, pondérations, échelles), consigne les choix, standardise les protocoles et relie chaque expérience à des artefacts vérifiables.
+```
 
----
+## Comment lire
 
-## **Ce que vous allez trouver**
-- des **notes de synthèse** qui structurent et résument ma démarche ;  
-- des **notebooks intégrés** (commentés, organisés), avec du code et des sorties ;  
-- des **scripts et ressources** disponibles également dans mon dépôt GitHub ;  
-- des **visualisations et cartes** pour les analyses ;  
-- des **références** et des pistes de lecture pour approfondir.  
+* Commencer par **Méthodologie en bref** pour le cadre général.
+* Lire **Spécification du PAL** puis **Paramétrages** (pondérations, rayons, fonctions de décroissance).
+* Parcourir les **Expériences** pour les analyses de sensibilité, validations et décisions.
+* Utiliser **Reproductibilité** pour rejouer les calculs avec l’environnement fourni.
+* Le **code exécutable** (pipelines, scripts) est maintenu dans le dépôt compagnon *UrbanProximity*.
 
-:::{note}
-_Chaque partie peut être lu indépendamment, mais des renvois internes permettent de naviguer entre les thèmes._
-:::
+## Ce que contient UrbanBook
 
----
+* **Données** : catalogue (BPE, OSM, GTFS), millésimes, limites, dictionnaire des variables.
+* **Indicateurs** : définition formelle du PAL, mapping des aménités vers fonctions sociales, paramètres.
+* **Protocoles** : calcul, validation, qualité des données, contrôles cartographiques.
+* **Expériences** : une page par expérience avec objectif, méthode, résultats, conclusion et liens vers artefacts.
+* **Traçabilité** : journal de décision, changelog, références et modalités de citation.
 
-## **Comment le lire ?**
-On peut suivre le fil proposé, ou consulter directement les parties qui nous intéressent.  
+```{admonition} Reproductibilité
+:class: tip
+Les notebooks sont **exécutés localement** et sauvegardés avec leurs sorties ; l’exécution côté site est **désactivée** (`execute_notebooks: "off"`).  
+Les scripts et workflows sont disponibles dans *UrbanProximity* ; l’environnement est décrit dans `requirements.yml`.
+```
 
----
+## Méthodologie en bref
 
-## **Ressources**
-- E-book est disponible en ligne ici : [https://techByHazim.github.io/UrbanBook/](https://techByHazim.github.io/UrbanBook/)
-- Dépôt GitHub des ressources : [https://github.com/techByHazim/UrbanBook](https://github.com/techByHazim/UrbanBook)  
-- Export possible en **PDF** ou **ePub** (boutons de téléchargement en haut à droite).  
+* **Sources ouvertes** : BPE (INSEE), OpenStreetMap, GTFS.
+* **Unité d’analyse** : segment du réseau piéton.
+* **Principe** : mesure de la proximité fonctionnelle via densité, diversité et accessibilité à pied des aménités, pondérées par rôle social.
+* **Contrôles** : analyses de sensibilité (rayons, poids), croisement de sources, effets d’agrégation, vérifications cartographiques.
 
----
+## Navigation
 
-## **Sommaire**
+* Projet : objectifs, questions, hypothèses
+* Données : catalogue, dictionnaire
+* Indicateurs : spécification PAL, mapping, paramétrages
+* Protocoles : calcul, validation
+* Expériences : carnet synthétique, fiches XP
+* Reproductibilité : environnement, comment reproduire
+* Méta : journal de décision, changelog, à propos & citation
+
+```{admonition} Citer ce livre
+Moindze H. (2025). *UrbanBook — Proximité urbaine et inéquités*. Version 0.1.  
+URL : https://techByHazim.github.io/UrbanBook/  
+Ajoutez le DOI dès l’archivage (Zenodo).
+```
+
+## Sommaire
+
 ```{tableofcontents}
+```
