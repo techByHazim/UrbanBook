@@ -47,8 +47,6 @@ html:
     google_analytics_id: ""   # J'ai pas encore de GA
   extra_footer: |
     <div style="font-size:0.9rem; line-height:1.4; margin-top:0.5rem;">
-      Code et contenus sous licence <a href="https://opensource.org/license/mit/" target="_blank" rel="noopener">MIT</a> / 
-      <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> (sauf mention contraire).<br>
       Contact : <a href="mailto:hazim@cinam.univ-mrs.fr">moindze-boina.hazim@cnrs.fr</a>
     </div>
 
