@@ -1,6 +1,6 @@
-﻿# **Environnement scientifique**
+﻿# **Environnement du projet**
 
-## **Environnement Python du projet**
+## **Environnement Python**
 
 Toutes les analyses hors QGIS (scripts et notebooks) s’appuient sur un **environnement virtuel Python dédié**.
 Celui-ci est décrit dans le fichier `requirements.yml` (placé à la racine du projet).
@@ -82,9 +82,9 @@ Cela installe automatiquement un environnement nommé **`geo_env`**.
 
 * Être dans le dossier du projet contenant `requirements.yml`.
 
-## Mise à jour de l’environnement**
+## **Mise à jour de l’environnement**
 
-Pour mettre à jour l'environnement existant :
+Pour mettre à jour l'environnement `geo_env` existant :
 
   ```bash
   mamba env update -n geo_env -f requirements.yml --prune

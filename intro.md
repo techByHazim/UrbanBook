@@ -10,7 +10,7 @@ kernelspec:
   name: python3
 ---
 
-# UrbanBook - Proximité urbaine et inéquités
+# UrbanBook 
 
 **UrbanBook** est le **carnet numérique instrumenté** de ma thèse.  
 Il documente de bout en bout la construction d’un indicateur local de proximité (PAL), du choix des données et paramètres jusqu’aux protocoles, expériences, décisions et résultats. L’objectif est double : **traçabilité scientifique** et **reproductibilité**.

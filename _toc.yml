@@ -29,7 +29,6 @@ parts:
       - file: 50_Reproductibilite/comment_reproduire
   - caption: Méta
     chapters:
-      - file: 60_Meta/index
       - file: 60_Meta/journal_decision
       - file: 60_Meta/changelog
       - file: 60_Meta/a_propos_citation
