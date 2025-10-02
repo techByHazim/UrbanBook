@@ -1,206 +1,172 @@
-﻿# Environnement scientifique
+﻿# **Environnement scientifique**
 
-- Python / Conda : voir `requirements.yml` à la racine.
-- QGIS : version utilisée (indiquer).
-- Exécution des notebooks : **locale avec sorties sauvegardées**.
-- Côté site : `execute_notebooks: "off"` dans `_config.yml`.
+## **Environnement Python du projet**
 
-### **Environnement Python**
+Toutes les analyses hors QGIS (scripts et notebooks) s’appuient sur un **environnement Python dédié**.
+Celui-ci est décrit dans le fichier `requirements.yml` (placé à la racine du projet).
 
-Pour les analyses hors QGIS (scripts et notebooks), j’utilise un **environnement Python dédié**, décrit dans le fichier `requirements.yml` à la racine du projet. Ce fichier fixe toutes les dépendances et leurs versions, ce qui garantit l’exécution du code, sa **reproductibilité** et sa **portabilité**. À partir de ce fichier, l’environnement peut être recréé à l’identique sur une autre machine.  
-Je recommande d’utiliser **Conda/Mamba** pour la gestion de l’environnement : <https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html>.
+Ce fichier liste toutes les bibliothèques et leurs versions. Il garantit :
 
-> Remarque — Le Python embarqué dans QGIS est **3.12.6**. L'environnement conda/mamba est différent (`python=3.9.19`) : ce n’est pas un problème tant que j'exécute les notebooks dans **l’environnement documenté** et que les dépendances sont bien figées dans `requirements.yml`.
+* la **reproductibilité** (mêmes résultats sur n’importe quelle machine),
+* la **portabilité** (facilité à partager ou réinstaller l’environnement).
 
-Pour créer l'environnement Python, il suffit de lancer la commande suivante dans un terminal :
+### **Création de l’environnement à partir du fichier**
+
+Depuis un terminal, placez-vous dans le dossier racine du projet et lancez :
 
 ```bash
 conda env create -f requirements.yml
 ```
-Pré-requis :
 
-- Être dans le répertoire racine du projet (là où se trouve `requirements.yml`).
-- Avoir Conda installé (Anaconda ou Miniconda).
+Cela installe automatiquement un environnement nommé **`geo_env`**.
 
-Pour activer cet environnement, utilisez la commande :
+*Pré-requis :*
 
-```bash
-conda activate geo_env
-``` 
-où `geo_env` est le nom de l'environnement défini dans le fichier `requirements.yml`. 
+* Avoir installé Conda (via [Anaconda](https://www.anaconda.com/download) ou [Miniconda](https://docs.conda.io/en/latest/miniconda.html)).
+* Être dans le dossier du projet contenant `requirements.yml`.
 
-Pour le desactiver, utilisez :
+### **Activation et désactivation**
 
 ```bash
-conda deactivate
+conda activate geo_env   # activer l’environnement
+conda deactivate         # le désactiver
 ```
 
+## **Pourquoi un environnement virtuel ?**
 
-# **Création et utilisation de l’environnement virtuel**
-
-En complément de la section précédente, je vais vous montrer comment créer et utiliser mon environnement virtuel **`geo_env`** sur **Windows**, **macOS** et **Linux**.
-
-````{admonition} Pourquoi un environnement virtuel ?
+```{admonition} Important
 :class: important
+Un environnement virtuel permet d’isoler les dépendances d’un projet de celles des autres projets ou du système.  
+Ainsi, deux projets peuvent utiliser des versions différentes d’une même bibliothèque sans conflit.
+```
 
-Un environnement virtuel permet d'isoler les dépendances d'un projet des autres projets et de l'environnement système. Cela garantit que les bibliothèques utilisées par un projet ne perturbent pas celles d'un autre projet.
+## **Outils de gestion d’environnement**
 
-````
----
+## **Outils de gestion d’environnement**
 
-## **Outils de gestion d'environnement**
+Plusieurs gestionnaires d’environnement existent :  
 
-* **conda** (gestionnaire d’environnements et de paquets)
-* **mamba** (alternative à conda, **beaucoup plus rapide**). Si `mamba` n’est pas disponible, on peut **tout** faire avec `conda` en remplaçant `mamba` par `conda` dans les commandes.
+- **venv** (natif à Python, simple et léger)  
+- **Conda** (gestionnaire d’environnements et de paquets, particulièrement adapté aux projets géospatiaux)  
+- **Mamba** (alternative à Conda, beaucoup plus rapide)  
+- **Poetry** (gestionnaire moderne de dépendances et de packaging)  
+- **Pipenv** (similaire à Poetry, aujourd’hui moins répandu)  
+- **Docker** (solution plus lourde, basée sur des conteneurs pour une portabilité complète)  
 
----
+Dans ce projet, nous utilisons **Conda** (ou **Mamba**) car c’est la solution la plus simple et la plus robuste pour installer et gérer les bibliothèques géospatiales (*GDAL*, *PROJ*, *Rasterio*, *Fiona*, *Shapely*), qui nécessitent des dépendances systèmes difficiles à compiler avec `pip` seul.
 
-## **Installation de conda/mamba**
 
-````{admonition} Étapes nécessaires
-:class: important
+## **Installation de Conda/Mamba**
 
-1. **Installer Miniforge/Mambaforge** (recommandé) ou Miniconda.  
-   - **macOS Apple Silicon (M1/M2/M3)** : installeur **ARM64**  
-   - **macOS Intel** : installeur **x86_64**  
-   - **Windows** : installeur **x86_64**
+1. **Installer Miniforge ou Mambaforge** (recommandé) ou Miniconda :
 
-2. **Où taper les commandes ?**  
-   - **Windows** : *Anaconda Prompt*, *Miniforge Prompt* ou *PowerShell* (après `conda init`)  
-   - **macOS / Linux** : application **Terminal**
+   * macOS Apple Silicon (M1/M2/M3) → installeur **ARM64**
+   * macOS Intel → installeur **x86_64**
+   * Windows → installeur **x86_64**
 
-3. **Initialiser conda** (macOS/Linux, une seule fois) :
+2. **Ouvrir un terminal** :
+
+   * Windows → *Anaconda Prompt*, *Miniforge Prompt* ou *PowerShell*
+   * macOS/Linux → application *Terminal*
+
+3. **Initialiser conda** (à faire une seule fois sur macOS/Linux) :
 
    ```bash
-   conda init zsh    # si vous utilisez zsh (par défaut sur macOS récents)
-   conda init bash   # sinon
+   conda init zsh   # si vous utilisez zsh (par défaut sur macOS récents)
+   conda init bash  # sinon
    ```
 
-   Fermez et **rouvrez** le terminal.
+   → Fermez et rouvrez le terminal.
 
-4. **Installer mamba** (si absent) :
+4. **Installer mamba** si nécessaire :
 
    ```bash
    conda install -n base -c conda-forge mamba
    ```
 
-5. **Placer** le fichier **`requirements.yml`** à la **racine du projet**.
+5. **Configurer conda-forge comme canal principal** (conseillé pour la géo) :
 
-````
+   ```bash
+   conda config --add channels conda-forge
+   conda config --set channel_priority strict
+   ```
 
-````{admonition} Bonnes pratiques conda-forge
-:class: tip
 
-Utilisez **conda-forge** en priorité (meilleure compatibilité des libs géospatiales) :
+## **Création et mise à jour de l’environnement**
 
-```bash
-conda config --add channels conda-forge
-conda config --set channel_priority strict
-```
+* **Créer un nouvel environnement** :
 
-````
+  ```bash
+  mamba env create -f requirements.yml
+  ```
 
----
+* **Mettre à jour un environnement existant** :
 
-## **Création de l’environnement**
+  ```bash
+  mamba env update -n geo_env -f requirements.yml --prune
+  ```
 
-Ouvrir un terminal et se placer dans le **dossier racine** du projet (là où se trouve `requirements.yml`).
+  (l’option `--prune` supprime les dépendances devenues inutiles)
 
-```bash
-mamba env create -f requirements.yml
-```
+On peut **tout** faire avec `conda` en remplaçant `mamba` par `conda` dans les commandes.
 
-Cela crée un environnement nommé **`geo_env`** avec toutes les dépendances (conda + pip) définies dans le fichier.
+## **Gestion au quotidien**
 
-````{admonition} Mettre à jour un environnement existant
-:class: tip
+* **Activer / désactiver**
 
-```bash
-mamba env update -n geo_env -f requirements.yml --prune
-```
+  ```bash
+  mamba activate geo_env   # ou conda activate geo_env
+  mamba deactivate         # ou conda deactivate
+  ```
 
-````
+* **Lister les environnements disponibles**
 
-L’option `--prune` désinstalle ce qui n’est plus listé.
+  ```bash
+  conda env list
+  ```
 
-## **Activer / désactiver l’environnement**
+## **Utiliser l’environnement dans Jupyter**
 
-* **Activer** :
-
-```bash
-mamba activate geo_env   # ou: conda activate geo_env
-```
-
-* **Désactiver** :
-
-```bash
-mamba deactivate         # ou: conda deactivate
-```
-
-* **Vérifier** l’environnement actif :
-
-```bash
-conda info --envs # ou: conda env list
-```
-
-**C’est identique sur Windows, macOS et Linux** une fois conda/mamba correctement installés.
-
----
-
-## **Ajouter le noyau Jupyter**
-
-Pour pouvoir choisir `geo_env` et utiliser cet environnement dans **Jupyter Notebook/Lab** :
+Pour exécuter les notebooks avec l’environnement `geo_env`, ajoutez-le à Jupyter :
 
 ```bash
 python -m ipykernel install --user --name geo_env --display-name "Python (geo_env)"
 ```
 
-Ensuite, dans Jupyter, sélectionnez le noyau **Python (geo_env)**.
+Ensuite, dans Jupyter Notebook/Lab, choisissez le noyau **Python (geo_env)**.
 
----
 
-## **Mettre à jour / ajouter des paquets**
+## **Modifier ou réparer l’environnement**
 
-* Ajouter un paquet **conda** (ex. `geopy`) :
+* **Ajouter un paquet** :
 
   ```bash
-  mamba install -n geo_env geopy -c conda-forge
+  mamba install -n geo_env <nom-du-paquet> -c conda-forge
   ```
 
-* Ajouter un paquet **pip** ponctuellement :
+* **Installer via pip (au besoin)** :
 
   ```bash
   python -m pip install <nom-du-paquet>
   ```
 
-* Répercuter ces changements dans le fichier :
+* **Exporter les changements dans `requirements.yml`** :
 
   ```bash
   mamba env export -n geo_env --no-builds > requirements.yml
   ```
 
----
-
-## **Réparer ou recréer l’environnement (au besoin)**
-
-* **Lister** les environnements :
-
-  ```bash
-  conda info --envs
-  ```
-
-* **Supprimer** puis **recréer** :
+* **Supprimer puis recréer l’environnement** :
 
   ```bash
   mamba remove -n geo_env --all
   mamba env create -f requirements.yml
   ```
 
----
 
 ## **Liste des paquets et versions**
 
-Le fichier `requirements.yml` décrit l’environnement complet du projet (priorité **conda-forge** pour les libs géospatiales). Il est disponible à la **racine** du dépôt.
+Voici le description complète de l'environnement utilisé dans le projet (fichier `requirements.yml`, priorité **conda-forge** pour les libs géospatiales). 
 
 ````{dropdown} **Cliquez ici pour afficher / masquer la liste des paquets**
 <br>
@@ -343,7 +309,6 @@ dependencies:
 
 ````
 
----
 
 ```{admonition} Conseil
 :class: success
