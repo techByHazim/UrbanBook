@@ -2,7 +2,7 @@
 
 ## **Environnement Python du projet**
 
-Toutes les analyses hors QGIS (scripts et notebooks) s’appuient sur un **environnement Python dédié**.
+Toutes les analyses hors QGIS (scripts et notebooks) s’appuient sur un **environnement virtuel Python dédié**.
 Celui-ci est décrit dans le fichier `requirements.yml` (placé à la racine du projet).
 
 Ce fichier liste toutes les bibliothèques et leurs versions. Il garantit :
@@ -10,50 +10,25 @@ Ce fichier liste toutes les bibliothèques et leurs versions. Il garantit :
 * la **reproductibilité** (mêmes résultats sur n’importe quelle machine),
 * la **portabilité** (facilité à partager ou réinstaller l’environnement).
 
-### **Création de l’environnement à partir du fichier**
-
-Depuis un terminal, placez-vous dans le dossier racine du projet et lancez :
-
-```bash
-conda env create -f requirements.yml
-```
-
-Cela installe automatiquement un environnement nommé **`geo_env`**.
-
-*Pré-requis :*
-
-* Avoir installé Conda (via [Anaconda](https://www.anaconda.com/download) ou [Miniconda](https://docs.conda.io/en/latest/miniconda.html)).
-* Être dans le dossier du projet contenant `requirements.yml`.
-
-### **Activation et désactivation**
-
-```bash
-conda activate geo_env   # activer l’environnement
-conda deactivate         # le désactiver
-```
-
 ## **Pourquoi un environnement virtuel ?**
 
 ```{admonition} Important
 :class: important
-Un environnement virtuel permet d’isoler les dépendances d’un projet de celles des autres projets ou du système.  
-Ainsi, deux projets peuvent utiliser des versions différentes d’une même bibliothèque sans conflit.
+Un environnement virtuel permet d’isoler les dépendances d’un projet de celles des autres projets ou du système. Ainsi, deux projets peuvent utiliser des versions différentes d’une même bibliothèque sans conflit.
 ```
-
-## **Outils de gestion d’environnement**
 
 ## **Outils de gestion d’environnement**
 
 Plusieurs gestionnaires d’environnement existent :  
 
 - **venv** (natif à Python, simple et léger)  
-- **Conda** (gestionnaire d’environnements et de paquets, particulièrement adapté aux projets géospatiaux)  
+- **Conda** (gestionnaire d’environnements et de paquets)  
 - **Mamba** (alternative à Conda, beaucoup plus rapide)  
 - **Poetry** (gestionnaire moderne de dépendances et de packaging)  
 - **Pipenv** (similaire à Poetry, aujourd’hui moins répandu)  
 - **Docker** (solution plus lourde, basée sur des conteneurs pour une portabilité complète)  
 
-Dans ce projet, nous utilisons **Conda** (ou **Mamba**) car c’est la solution la plus simple et la plus robuste pour installer et gérer les bibliothèques géospatiales (*GDAL*, *PROJ*, *Rasterio*, *Fiona*, *Shapely*), qui nécessitent des dépendances systèmes difficiles à compiler avec `pip` seul.
+Dans ce projet, je recommande **Conda** (ou **Mamba**) car c’est la solution la plus simple et la plus robuste pour installer et gérer les bibliothèques géospatiales (*GDAL*, *PROJ*, *Rasterio*, *Fiona*, *Shapely*), qui nécessitent des dépendances systèmes difficiles à compiler avec `pip` seul.
 
 
 ## **Installation de Conda/Mamba**
@@ -91,16 +66,25 @@ Dans ce projet, nous utilisons **Conda** (ou **Mamba**) car c’est la solution 
    conda config --set channel_priority strict
    ```
 
+## **Création de l’environnement virtuel**
 
-## **Création et mise à jour de l’environnement**
+Depuis un terminal, placez-vous dans le dossier racine du projet et lancez :
 
-* **Créer un nouvel environnement** :
+```bash
+conda env create -f requirements.yml  # ou mamba env create -f requirements.yml
+```
 
-  ```bash
-  mamba env create -f requirements.yml
-  ```
+Cela installe automatiquement un environnement nommé **`geo_env`**.
 
-* **Mettre à jour un environnement existant** :
+*Pré-requis :*
+
+* Avoir installé Conda (via [Anaconda](https://www.anaconda.com/download) ou [Miniconda](https://docs.conda.io/en/latest/miniconda.html)).
+
+* Être dans le dossier du projet contenant `requirements.yml`.
+
+## Mise à jour de l’environnement**
+
+Pour mettre à jour l'environnement existant :
 
   ```bash
   mamba env update -n geo_env -f requirements.yml --prune
