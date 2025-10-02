@@ -28,6 +28,7 @@ parts:
       - file: 50_Reproductibilite/environnement
       - file: 50_Reproductibilite/structure_projet
       - file: 50_Reproductibilite/comment_reproduire
+      - file: 50_Reproductibilite/visualisation
   - caption: Méta
     chapters:
       - file: 60_Meta/journal_decision
