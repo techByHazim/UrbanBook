@@ -1,6 +1,6 @@
 # **Structure du projet**
 
-## Arborescence générale 
+## **Arborescence générale** 
 
 <style>
 /* ===== Couleurs adaptatives (clair/sombre) ===== */
@@ -119,4 +119,4 @@ Pour lancer des calculs, on s'interessera uniquement sur ces trois fichiers :
 
 - **`src/main.py`**:  lance tous le calcul avec les paramètres définis dans `config.py`.  
 
-La section suivante (voir [Comment produire un calcul](comment_reproduire.md)) montrera en détails comment lancer un calul paramètrés à partir du projet.
+La section suivante (voir [comment produire un calcul](comment_reproduire.md)) montrera en détails comment lancer un calul paramètrés à partir du projet.

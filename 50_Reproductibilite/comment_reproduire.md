@@ -11,7 +11,7 @@ Pour reproduire les calculs :
 
 Une fois l’environnement `geo_env` activé, le pipeline est prêt à être exécuté.
 
-## **Paramètres de configuration
+## **Paramètres de configuration**
 
 Le fichier `config.py` centralise la configuration. Voici les principaux paramètres à connaître et modifier si besoin :
 
