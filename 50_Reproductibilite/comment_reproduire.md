@@ -7,7 +7,7 @@ Le projet sera organisé en deux dépôts GitHub complémentaires :
 Pour reproduire les calculs :  
 - Cloner ou télécharger **UrbanProximity**.  
 - Se placer dans le dossier principal du projet.  
-- Installer puis activer l’environnement (voir [section precedente](environnement.md)).
+- Installer puis activer l’environnement (voir [Environnement du projet](environnement.md)).
 
 Une fois l’environnement `geo_env` activé, le pipeline est prêt à être exécuté.
 

@@ -26,6 +26,7 @@ parts:
   - caption: Reproductibilité
     chapters:
       - file: 50_Reproductibilite/environnement
+      - file: 50_Reproductibilite/structure_projet
       - file: 50_Reproductibilite/comment_reproduire
   - caption: Méta
     chapters:
