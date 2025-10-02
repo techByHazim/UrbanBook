@@ -1,4 +1,4 @@
-﻿# **Comment reproduire**
+﻿# **Produire les indicateurs**
 
 Le projet sera organisé en deux dépôts GitHub complémentaires :  
 - **UrbanProximity** : le code et les scripts d’analyse  
@@ -11,7 +11,7 @@ Pour reproduire les calculs :
 
 Une fois l’environnement `geo_env` activé, le pipeline est prêt à être exécuté.
 
-## **Paramètres à configurer dans** `config.py`
+## **Paramètres de configuration
 
 Le fichier `config.py` centralise la configuration. Voici les principaux paramètres à connaître et modifier si besoin :
 
