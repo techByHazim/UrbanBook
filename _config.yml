@@ -12,7 +12,7 @@ language: fr
 execute:
   # "auto" = n’exécute que si sorties manquantes/obsolètes
   # "force" = réexécute toujours tout
-  execute_notebooks: "auto"
+  execute_notebooks: "off"
   timeout: 600            # ↑ si certaines cellules sont longues
   allow_errors: false     # stoppe le build si erreur
   cache: _build/.jupyter_cache
