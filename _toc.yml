@@ -12,6 +12,8 @@ parts:
       - file: 10_Donnees/dictionnaire_variables
       - file: 10_Donnees/donnees_bpe
       - file: 10_Donnees/ponderation_bpe
+      - file: 10_Donnees/osm_label
+      - file: 10_Donnees/osm_overpass
   - caption: Indicateurs
     chapters:
       - file: 20_Indicateurs/specification_PAL
