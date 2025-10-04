@@ -1,0 +1,871 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Environnement du projet &#8212; Proximité urbaine</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '50_Reproductibilite/environnement';</script>
+    <link rel="icon" href="../_static/carte.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Structure du projet" href="structure_projet.html" />
+    <link rel="prev" title="XP TEMPLATE — Titre de l’expérience" href="../40_Experiences/xp_template.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/carte.png" class="logo__image only-light" alt="Proximité urbaine - Home"/>
+    <script>document.write(`<img src="../_static/carte.png" class="logo__image only-dark" alt="Proximité urbaine - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    UrbanBook
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Projet</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_Projet/objectifs.html">Objectifs du projet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_Projet/questions_recherche.html">Questions de recherche</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../00_Projet/hypotheses.html">Hypothèses de travail</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Données</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/catalogue_donnees.html">Catalogue des données</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/dictionnaire_variables.html">Dictionnaire des variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/donnees_bpe.html">La Base permanente des équipements (BPE)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/ponderation_bpe.html">Pondération des équipements de la BPE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/osm_label.html">Les équipements rétenus dans OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/osm_overpass.html">Extraction et prétraitement des données OSM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/gtfs.html">Transport en commun - Données GTFS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/pedestrian_roads.html">Construction du réseau piéton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/simplified_network.html">Traitement et simplification du réseau piéton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/simplified_roads.html">Simplification du réseau routier</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Indicateurs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../20_Indicateurs/specification_PAL.html">Spécification de l’indicateur PAL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20_Indicateurs/mapping_amenites.html">Mapping BPE/OSM → fonctions sociales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20_Indicateurs/parametrages.html">Paramétrages et pondérations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Protocoles</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../30_Protocoles/protocole_calcul_PAL.html">Protocole de calcul du PAL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../30_Protocoles/protocole_validation.html">Protocole de validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Expériences</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../40_Experiences/carnet_resultats.html">Carnet synthétique des expériences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../40_Experiences/xp_template.html">XP TEMPLATE — Titre de l’expérience</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reproductibilité</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Environnement du projet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="structure_projet.html">Structure du projet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comment_reproduire.html">Produire les indicateurs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualisation.html">Visualisation des résultats</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Méta</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../60_Meta/journal_decision.html">Journal de décision</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../60_Meta/changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../60_Meta/a_propos_citation.html">À propos &amp; citation</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook/issues/new?title=Issue%20on%20page%20%2F50_Reproductibilite/environnement.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/50_Reproductibilite/environnement.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Environnement du projet</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#environnement-python">Environnement Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pourquoi-un-environnement-virtuel">Pourquoi un environnement virtuel ?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outils-de-gestion-denvironnement">Outils de gestion d’environnement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-de-conda-mamba">Installation de Conda/Mamba</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creation-de-lenvironnement-virtuel">Création de l’environnement virtuel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mise-a-jour-de-lenvironnement">Mise à jour de l’environnement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-au-quotidien">Gestion au quotidien</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utiliser-lenvironnement-dans-jupyter">Utiliser l’environnement dans Jupyter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modifier-ou-reparer-lenvironnement">Modifier ou réparer l’environnement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#liste-des-paquets-et-versions">Liste des paquets et versions</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="environnement-du-projet">
+<h1>Environnement du projet<a class="headerlink" href="#environnement-du-projet" title="Link to this heading">#</a></h1>
+<section id="environnement-python">
+<h2>Environnement Python<a class="headerlink" href="#environnement-python" title="Link to this heading">#</a></h2>
+<p>Toutes les analyses hors QGIS (scripts et notebooks) s’appuient sur un <strong>environnement virtuel Python dédié</strong>.
+Celui-ci est décrit dans le fichier <code class="docutils literal notranslate"><span class="pre">requirements.yml</span></code> (placé à la racine du projet).</p>
+<p>Ce fichier liste toutes les bibliothèques et leurs versions. Il garantit :</p>
+<ul class="simple">
+<li><p>la <strong>reproductibilité</strong> (mêmes résultats sur n’importe quelle machine),</p></li>
+<li><p>la <strong>portabilité</strong> (facilité à partager ou réinstaller l’environnement).</p></li>
+</ul>
+</section>
+<section id="pourquoi-un-environnement-virtuel">
+<h2>Pourquoi un environnement virtuel ?<a class="headerlink" href="#pourquoi-un-environnement-virtuel" title="Link to this heading">#</a></h2>
+<div class="important admonition">
+<p class="admonition-title">Important</p>
+<p>Un environnement virtuel permet d’isoler les dépendances d’un projet de celles des autres projets ou du système. Ainsi, deux projets peuvent utiliser des versions différentes d’une même bibliothèque sans conflit.</p>
+</div>
+</section>
+<section id="outils-de-gestion-denvironnement">
+<h2>Outils de gestion d’environnement<a class="headerlink" href="#outils-de-gestion-denvironnement" title="Link to this heading">#</a></h2>
+<p>Plusieurs gestionnaires d’environnement existent :</p>
+<ul class="simple">
+<li><p><strong>venv</strong> (natif à Python, simple et léger)</p></li>
+<li><p><strong>Conda</strong> (gestionnaire d’environnements et de paquets)</p></li>
+<li><p><strong>Mamba</strong> (alternative à Conda, beaucoup plus rapide)</p></li>
+<li><p><strong>Poetry</strong> (gestionnaire moderne de dépendances et de packaging)</p></li>
+<li><p><strong>Pipenv</strong> (similaire à Poetry, aujourd’hui moins répandu)</p></li>
+<li><p><strong>Docker</strong> (solution plus lourde, basée sur des conteneurs pour une portabilité complète)</p></li>
+</ul>
+<p>Dans ce projet, je recommande <strong>Conda</strong> (ou <strong>Mamba</strong>) car c’est la solution la plus simple et la plus robuste pour installer et gérer les bibliothèques géospatiales (<em>GDAL</em>, <em>PROJ</em>, <em>Rasterio</em>, <em>Fiona</em>, <em>Shapely</em>), qui nécessitent des dépendances systèmes difficiles à compiler avec <code class="docutils literal notranslate"><span class="pre">pip</span></code> seul.</p>
+</section>
+<section id="installation-de-conda-mamba">
+<h2>Installation de Conda/Mamba<a class="headerlink" href="#installation-de-conda-mamba" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p><strong>Installer Miniforge ou Mambaforge</strong> (recommandé) ou Miniconda :</p>
+<ul class="simple">
+<li><p>macOS Apple Silicon (M1/M2/M3) → installeur <strong>ARM64</strong></p></li>
+<li><p>macOS Intel → installeur <strong>x86_64</strong></p></li>
+<li><p>Windows → installeur <strong>x86_64</strong></p></li>
+</ul>
+</li>
+<li><p><strong>Ouvrir un terminal</strong> :</p>
+<ul class="simple">
+<li><p>Windows → <em>Anaconda Prompt</em>, <em>Miniforge Prompt</em> ou <em>PowerShell</em></p></li>
+<li><p>macOS/Linux → application <em>Terminal</em></p></li>
+</ul>
+</li>
+<li><p><strong>Initialiser conda</strong> (à faire une seule fois sur macOS/Linux) :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>init<span class="w"> </span>zsh<span class="w">   </span><span class="c1"># si vous utilisez zsh (par défaut sur macOS récents)</span>
+conda<span class="w"> </span>init<span class="w"> </span>bash<span class="w">  </span><span class="c1"># sinon</span>
+</pre></div>
+</div>
+<p>→ Fermez et rouvrez le terminal.</p>
+</li>
+<li><p><strong>Installer mamba</strong> si nécessaire :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>-n<span class="w"> </span>base<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>mamba
+</pre></div>
+</div>
+</li>
+<li><p><strong>Configurer conda-forge comme canal principal</strong> (conseillé pour la géo) :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>config<span class="w"> </span>--add<span class="w"> </span>channels<span class="w"> </span>conda-forge
+conda<span class="w"> </span>config<span class="w"> </span>--set<span class="w"> </span>channel_priority<span class="w"> </span>strict
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="creation-de-lenvironnement-virtuel">
+<h2>Création de l’environnement virtuel<a class="headerlink" href="#creation-de-lenvironnement-virtuel" title="Link to this heading">#</a></h2>
+<p>Depuis un terminal, placez-vous dans le dossier racine du projet et lancez :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>requirements.yml<span class="w">  </span><span class="c1"># ou mamba env create -f requirements.yml</span>
+</pre></div>
+</div>
+<p>Cela installe automatiquement un environnement nommé <strong><code class="docutils literal notranslate"><span class="pre">geo_env</span></code></strong>.</p>
+<p><em>Pré-requis :</em></p>
+<ul class="simple">
+<li><p>Avoir installé Conda (via <a class="reference external" href="https://www.anaconda.com/download">Anaconda</a> ou <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a>).</p></li>
+<li><p>Être dans le dossier du projet contenant <code class="docutils literal notranslate"><span class="pre">requirements.yml</span></code>.</p></li>
+</ul>
+</section>
+<section id="mise-a-jour-de-lenvironnement">
+<h2>Mise à jour de l’environnement<a class="headerlink" href="#mise-a-jour-de-lenvironnement" title="Link to this heading">#</a></h2>
+<p>Pour mettre à jour l’environnement <code class="docutils literal notranslate"><span class="pre">geo_env</span></code> existant :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>env<span class="w"> </span>update<span class="w"> </span>-n<span class="w"> </span>geo_env<span class="w"> </span>-f<span class="w"> </span>requirements.yml<span class="w"> </span>--prune
+</pre></div>
+</div>
+<p>(l’option <code class="docutils literal notranslate"><span class="pre">--prune</span></code> supprime les dépendances devenues inutiles)</p>
+<p>On peut <strong>tout</strong> faire avec <code class="docutils literal notranslate"><span class="pre">conda</span></code> en remplaçant <code class="docutils literal notranslate"><span class="pre">mamba</span></code> par <code class="docutils literal notranslate"><span class="pre">conda</span></code> dans les commandes.</p>
+</section>
+<section id="gestion-au-quotidien">
+<h2>Gestion au quotidien<a class="headerlink" href="#gestion-au-quotidien" title="Link to this heading">#</a></h2>
+<ul>
+<li><p><strong>Activer / désactiver</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>activate<span class="w"> </span>geo_env<span class="w">   </span><span class="c1"># ou conda activate geo_env</span>
+mamba<span class="w"> </span>deactivate<span class="w">         </span><span class="c1"># ou conda deactivate</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Lister les environnements disponibles</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>env<span class="w"> </span>list
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="utiliser-lenvironnement-dans-jupyter">
+<h2>Utiliser l’environnement dans Jupyter<a class="headerlink" href="#utiliser-lenvironnement-dans-jupyter" title="Link to this heading">#</a></h2>
+<p>Pour exécuter les notebooks avec l’environnement <code class="docutils literal notranslate"><span class="pre">geo_env</span></code>, ajoutez-le à Jupyter :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>ipykernel<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>--name<span class="w"> </span>geo_env<span class="w"> </span>--display-name<span class="w"> </span><span class="s2">&quot;Python (geo_env)&quot;</span>
+</pre></div>
+</div>
+<p>Ensuite, dans Jupyter Notebook/Lab, choisissez le noyau <strong>Python (geo_env)</strong>.</p>
+</section>
+<section id="modifier-ou-reparer-lenvironnement">
+<h2>Modifier ou réparer l’environnement<a class="headerlink" href="#modifier-ou-reparer-lenvironnement" title="Link to this heading">#</a></h2>
+<ul>
+<li><p><strong>Ajouter un paquet</strong> :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>install<span class="w"> </span>-n<span class="w"> </span>geo_env<span class="w"> </span>&lt;nom-du-paquet&gt;<span class="w"> </span>-c<span class="w"> </span>conda-forge
+</pre></div>
+</div>
+</li>
+<li><p><strong>Installer via pip (au besoin)</strong> :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>&lt;nom-du-paquet&gt;
+</pre></div>
+</div>
+</li>
+<li><p><strong>Exporter les changements dans <code class="docutils literal notranslate"><span class="pre">requirements.yml</span></code></strong> :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>env<span class="w"> </span><span class="nb">export</span><span class="w"> </span>-n<span class="w"> </span>geo_env<span class="w"> </span>--no-builds<span class="w"> </span>&gt;<span class="w"> </span>requirements.yml
+</pre></div>
+</div>
+</li>
+<li><p><strong>Supprimer puis recréer l’environnement</strong> :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mamba<span class="w"> </span>remove<span class="w"> </span>-n<span class="w"> </span>geo_env<span class="w"> </span>--all
+mamba<span class="w"> </span>env<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>requirements.yml
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="liste-des-paquets-et-versions">
+<h2>Liste des paquets et versions<a class="headerlink" href="#liste-des-paquets-et-versions" title="Link to this heading">#</a></h2>
+<p>Voici le description complète de l’environnement utilisé dans le projet (fichier <code class="docutils literal notranslate"><span class="pre">requirements.yml</span></code>, priorité <strong>conda-forge</strong> pour les libs géospatiales).</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text"><strong>Cliquez ici pour afficher / masquer la liste des paquets</strong></span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<br>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geo_env</span>
+<span class="nt">channels</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda-forge</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">defaults</span>
+<span class="nt">dependencies</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python=3.9.19</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip</span>
+<span class="w">  </span><span class="c1"># Paquets lourds via conda (plus stable)</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">numpy</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pandas</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geopandas</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">shapely</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fiona</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rtree</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyproj</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gdal</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rasterio</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">matplotlib</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scikit-learn</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">statsmodels</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jupyter</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ipykernel</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">seaborn</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">networkx</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">contextily</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dask</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xarray</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rioxarray</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pysal</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">libpysal</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">momepy</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tobler</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">esda</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">giddy</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">segregation</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">spopt</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">spreg</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">spint</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">spglm</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">spaghetti</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">splot</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mgwr</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quantecon</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pip</span><span class="p">:</span>
+<span class="w">      </span><span class="c1"># Pip : paquets non ou mal gérés par conda</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">access==1.1.9</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">affine==2.4.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alabaster==0.7.13</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">altair==5.1.2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">anyio==4.2.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">appdirs==1.4.4</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">argon2-cffi==23.1.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">argon2-cffi-bindings==21.2.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">arrow==1.3.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">asgiref==3.7.2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">asttokens==2.4.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">async-lru==2.0.4</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">attrs==23.1.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Babel==2.14.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">backcall==0.2.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">beautifulsoup4==4.12.2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">binaryornot==0.4.4</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bleach==6.1.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">blinker==1.6.2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">branca==0.6.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Brotli==1.1.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">build==1.0.3</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CacheControl==0.13.1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cachetools==5.3.1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cenpy==1.0.1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">certifi==2023.7.22</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cffi==1.16.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">chardet==5.2.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">charset-normalizer==3.3.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">click==8.1.7</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">click-plugins==1.1.1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cligj==0.7.2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cloudpickle==3.0.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">colorama==0.4.6</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">colorcet==3.0.1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">comm==0.1.4</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cookiecutter==2.5.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cycler==0.12.1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">datashader==0.16.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">deprecation==2.1.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Django==4.2.7</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docopt==0.6.2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docutils==0.20.1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">folium==0.14.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fuzzywuzzy==0.18.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geographiclib==2.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geopy==2.4.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gitpython==3.1.37</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">import-ipynb==0.1.4</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ipywidgets==7.8.1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jupyterlab==4.0.9</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keplergl==0.3.2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mapclassify==2.6.1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mdit-py-plugins==0.4.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mercantile==1.2.1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myst-nb==1.0.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myst-parser==2.0.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nkdv==0.0.6</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">notebook==7.0.6</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">osmnx==1.7.1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">osmium==4.1.1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pillow==10.0.1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pipreqs==0.5.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pipreqsnb==0.2.4</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">plotly==5.18.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pointpats==2.4.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pulp==2.7.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">py7zr==0.20.6</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyarrow==13.0.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pydeck==0.8.1b0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pynkdv==0.0.21</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pynsee==0.1.5</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pyppmd==1.0.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">requests==2.31.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rasterstats==0.19.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rich==13.6.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">simplejson==3.19.2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">streamlit==1.27.2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sympy==1.12</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tabulate==0.9.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">texttable==1.7.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tqdm==4.66.1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tzlocal==5.1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Unidecode==1.3.7</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validators==0.22.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">watchdog==3.0.0</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xlrd==2.0.1</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xyzservices==2023.10.0</span>
+</pre></div>
+</div>
+</div>
+</details><div class="success admonition">
+<p class="admonition-title">Conseil</p>
+<p>On pense à <strong>activer <code class="docutils literal notranslate"><span class="pre">geo_env</span></code></strong> à chaque session pour bénéficier des bonnes versions de bibliothèques.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./50_Reproductibilite"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../40_Experiences/xp_template.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">XP TEMPLATE — Titre de l’expérience</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="structure_projet.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Structure du projet</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#environnement-python">Environnement Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pourquoi-un-environnement-virtuel">Pourquoi un environnement virtuel ?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outils-de-gestion-denvironnement">Outils de gestion d’environnement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-de-conda-mamba">Installation de Conda/Mamba</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creation-de-lenvironnement-virtuel">Création de l’environnement virtuel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mise-a-jour-de-lenvironnement">Mise à jour de l’environnement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gestion-au-quotidien">Gestion au quotidien</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utiliser-lenvironnement-dans-jupyter">Utiliser l’environnement dans Jupyter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modifier-ou-reparer-lenvironnement">Modifier ou réparer l’environnement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#liste-des-paquets-et-versions">Liste des paquets et versions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hazim Moindze (CINaM/CNRS/AMU)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="font-size:0.9rem; line-height:1.4; margin-top:0.5rem;">
+  Contact : <a href="mailto:hazim@cinam.univ-mrs.fr">moindze-boina.hazim@cnrs.fr</a>
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
