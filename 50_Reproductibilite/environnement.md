@@ -1,6 +1,6 @@
-﻿# **Environnement du projet**
+﻿# Environnement du projet
 
-## **Environnement Python**
+## Environnement Python
 
 Toutes les analyses hors QGIS (scripts et notebooks) s’appuient sur un **environnement virtuel Python dédié**.
 Celui-ci est décrit dans le fichier `requirements.yml` (placé à la racine du projet).
@@ -10,14 +10,14 @@ Ce fichier liste toutes les bibliothèques et leurs versions. Il garantit :
 * la **reproductibilité** (mêmes résultats sur n’importe quelle machine),
 * la **portabilité** (facilité à partager ou réinstaller l’environnement).
 
-## **Pourquoi un environnement virtuel ?**
+## Pourquoi un environnement virtuel ?
 
 ```{admonition} Important
 :class: important
 Un environnement virtuel permet d’isoler les dépendances d’un projet de celles des autres projets ou du système. Ainsi, deux projets peuvent utiliser des versions différentes d’une même bibliothèque sans conflit.
 ```
 
-## **Outils de gestion d’environnement**
+## Outils de gestion d’environnement
 
 Plusieurs gestionnaires d’environnement existent :  
 
@@ -31,7 +31,7 @@ Plusieurs gestionnaires d’environnement existent :
 Dans ce projet, je recommande **Conda** (ou **Mamba**) car c’est la solution la plus simple et la plus robuste pour installer et gérer les bibliothèques géospatiales (*GDAL*, *PROJ*, *Rasterio*, *Fiona*, *Shapely*), qui nécessitent des dépendances systèmes difficiles à compiler avec `pip` seul.
 
 
-## **Installation de Conda/Mamba**
+## Installation de Conda/Mamba
 
 1. **Installer Miniforge ou Mambaforge** (recommandé) ou Miniconda :
 
@@ -66,7 +66,7 @@ Dans ce projet, je recommande **Conda** (ou **Mamba**) car c’est la solution l
    conda config --set channel_priority strict
    ```
 
-## **Création de l’environnement virtuel**
+## Création de l’environnement virtuel
 
 Depuis un terminal, placez-vous dans le dossier racine du projet et lancez :
 
@@ -82,7 +82,7 @@ Cela installe automatiquement un environnement nommé **`geo_env`**.
 
 * Être dans le dossier du projet contenant `requirements.yml`.
 
-## **Mise à jour de l’environnement**
+## Mise à jour de l’environnement
 
 Pour mettre à jour l'environnement `geo_env` existant :
 
@@ -94,7 +94,7 @@ Pour mettre à jour l'environnement `geo_env` existant :
 
 On peut **tout** faire avec `conda` en remplaçant `mamba` par `conda` dans les commandes.
 
-## **Gestion au quotidien**
+## Gestion au quotidien
 
 * **Activer / désactiver**
 
@@ -109,7 +109,7 @@ On peut **tout** faire avec `conda` en remplaçant `mamba` par `conda` dans les 
   conda env list
   ```
 
-## **Utiliser l’environnement dans Jupyter**
+## Utiliser l’environnement dans Jupyter
 
 Pour exécuter les notebooks avec l’environnement `geo_env`, ajoutez-le à Jupyter :
 
@@ -120,7 +120,7 @@ python -m ipykernel install --user --name geo_env --display-name "Python (geo_en
 Ensuite, dans Jupyter Notebook/Lab, choisissez le noyau **Python (geo_env)**.
 
 
-## **Modifier ou réparer l’environnement**
+## Modifier ou réparer l’environnement
 
 * **Ajouter un paquet** :
 
@@ -148,7 +148,7 @@ Ensuite, dans Jupyter Notebook/Lab, choisissez le noyau **Python (geo_env)**.
   ```
 
 
-## **Liste des paquets et versions**
+## Liste des paquets et versions
 
 Voici le description complète de l'environnement utilisé dans le projet (fichier `requirements.yml`, priorité **conda-forge** pour les libs géospatiales). 
 

@@ -10,6 +10,7 @@ parts:
     chapters:
       - file: 10_Donnees/catalogue_donnees
       - file: 10_Donnees/dictionnaire_variables
+      - file: 10_Donnees/donnees_bpe
   - caption: Indicateurs
     chapters:
       - file: 20_Indicateurs/specification_PAL

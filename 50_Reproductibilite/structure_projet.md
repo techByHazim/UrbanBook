@@ -1,6 +1,6 @@
-# **Structure du projet**
+# Structure du projet
 
-## **Arborescence générale** 
+## Arborescence générale 
 
 <style>
 /* ===== Couleurs adaptatives (clair/sombre) ===== */
@@ -105,7 +105,7 @@ hr.soft { border:0; border-top:1px dashed var(--line); margin:1rem 0; }
   </li>
 </ul>
 
-## **Fichiers essentiels pour le calcul**
+## Fichiers essentiels pour le calcul
 
 Pour lancer des calculs, on s'interessera uniquement sur ces trois fichiers :  
 
