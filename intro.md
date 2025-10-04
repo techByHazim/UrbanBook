@@ -13,7 +13,7 @@ kernelspec:
 # UrbanBook 
 
 **UrbanBook** est le **carnet numérique instrumenté** de ma thèse.  
-Il documente étape par étape la construction d’un indicateur de proximité urbain local, du choix des données et paramètres jusqu’aux protocoles, expériences, décisions et résultats. L’objectif est de garder **traçabilité scientifique** mais aussi d'assurer sa reproductibilité **reproductibilité**.
+Il documente étape par étape la construction d’un indicateur de proximité urbain local, du choix des données et paramètres jusqu’aux protocoles, expériences, décisions et résultats. L’objectif est de garder **traçabilité scientifique** mais aussi d'assurer sa reproductibilité **reproductibilité**. Bonjour
 
 ```{admonition} Positionnement
 :class: important

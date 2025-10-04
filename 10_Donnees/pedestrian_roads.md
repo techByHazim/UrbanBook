@@ -17,7 +17,7 @@ La démarche adoptée vise donc à **reconstruire un réseau piéton fiable** en
 
 Les données OpenStreetMap (OSM) sont libres et collaboratives : des bénévoles enrichissent continuellement la base en ajoutant routes, bâtiments et infrastructures.  
 
-Le 25 mai 2025, j’ai téléchargé le fichier **`.pbf`** de la région Provence-Alpes-Côte d’Azur via le site **[Geofabrik](https://download.geofabrik.de/europe/france.html)**.  
+Le 25 mai 2025, j’ai téléchargé le fichier **`.pbf`** de la région Provence-Alpes-Côte d’Azur via le site **[https://download.geofabrik.de/europe/france.html](https://download.geofabrik.de/europe/france.html)**.  
 Ce fichier contient l’ensemble des données OSM de la région et constitue la base de départ pour l’extraction du réseau routier.  
 
 
