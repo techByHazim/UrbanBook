@@ -54,22 +54,95 @@ Un script Python a été développé pour :
 3. Convertir les géométries en **`LineString` Shapely**.  
 4. Sauvegarder les données dans un **GeoDataFrame (GeoPandas)**.  
 
+````{dropdown} **Afficher / masquer le code Python**
+:open: false
 ```python
 import osmium
 import shapely.wkb as wkblib
 import geopandas as gpd
 from tqdm import tqdm
 
-def extract_reseau(input_pbf):
+from config import (
+    input_pbf 
+)
+
+def extract_reseau():
     wkbfab = osmium.geom.WKBFactory()
     ways = []
-    # ...
-    # Filtrage selon le profil piéton (foot.lua adapté)
-    # Construction du GeoDataFrame
+    total_ways = 0
+
+    class WayCounter(osmium.SimpleHandler):
+        def way(self, w):
+            nonlocal total_ways
+            total_ways += 1
+
+    print("Counting ways...")
+    counter = WayCounter()
+    counter.apply_file(str(input_pbf), locations=False)
+    print(f"Total number of ways: {total_ways}")
+
+    print("Extracting pedestrian network...")
+    pbar = tqdm(total=total_ways, desc="Processing ways")
+
+    class FootwayHandler(osmium.SimpleHandler):
+        def way(self, w):
+            try:
+                tags = w.tags
+                highway = tags.get('highway', '')
+                access = tags.get('access', '')
+                foot = tags.get('foot', '')
+                
+                highway_whitelist = [
+                    'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary',
+                    'tertiary_link', 'unclassified', 'residential', 'road', 'living_street',
+                    'service', 'track', 'path', 'steps', 'pedestrian', 'platform',
+                    'footway', 'pier'
+                ]
+                if highway not in highway_whitelist:
+                    pbar.update(1)
+                    return
+                
+                if foot == 'no' or highway == 'platform':
+                    pbar.update(1)
+                    return
+                
+                wkb = wkbfab.create_linestring(w)
+                geom = wkblib.loads(wkb, hex=True)
+
+                way_info = {
+                    'osm_id': w.id,
+                    'geometry': geom,
+                    'highway': highway,
+                    'name': tags.get('name', ''),
+                    'access': access,
+                    'foot': foot,
+                    'surface': tags.get('surface', ''),
+                    'incline': tags.get('incline', ''),
+                    'smoothness': tags.get('smoothness', ''),
+                    'width': tags.get('width', ''),
+                    'sidewalk': tags.get('sidewalk', ''),
+                    'crossing': tags.get('crossing', ''),
+                    'lit': tags.get('lit', ''),
+                    'bridge': tags.get('bridge', ''),
+                    'tunnel': tags.get('tunnel', ''),
+                    'layer': tags.get('layer', '0'),
+                    'oneway': tags.get('oneway', 'no')
+                }
+                ways.append(way_info)
+
+            except Exception as e:
+                print(f"Error processing way {w.id}: {e}")
+            finally:
+                pbar.update(1)
+
+    handler = FootwayHandler()
+    handler.apply_file(str(input_pbf), locations=True)
+    pbar.close()
+
     gdf = gpd.GeoDataFrame(ways, crs="EPSG:4326")
     return gdf
 ```
-
+````
 
 ## Filtrage spatial sur Marseille
 

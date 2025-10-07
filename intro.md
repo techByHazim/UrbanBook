@@ -11,22 +11,9 @@ kernelspec:
 ---
 
 # UrbanBook 
-
-**UrbanBook** est le **carnet numérique instrumenté** de ma thèse.  
-Il documente étape par étape la construction d’un indicateur de proximité urbain local, du choix des données et paramètres jusqu’aux protocoles, expériences, décisions et résultats. L’objectif est de garder **traçabilité scientifique** mais aussi d'assurer sa reproductibilité **reproductibilité**. Bonjour
-
-```{admonition} Positionnement
-:class: important
-Ce livre est un outil de travail versionné : il fixe les conventions (données, pondérations, échelles), consigne les choix, standardise les protocoles et relie chaque expérience à des artefacts vérifiables.
-```
-
-## Ce que contient UrbanBook
-
-* **Données** : catalogue (BPE, OSM, GTFS), millésimes, limites, dictionnaire des variables.
-* **Indicateurs** : définition formelle du PAL, mapping des aménités vers fonctions sociales, paramètres.
-* **Protocoles** : calcul, validation, qualité des données, contrôles cartographiques.
-* **Expériences** : une page par expérience avec objectif, méthode, résultats, conclusion et liens vers artefacts.
-* **Traçabilité** : journal de décision, changelog, références et modalités de citation.
+**UrbanBook** est le carnet où je construis et j’organise tout mon travail de thèse.
+J’y regroupe mes données, mes tests, mes idées et mes résultats au fur et à mesure.
+C’est surtout un moyen de garder une trace de ce que je fais, pour comprendre, partager ou refaire mes analyses plus tard.
 
 ## Comment lire ?
 

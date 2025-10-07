@@ -47,7 +47,7 @@ html:
     google_analytics_id: ""   # J'ai pas encore de GA
   extra_footer: |
     <div style="font-size:0.9rem; line-height:1.4; margin-top:0.5rem;">
-      Contact : <a href="mailto:hazim@cinam.univ-mrs.fr">moindze-boina.hazim@cnrs.fr</a>
+      Contact : <a href="mailto:moindze-boina.hazim@cnrs.fr">moindze-boina.hazim@cnrs.fr</a>
     </div>
 
 # ================================================================

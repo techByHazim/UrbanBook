@@ -1,50 +1,43 @@
-﻿# Environnement du projet
+﻿# Environnement
 
 ## Environnement Python
 
-Toutes les analyses hors QGIS (scripts et notebooks), je m'appui sur un **environnement virtuel dedié au projet**. Celui-ci est décrit dans un fichier `requirements.yml` (placé le dossier `envs/` du projet). Dans ce fichier, on trouve la liste toutes les bibliothèques urilisées et leurs versions. 
+Pour travailler en dehors de QGIS, j’ai crée un **environnement virtuel** à ce projet.
+Il est défini dans le fichier `requirements.yml`, que je garde dans le dossier `envs/` à la racine du projet.
+Ce fichier contient toutes les bibliothèques utilisées, avec leurs versions, pour m’assurer que le projet reste stable et reproductible sur n’importe quelle machine.
 
 ```{admonition} Important
 :class: important
-Un environnement virtuel permet d’isoler les dépendances d’un projet de celles des autres projets ou du système. Ainsi, deux projets peuvent utiliser des versions différentes d’une même bibliothèque sans conflit.
-
-*Référence : [Python Documentation - Virtual Environments](https://docs.python.org/3/tutorial/venv.html)*
+Un environnement virtuel permet d’isoler les dépendances d’un projet de celles des autres projets ou du système. Ainsi, deux projets peuvent utiliser des versions différentes d’une même bibliothèque sans conflit. (*[Python Documentation - Virtual Environments](https://docs.python.org/3/tutorial/venv.html)*)
 ```
-
-Cela garantit :
-
-* la **reproductibilité** (mêmes résultats sur n’importe quelle machine),
-* la **portabilité** (facilité à partager ou réinstaller l’environnement).
-
 
 ## Outils de gestion d’environnement
 
 Plusieurs gestionnaires d’environnement existent :  
 
-- **[Venv](https://docs.python.org/3/library/venv.html)** : outil natif de Python, simple et léger pour créer des environnements virtuels. (*Référence : Python Software Foundation, [Python 3 Documentation - venv](https://docs.python.org/3/library/venv.html)*) 
+- **[Venv](https://docs.python.org/3/library/venv.html)** : outil natif de Python, simple et léger pour créer des environnements virtuels. (*Python Software Foundation, [Python 3 Documentation - venv](https://docs.python.org/3/library/venv.html)*) 
 
-- **[Conda](https://docs.conda.io/projects/conda/en/latest/index.html)** : Gestionnaire d’environnements et de paquets multiplateforme, particulièrement adapté aux bibliothèques scientifiques et géospatiales. (*Référence : Anaconda, Inc., [Conda Documentation](https://docs.conda.io/projects/conda/en/latest/index.html)*)  
+- **[Conda](https://docs.conda.io/projects/conda/en/latest/index.html)** : Gestionnaire d’environnements et de paquets multiplateforme. (*Anaconda, Inc., [Conda Documentation](https://docs.conda.io/projects/conda/en/latest/index.html)*)  
 
-- **[Mamba](https://mamba.readthedocs.io/en/latest/)** : Alternative à Conda, compatible mais beaucoup plus rapide grâce à son moteur en C++. (*Référence : Mamba Developers, [Mamba Documentation](https://mamba.readthedocs.io/en/latest/)*)  
+- **[Mamba](https://mamba.readthedocs.io/en/latest/)** : Alternative à Conda, compatible mais beaucoup plus rapide grâce à son moteur en C++. (*Mamba Developers, [Mamba Documentation](https://mamba.readthedocs.io/en/latest/)*)  
 
-- **[Poetry](https://python-poetry.org/docs/)** : Gestionnaire moderne de dépendances et d’emballage (packaging) pour Python. (*Référence : Python Poetry Project, [Poetry Documentation](https://python-poetry.org/docs/)*)  
+- **[Poetry](https://python-poetry.org/docs/)** : Gestionnaire moderne de dépendances et d’emballage (packaging) pour Python. (*Python Poetry Project, [Poetry Documentation](https://python-poetry.org/docs/)*)  
 
-- **[Pipenv](https://pipenv.pypa.io/en/latest/)** : Outil de gestion combinant `pip` et `virtualenv`, historiquement populaire mais moins utilisé aujourd’hui. (*Référence : Python Packaging Authority (PyPA), [Pipenv Documentation](https://pipenv.pypa.io/en/latest/)*)  
+- **[Pipenv](https://pipenv.pypa.io/en/latest/)** : Outil de gestion combinant `pip` et `virtualenv`, historiquement populaire mais moins utilisé aujourd’hui. (*Python Packaging Authority (PyPA), [Pipenv Documentation](https://pipenv.pypa.io/en/latest/)*)  
 
-- **[Docker](https://docs.docker.com/)** : Solution plus lourde, basée sur des conteneurs, garantissant une portabilité et une reproductibilité complètes. (*Référence : Docker, Inc., [Docker Documentation](https://docs.docker.com/)*) 
+- **[Docker](https://docs.docker.com/)** : Solution plus lourde, basée sur des conteneurs, garantissant une portabilité et une reproductibilité complètes. (*Docker, Inc., [Docker Documentation](https://docs.docker.com/)*) 
 
 
-## Recommandation d’environnement
+## Recommandation 
 
-Dans ce projet, j’utilise et recommande **Conda** (ou son alternative optimisée **Mamba**) comme solution de gestion d’environnements virtuels.  
-Ces outils sont particulièrement adaptés pour installer et gérer les bibliothèques géospatiales - *GDAL*, *PROJ*, *Rasterio*, *Fiona*, *Shapely*, *GeoPandas* - qui reposent sur des dépendances systèmes (bibliothèques C/C++) complexes à compiler avec `pip` seul.
+Dans ce projet, j’utilise et recommande fortement **Conda** (ou son alternative optimisée **Mamba**) comme solution de gestion d’environnements virtuels. C'est le plus adapté pour installer et gérer parfaitement les bibliothèques géospatiales (*GDAL*, *PROJ*, *Rasterio*, *Fiona*, *Shapely*, *GeoPandas*) qui reposent sur des dépendances systèmes compliqués (bibliothèques C/C++) à compiler avec `pip` seul.
 
-Cette recommandation s'appui sur plusieurs documentations :
+Ma recommandation s'appui sur plusieurs documentations :
 
 - Dans la docs de **GeoPandas**, ils précisent :  
   > “To install GeoPandas and all its dependencies, we recommend to use the conda package manager.” *[GeoPandas Documentation - Installation](https://geopandas.org/en/stable/getting_started/install.html)*  
 
-- Dans la docs **Rasterio** on souligne également :  
+- Dans la docs **Rasterio**, on souligne :  
   > “Many users find Anaconda and conda-forge a good way to install Rasterio and get access to more optional format drivers (like TileDB and others).” *[Rasterio Documentation - Installation](https://rasterio.readthedocs.io/en/latest/installation.html)*  
 
 - Tout de meme pour **Fiona** :  
@@ -53,15 +46,14 @@ Cette recommandation s'appui sur plusieurs documentations :
 
 ```{admonition} Pour aller plus loin
 :class: note
-Consultez le guide *"Comparing Python environment management tools"* (Real Python, 2023) :  
+Consultez le guide *"Comparing Python environment management tools"* (Real Python, 2024) :  
 [https://realpython.com/python-virtual-environments-a-primer/](https://realpython.com/python-virtual-environments-a-primer/)
 ```
 
 ## Installation de Conda via Anaconda
 
 ### Pourquoi Anaconda ?
-**Anaconda** est une distribution complète de Python qui inclut déjà **Conda**, le gestionnaire d’environnements et de paquets.  
-C’est la méthode la plus simple et la plus fiable pour débuter, surtout dans les projets de **géomatique**, car elle installe directement les outils scientifiques essentiels (*NumPy*, *Pandas*, *Matplotlib*, etc.) et gère automatiquement les dépendances.
+**Anaconda** est une distribution complète de Python qui inclut déjà **Conda**, le gestionnaire d’environnements et de paquets que j'utilise. C’est la méthode la plus simple et la plus fiable pour débuter, car elle installe directement les outils scientifiques essentiels (*NumPy*, *Pandas*, *Matplotlib*, etc.) et gère automatiquement les dépendances.
 
 
 ### Étapes d’installation
@@ -118,7 +110,7 @@ Ouvrez votre terminal (MacOS, Linux) ou Anaconda Prompt (Windows) et placer vous
 conda env create -f requirements.yml
 ```
 
-Cela crée automatiquement un environnement nommé **`geo_env`** contenant toutes les bibliothèques nécessaires au projet.
+Cela crée automatiquement un environnement nommé **`geo_env`** contenant toutes les bibliothèques utilisées dans ce projet.
 
 > *Remarque :* vous pouvez remplacer `conda` par `mamba` si celui-ci est installé. C’est plus rapide et 100 % compatible.
 
@@ -227,7 +219,7 @@ dependencies:
 ```{admonition} Conseil
 :class: success
 
-On pense à **activer `geo_env`** à chaque session pour pouvoir bénéficier des bonnes versions de bibliothèques.
+Pensez à **activer `geo_env`** à chaque session pour pouvoir bénéficier des bonnes versions de bibliothèques.
 
 ```
 

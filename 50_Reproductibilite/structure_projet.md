@@ -1,6 +1,8 @@
 # Structure du projet
 
-## Arborescence générale 
+## Arborescence générale
+
+Pour faciliter la reproductibilité et la compréhension du pipeline de traitement, je sépare les dossiers des **données**, des **codes**, des **notebooks** et de la **configuration** de l’environnement. 
 
 <style>
 /* ===== Couleurs adaptatives (clair/sombre) ===== */
@@ -64,59 +66,70 @@ hr.soft { border:0; border-top:1px dashed var(--line); margin:1rem 0; }
   background: var(--bg);
   width: 2px;
 }
-</style>
 
-<div class="kicker"> Voici la structure générale du projet :</div>
+</style>
+<div class="kicker">Voici la structure générale du projet :</div>
 
 <ul class="tree">
-  <li class="folder">📦 AttractiveCity
+  <li class="folder">📦 Dev
     <ul>
-      <li class="folder">📂 proxy <span class="badge">Indicateurs de proximité</span>
+      <li class="folder">📂 Proximity <span class="badge">Indicateurs de proximité</span>
         <ul>
           <li class="folder">📂 data
             <ul>
-              <li class="folder">📂 raw <span class="note">données brutes</span></li>
-              <li class="folder">📂 processed <span class="note">données nettoyées/intermédiaires</span></li>
-              <li class="folder">📂 final <span class="note">résultats finaux (cartes, indicateurs)</span></li>
+              <li class="folder">📂 raw <span class="note">données brutes (INSEE, OSM, GTFS, etc.)</span></li>
+              <li class="folder">📂 processed <span class="note">données nettoyées et intermédiaires</span></li>
+              <li class="folder">📂 final <span class="note">résultats finaux : indicateurs, cartes, agrégats</span></li>
             </ul>
           </li>
-          <li class="folder">📂 notebooks <span class="note">exploration &amp; prototypage</span></li>
-          <li class="folder">📂 src <span class="note">scripts &amp; modules réutilisables</span>
-            <ul>
-              <li class="file">📄 bpe_prep.py <span class="note">préparation des données BPE</span></li>
-              <li class="file">📄 config.py <span class="note">fichier de configuration</span></li>
-              <li class="file">📄 diversity.py <span class="note">calcul de la diversité des équipements</span></li>
-              <li class="file">📄 extract_pedestrian_roads.py <span class="note">extraction du réseau piéton</span></li>
-              <li class="file">📄 main.py <span class="note">point d’entrée principal du pipeline</span></li>
-              <li class="file">📄 osm_overpass.py <span class="note">requêtes OSM via Overpass API</span></li>
-              <li class="file">📄 pipeline.py <span class="note">orchestration du pipeline</span></li>
-              <li class="file">📄 project_to_network.py <span class="note">projection des équipements sur le réseau</span></li>
-              <li class="file">📄 PyNkde.py <span class="note">implémentation NKDE (Network Kernel Density Estimation)</span></li>
-              <li class="file">📄 read_data.py <span class="note">lecture et écriture des données</span></li>
-              <li class="file">📄 simplified_roads.py <span class="note">simplification du réseau routier</span></li>
-              <li class="file">📄 split_roads.py <span class="note">découpage du réseau en lixels</span></li>
-              <li class="file">📄 transport_gtfs.py <span class="note">traitement des données GTFS</span></li>
-            </ul>
-          </li>
+          <li class="folder">📂 envs <span class="note">environnements et dépendances (fichier <code>requirements.yml</code>)</span></li>
+          <li class="folder">📂 notebooks <span class="note">exploration, analyses et prototypage</span></li>
+          <li class="folder">📂 src <span class="note">scripts et modules Python du pipeline (préparation, traitement, calculs, etc.)</span></li>
         </ul>
       </li>
-      <li class="file">📄 requirements.yml <span class="note">environnement &amp; dépendances</span></li>
     </ul>
   </li>
 </ul>
 
-## Fichiers essentiels pour le calcul
+```{admonition} Résumé
+:class: success
+- **data** : stockage des données à chaque étape du processus ;  
+- **envs** : configuration logicielle et gestion de l’environnement Conda ;  
+- **notebooks** : travaux exploratoires et visualisations ;  
+- **src** : code principal du pipeline, organisé par module fonctionnel.
+```
+## Fichiers essentiels 
 
-Pour lancer des calculs, on s'interessera uniquement sur ces trois fichiers :  
+```{admonition} Du cadre général à l’exécution du calcul
+:class: note
+La structure du projet que je vienss de présenter sépare les **données**, le **code** et les **configurations**.  
+Mais dans la pratique, seuls **quelques fichiers** sont nécessaires pour paramétrer et exécuter un calcul d’indicateurs de proximité.
+```
 
-- **`data/raw/insee/services_features.xlsx`** : définit les catégories d’équipements et leurs poids.  
-  - Feuille *Categories of Amenities*  
-  - Chaque ligne = un type d’équipement (ex. école, boulangerie)  
-  - Colonnes = fonction sociale (`fs`), identifiant (`service_id`), poids (`wi`).  
-  - Vous pouvez modifier les poids ou ajouter de nouvelles catégories.  
+### Les trois fichiers clés
 
-- **`src/config.py`** : tous les paramètres du calcul (zone, fichiers d’entrée, rayon de diversité, largeur de bande, etc.).  
+Pour lancer un calcul, on utilisera seulement **trois fichiers** :
 
-- **`src/main.py`**:  lance tous le calcul avec les paramètres définis dans `config.py`.  
+1. **`data/raw/insee/services_features.xlsx`**  
+   Définit les **catégories d’équipements** et leurs **poids** dans les fonctions sociales de la ville du quart d’heure.  
+   - Feuille : *Categories of Amenities*  
+   - Chaque ligne correspond à un type d’équipement (ex. école, boulangerie).  
+   - Les colonnes décrivent la fonction sociale (`fs`), l’identifiant (`service_id`) et le poids (`wi`).  
+   Vous pouvez modifier les poids ou ajouter de nouvelles catégories selon vos besoins d’analyse.
 
-La section suivante (voir [comment produire un calcul](comment_reproduire.md)) montrera en détails comment lancer un calul paramètrés à partir du projet.
+2. **`src/config.py`**  
+   Contient **tous les paramètres de configuration** du calcul :  
+   chemins de fichiers, zone d’étude, rayon de diversité, largeur de bande, distance de marche, etc.  
+   C’est le **centre de contrôle** du calcul.
+
+3. **`src/main.py`**  
+   Point d’entrée du pipeline : ce script orchestré l’ensemble du calcul, en lisant automatiquement les paramètres définis dans `config.py`.  
+
+### Étape suivante
+La prochaine section ([**Produire les indicateurs de proximité**](comment_reproduire.md)) détaillera la procédure pour **exécuter un calcul complet** à partir de ces fichiers, avec vos propres paramètres et zones d’étude.
+
+```{admonition} Astuce
+:class: success
+Une fois ces fichiers configurés, **aucune modification du code interne n’est nécessaire** :  
+tous les traitements se lancent depuis `main.py`. C'est une exécution reproductible et paramétrable.
+```
