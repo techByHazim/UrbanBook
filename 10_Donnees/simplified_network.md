@@ -1,4 +1,4 @@
-# Traitement et simplification du réseau piéton
+# Traitement du réseau routier
 
 ## Introduction  
 
@@ -8,7 +8,7 @@ Une fois le réseau piéton extrait d’OpenStreetMap, il reste brut et contient
 - géométries dupliquées ou superposées,  
 - erreurs liées aux tunnels, ponts ou couches (`layer`).  
 
-Pour obtenir un réseau exploitable en analyse (par exemple pour construire un graphe piéton cohérent), il est nécessaire de le **traiter et le simplifier**.  
+Pour obtenir un réseau exploitable en analyse (par exemple pour construire un graphe piéton cohérent), il est nécessaire de le traiter ces incohérences.  
 
 L’approche suit un pipeline bien précis :  
 
@@ -146,9 +146,9 @@ supprimer doublons
 
 ## Sauvegarde du réseau simplifié
 
-On obtient un **GeoDataFrame propre** :
+On obtient un **GeoDataFrame** :
 
-* validé,
+* geom valide,
 * découpé,
 * nettoyé,
 * sans doublons.
@@ -157,30 +157,20 @@ Il est sauvegardé au format **GeoPackage**.
 
 ## Illustration avant / après
 
-Une comparaison graphique permet de voir l’impact du traitement :
-
-```python
-import matplotlib.pyplot as plt
-
-fig, axes = plt.subplots(1, 2, figsize=(14, 7))
-
-roads.plot(ax=axes[0], color="red", linewidth=0.5)
-axes[0].set_title("Réseau piéton brut")
-
-final_network_gdf.plot(ax=axes[1], color="green", linewidth=0.5)
-axes[1].set_title("Réseau piéton simplifié")
-
-plt.show()
-```
+Une comparaison graphique permet de voir l’impact du traitement (Voir QGIS)
 
 ## Conclusion
 
-Cette étape transforme le réseau brut OSM en un **réseau piéton exploitable** :
+Cette deuxième étape est très importante car c'est ce qui va rendre le calcul des distances sur le réseau fiable. Voici un résumé des deux première étapes sur la partie ***réseau de route piéton***.
 
-* chaque intersection est définie selon des règles précises,
-* les tronçons sont découpés proprement,
-* les erreurs topologiques sont corrigées,
-* les doublons sont supprimés.
+```{figure} ../images/traitement_roads.png
+:name: fig-extraction-reseau-pieton
+:alt: Schéma des étapes principales d’extraction du réseau piéton
+:width: 80%
+:align: center
+```
 
-Ce réseau simplifié constitue la base pour construire un **graphe piéton cohérent**, indispensable pour les analyses d’accessibilité, de connectivité et de mobilité urbaine.
+> Le réseau obtenu constitue la base pour construire un graphe piéton cohérent, indispensable aux analyses d’accessibilité, de connectivité. 
+> Le notebook détaillé permettant de réaliser ce nettoyage est présenté dans la section suivante : [*Nettoyage et simplification du réseau piéton*](simplified_roads).
+
 
