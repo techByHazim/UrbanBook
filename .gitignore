@@ -24,3 +24,6 @@ __pycache__/
 
 # Build Jupyter Book
 _build/
+
+# Historique
+.history/
