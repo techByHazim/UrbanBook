@@ -1,44 +1,51 @@
 format: jb-book
 root: intro
 parts:
-  - caption: Projet
+  # - caption: Projet
+  #   chapters:
+  #     - file: 00_Projet/objectifs
+  #     - file: 00_Projet/questions_recherche
+  #     - file: 00_Projet/hypotheses
+  # - caption: Données
+  #   chapters:
+  #     - file: 10_Donnees/catalogue_donnees
+  #     - file: 10_Donnees/dictionnaire_variables
+  #     - file: 10_Donnees/osm_label
+  #     - file: 10_Donnees/osm_overpass
+  #     - file: 10_Donnees/pedestrian_roads
+  # - caption: Le traitements des données
+  #   chapters:
+  #     - file: 10_Donnees/donnees_bpe
+  #     - file: 10_Donnees/ponderation_bpe
+  #     - file: 10_Donnees/gtfs
+  #     - file: 10_Donnees/simplified_network
+  #     - file: 10_Donnees/simplified_roads
+  # - caption: Indicateurs
+  - caption: Réseau de route pièton
     chapters:
-      - file: 00_Projet/objectifs
-      - file: 00_Projet/questions_recherche
-      - file: 00_Projet/hypotheses
-  - caption: Données
-    chapters:
-      - file: 10_Donnees/catalogue_donnees
-      - file: 10_Donnees/dictionnaire_variables
-      - file: 10_Donnees/donnees_bpe
-      - file: 10_Donnees/ponderation_bpe
-      - file: 10_Donnees/osm_label
-      - file: 10_Donnees/osm_overpass
-      - file: 10_Donnees/gtfs
       - file: 10_Donnees/pedestrian_roads
       - file: 10_Donnees/simplified_network
       - file: 10_Donnees/simplified_roads
-  - caption: Indicateurs
-    chapters:
-      - file: 20_Indicateurs/specification_PAL
-      - file: 20_Indicateurs/mapping_amenites
-      - file: 20_Indicateurs/parametrages
-  - caption: Protocoles
-    chapters:
-      - file: 30_Protocoles/protocole_calcul_PAL
-      - file: 30_Protocoles/protocole_validation
-  - caption: Expériences
-    chapters:
-      - file: 40_Experiences/carnet_resultats
-      - file: 40_Experiences/xp_template
+  #   chapters:
+  #     - file: 20_Indicateurs/specification_PAL
+  #     - file: 20_Indicateurs/mapping_amenites
+  #     - file: 20_Indicateurs/parametrages
+  # - caption: Protocoles
+  #   chapters:
+  #     - file: 30_Protocoles/protocole_calcul_PAL
+  #     - file: 30_Protocoles/protocole_validation
+  # - caption: Expériences
+  #   chapters:
+  #     - file: 40_Experiences/carnet_resultats
+  #     - file: 40_Experiences/xp_template
   - caption: Reproductibilité
     chapters:
       - file: 50_Reproductibilite/environnement
       - file: 50_Reproductibilite/structure_projet
       - file: 50_Reproductibilite/comment_reproduire
-      - file: 50_Reproductibilite/visualisation
-  - caption: Méta
-    chapters:
-      - file: 60_Meta/journal_decision
-      - file: 60_Meta/changelog
-      - file: 60_Meta/a_propos_citation
+      # - file: 50_Reproductibilite/visualisation
+  # - caption: Méta
+  #   chapters:
+  #     - file: 60_Meta/journal_decision
+  #     - file: 60_Meta/changelog
+  #     - file: 60_Meta/a_propos_citation

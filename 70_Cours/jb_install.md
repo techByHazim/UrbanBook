@@ -98,3 +98,11 @@ Résultat :
 * GitHub ne fait que **mettre en ligne** ce que j'ai produit → pas d’erreurs pandas/numpy.
 * Chaque `git push` = nouvelle version du site.
 
+
+Pour supprimer un dossier suivi par Git
+
+```bash
+   ggit rm -r --cached .history
+   ```
+
+  
