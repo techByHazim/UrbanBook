@@ -4,15 +4,15 @@
 
 L’objectif est de construire un **réseau piéton cohérent** pour analyser l’accessibilité à l’échelle de la marche.
 
-À ce jour, il n’existe **aucune base ouverte complète** regroupant l’ensemble du réseau piéton de Marseille.
-Les sources disponibles présentent souvent des lacunes ou des incohérences :
+À ce jour, je n'ai trouvé aucune base ouverte complète regroupant l’ensemble du réseau piéton de Marseille.
+Les sources disponibles présentent des lacunes et des incohérences :
 
-* routes mal classées,
+* routes mal classifiées,
 * trottoirs manquants,
 * escaliers ou passages oubliés,
 * tronçons partagés (voiture, vélo, piéton) difficiles à interpréter.
 
-Cette section détaille ma démarche pour **reconstruire un réseau réellement praticable à pied**, à partir des données **OpenStreetMap (OSM)**.
+Cette section détaille ma démarche pour reconstruire un réseau praticable à pied, à partir des données **OpenStreetMap (OSM)**.
 
 
 ## Téléchargement des données OSM
@@ -42,24 +42,23 @@ edges.to_file("marseille_walk_edges.gpkg", layer="edges", driver="GPKG")
 nodes.to_file("marseille_walk_nodes.gpkg", layer="nodes", driver="GPKG")
 ```
 
-Mais le mode `walk` s’est révélé **trop approximatif** :  
+Mais le mode `walk` s’est révélé trop **approximatif** :  
 
 - certaines routes principales étaient incluses,  
 - des escaliers ou petits chemins manquaient,  
 - et de nombreux tronçons ne correspondaient pas à la réalité du terrain.  
 
 J’ai ensuite testé le réseau de l’**[IGN - BDTOPO](https://geoservices.ign.fr/route500)**.  
-Les géométries y sont plus précises, mais la base reste **incomplète** : beaucoup de passages piétons, d’escaliers ou de ruelles locales n’y figurent pas. En pratique, la BDTOPO décrit surtout les grands axes (autoroutes, nationales, départementales) et des éléments adaptés à une lecture à l’échelle régionale ou nationale.
+Les géométries y sont plus précises, mais la base est **incomplète** pour la marche : beaucoup de passages piétons, d’escaliers ou de ruelles locales n’y figurent pas. En pratique, la BDTOPO décrit surtout les grands axes (autoroutes, nationales, départementales) et des éléments adaptés à une lecture à l’échelle régionale ou nationale.
 
-Finalement, parmi toutes les sources testées, le réseau **brut d’OSM** reste **le plus complet** pour représenter les déplacements piétons.  
-L’enjeu n’est donc pas de trouver une base “idéale”, mais plutôt d’**apprendre à filtrer intelligemment les données OSM** pour isoler ce qui correspond réellement à un chemin piéton.
+Finalement, parmi toutes les sources ouvertes testées, le réseau **brut d’OSM** est **le plus complet**. Le seul enjeu est d’apprendre à filtrer intelligemment les données pour isoler ce qui correspond réellement à un chemin piéton.
 
 ### Inspiration : le profil *piéton* d’[OSRM](https://map.project-osrm.org/)
 
 Pour définir mes propres règles de filtrage, je me suis appuyé sur le projet **[OSRM (Open Source Routing Machine)](https://github.com/Project-OSRM/osrm-backend)**,
 un moteur de calcul d’itinéraires libre utilisant OSM.
 
-OSRM propose un **profil “piéton”**, défini dans le fichier [`foot.lua`](https://github.com/Project-OSRM/osrm-backend/blob/master/profiles/foot.lua),
+OSRM propose un **profil “piéton”**, défini dans le fichier [https://github.com/Project-OSRM/osrm-backend/blob/master/profiles/foot.lua](https://github.com/Project-OSRM/osrm-backend/blob/master/profiles/foot.lua),
 qui spécifie quelles routes sont autorisées ou interdites pour la marche.
 
 ````{dropdown} Cliquez ici pour afficher le profil piéton *foot.lua* d'OSRM
@@ -338,7 +337,7 @@ return {
 
 ````
 
-Ce profil m’a servi de **référence conceptuelle** :  
+Ce profil m’a servi de référence conceptuelle :  
 - exclure les tronçons interdits (`foot=no`, `access=private`, `highway=platform`, etc.),  
 - conserver les voies explicitement piétonnes (`footway`, `path`, `pedestrian`, `steps`, etc.),  
 - et tolérer certaines routes partagées (`residential`, `living_street`, `service`, …).  
@@ -346,8 +345,8 @@ Ce profil m’a servi de **référence conceptuelle** :
 
 ## Extraction avec Osmium
 
-Pour extraire le réseau piéton, j’utilise la bibliothèque **[Osmium pour Python](https://osmcode.org/pyosmium/)**, souvent appelée *PyOsmium*.  
-C’est une interface Python de la bibliothèque C++ Osmium, qui permet de lire et filtrer efficacement les fichiers OpenStreetMap au format `.pbf`.
+Pour extraire le réseau piéton, j’utilise la bibliothèque **[Osmium pour Python](https://osmcode.org/pyosmium/)**, familièrement appelée *PyOsmium*.  
+C’est une interface Python de la bibliothèque C++ Osmium, qui permet de lire et filtrer les fichiers OpenStreetMap au format `.pbf`.
 
 Contrairement à des outils comme **OSMnx**, Osmium ne charge pas tout le fichier en mémoire : il lit les données en continu (*streaming*). C’est beaucoup plus rapide et stable quand on travaille sur des bases de grande taille comme celle de la région PACA.
 

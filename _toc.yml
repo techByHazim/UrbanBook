@@ -26,6 +26,7 @@ parts:
       - file: 10_Donnees/pedestrian_roads
       - file: 10_Donnees/simplified_network
       - file: 10_Donnees/simplified_roads
+      - file: 10_Donnees/lixelization
   #   chapters:
   #     - file: 20_Indicateurs/specification_PAL
   #     - file: 20_Indicateurs/mapping_amenites
