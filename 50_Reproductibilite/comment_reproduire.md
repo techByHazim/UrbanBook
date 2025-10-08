@@ -90,7 +90,7 @@ le pipeline se reconfigurera automatiquement sans modifier le code source.
 `data/final/score_education_d80m_bw200m_Cut800m_lxl_10m_Marseille_2025-10-06.gpkg`
 
 Ce fichier contient les **scores de proximité** calculés pour la fonction sociale **éducation**.  
-Le nom du fichier encode directement les principaux **paramètres du calcul**. Cela permet de retracer les conditions de production des résultats :
+Le nom du fichier encode directement les principaux **paramètres du calcul** :
 
 | Élément du nom de fichier | Signification |
 |----------------------------|----------------|

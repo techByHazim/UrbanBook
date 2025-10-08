@@ -3,7 +3,7 @@ name: Deploy Jupyter Book
 on:
   push:
     branches: [ main ]
-    # Évite le rebuild inutil 
+    # J'evite le rebuild inutil 
     paths-ignore:
       - "README.md"
       - ".github/**"
@@ -48,7 +48,7 @@ jobs:
         shell: bash -l {0}
         run: |
           jupyter-book build .
-          # Si tu veux échouer sur warnings :
+          # Si on veux échouer sur warnings :
           # jupyter-book build . --keep-going -W
 
       - name: Deploy to GitHub Pages (gh-pages)
