@@ -1,0 +1,2 @@
+﻿# Dictionnaire des variables
+
