@@ -21,53 +21,12 @@ Cette méthode repose sur le moteur **Processing**, qui exécute les outils géo
 
 ```
 
-Cette approche donne de bons résultats, mais elle dépend d’une installation complète de QGIS et de sa configuration interne, ce qui la rend peu portable.
-
-## Méthode 2 : Lixelisation en Python   
-
-Pour lever cette contrainte, je propose une version **entièrement Python**.  
-J'utilise les bibliothèques **GeoPandas** et **Shapely** pour les opérations géométriques,  
-et **ProcessPoolExecutor** pour paralléliser le traitement.  
-
-**Pseudo-code :**
-
-```
-
-1. Charger le réseau routier nettoyé.
-2. Vérifier que le CRS est projeté en mètres (ex. EPSG:2154).
-3. (Optionnel) Simplifier les lignes si elles sont très détaillées.
-4. Pour chaque ligne :
-
-   * Parcourir la géométrie à intervalles réguliers.
-   * Extraire chaque segment (lixel) de longueur définie.
-   * Conserver les attributs du tronçon d’origine.
-5. Exécuter ces opérations en parallèle sur plusieurs cœurs.
-6. Rassembler les lixels dans un GeoDataFrame.
-7. Enregistrer le résultat (au format GeoPackage).
-
-```
-
-C'est **plus portable**, **plus rapide** et **plus flexible**. 
-
-## Discussion sur les limites du découpage
-
-Dans cette méthode, chaque tronçon est découpé en segments de longueur fixe, ce qui rend le réseau plus homogène.  
-Mais ce choix n’est pas sans conséquences.  
-
-* Le **dernier lixel** de chaque ligne est souvent plus court que les autres, car la longueur totale du tronçon n’est pas toujours un multiple exact de la taille de découpe.  
-Ce “reste” est systématiquement attribué au dernier segment, ce qui crée de **légères inégalités de longueur** entre les lixels.  
-
-* Les **tronçons plus courts que la taille du lixel** ne sont pas découpés du tout : ils conservent leur longueur d’origine, parfois bien inférieure à celle des autres segments.  
-Cela introduit une petite hétérogénéité dans le réseau, mais qui reste acceptable (9.34m lixel moyen pour un pas de 10m).  
-
-* La lixelisation ne prend pas en compte la géométrie locale (courbures, intersections, type de voie).  
-Elle s’appuie uniquement sur la distance parcourue le long des lignes, ce qui peut légèrement décaler les points de coupure dans les zones très sinueuses.  
- 
-
-> Le code Python détaillé de réaliser ce decoupage avec les étapes pré-cités peut etre consulter ci dessous : 
-
-````{dropdown} Afficher / masquer le code Python
+````{dropdown} Afficher / masquer le code 
 ```python
+# # -*- coding: utf-8 -*-
+# # =============================================================================
+# # Author : Hazim
+# # Date of creation : March 2025
 # # -*- coding: utf-8 -*-
 # # =============================================================================
 # # Author : Hazim
@@ -130,7 +89,44 @@ Elle s’appuie uniquement sur la distance parcourue le long des lignes, ce qui 
 #     })
 #     print("Lixelisation completed.")
 
-# La version QGIS necessite de configuration QGIS compliqué, je le fais en python pour une meilleur portabilité
+```
+````
+
+Cette approche donne de bons résultats, mais elle dépend d’une installation complète de QGIS et de sa configuration interne, ce qui la rend peu portable.
+
+## Méthode 2 : Lixelisation en Python   
+
+Pour lever cette contrainte, je propose une version **entièrement Python**.  
+J'utilise les bibliothèques **GeoPandas** et **Shapely** pour les opérations géométriques,  
+et **ProcessPoolExecutor** pour paralléliser le traitement.  
+
+**Pseudo-code :**
+
+```
+
+1. Charger le réseau routier nettoyé.
+2. Vérifier que le CRS est projeté en mètres (ex. EPSG:2154).
+3. (Optionnel) Simplifier les lignes si elles sont très détaillées.
+4. Pour chaque ligne :
+
+   * Parcourir la géométrie à intervalles réguliers.
+   * Extraire chaque segment (lixel) de longueur définie.
+   * Conserver les attributs du tronçon d’origine.
+5. Exécuter ces opérations en parallèle sur plusieurs cœurs.
+6. Rassembler les lixels dans un GeoDataFrame.
+7. Enregistrer le résultat (au format GeoPackage).
+
+```
+
+C'est **plus portable**, **plus rapide** et **plus flexible**. 
+Le code Python détaillé de réaliser ce decoupage avec les étapes pré-cités peut etre consulter ci dessous : 
+
+````{dropdown} Afficher / masquer le code Python
+```python
+# # -*- coding: utf-8 -*-
+# # =============================================================================
+# # Author : Hazim
+# # Date of creation : March 2025
 
 from __future__ import annotations 
 
@@ -344,3 +340,19 @@ def lixelize_roads(
 #     lixelize_roads(roads_simplify_file=roads_simplify_file, roads_lixels_file=roads_lixels_file, lixel_size=10)
 ```
 ````
+
+## Discussion sur les limites du découpage
+
+Dans cette méthode, chaque tronçon est découpé en segments de longueur fixe, ce qui rend le réseau plus homogène.  
+Mais ce choix n’est pas sans conséquences.  
+
+* Le **dernier lixel** de chaque ligne est souvent plus court que les autres, car la longueur totale du tronçon n’est pas toujours un multiple exact de la taille de découpe.  
+Ce “reste” est systématiquement attribué au dernier segment, ce qui crée de **légères inégalités de longueur** entre les lixels.  
+
+* Les **tronçons plus courts que la taille du lixel** ne sont pas découpés du tout : ils conservent leur longueur d’origine, parfois bien inférieure à celle des autres segments.  
+Cela introduit une petite hétérogénéité dans le réseau, mais qui reste acceptable (9.34m lixel moyen pour un pas de 10m).  
+
+* La lixelisation ne prend pas en compte la géométrie locale (courbures, intersections, type de voie).  
+Elle s’appuie uniquement sur la distance parcourue le long des lignes, ce qui peut légèrement décaler les points de coupure dans les zones très sinueuses.  
+ 
+

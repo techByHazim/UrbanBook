@@ -192,6 +192,17 @@ network = PedestrianNetwork(
 network.run()
 ```
 
-Les fichiers obtenus peuvent ensuite être visualisées directement dans QGIS.
+
+::: {card}
+
+```{figure} ../images/osm_net.png
+:alt: Résumé
+:width: 100%
+```
+**Extrait réseau de route (OSMnx, profil “personalisé”)**
+:::
+
+> Les fichiers obtenus peuvent ensuite être visualisées directement dans QGIS.
+> Ce processus peut s'appliquer dans n'importe quel endroit dans le monde dont on dispose les données OpenStreetMap (OSM)
 
 

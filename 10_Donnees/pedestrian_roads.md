@@ -188,14 +188,14 @@ nodes.to_file("marseille_walk_nodes.gpkg", layer="nodes", driver="GPKG")
 
 Le réseau obtenu est **géométriquement précis**, mais certaines voies semi-publiques ou internes manquent à cause du filtre “walk”.
 Cela necessite des ajustements manuels ou un profil personnalisé pour améliorer la couverture afin d'obtenrir un réseau piéton complet.
+ 
+## Vers un profil piéton personalisé
 
+### Le profil piéton OSRM `foot.lua`
 
-## OSRM : profil `foot.lua`
+Le profil `foot.lua` d’OSRM définit trois listes principales pour construire le réseau piéton : 
 
-Extrait (voir le profil complet : [foot.lua](https://github.com/Project-OSRM/osrm-backend/blob/master/profiles/foot.lua)) :
-
-
-Le profil `foot.lua` d’OSRM définit trois listes principales pour construire le réseau piéton :  
+Extrait (voir le profil complet : [foot.lua](https://github.com/Project-OSRM/osrm-backend/blob/master/profiles/foot.lua)) : 
 
 ```lua
 highway = {primary,primary_link,secondary,secondary_link,tertiary,tertiary_link,unclassified,residential,road,living_street ,service,track,path,steps,pedestrian,platform,footway,pier}
@@ -209,8 +209,8 @@ access_tag_blacklist = {'no', 'private', 'delivery','agricultural', 'forestry' }
 - **`access_tag_blacklist`** : regroupe les accès interdits ou restreints, tels que les propriétés privées (`private`), les zones de livraison (`delivery`), les chemins agricoles (`agricultural`) ou forestiers (`forestry`).  
 
 En pratique, OSRM inclut une route si elle figure dans la liste `highway` et que son accès est autorisé (liste blanche). Elle l’exclut si elle correspond à un cas de la liste noire.
- 
-## Positionnement : un profil piéton personalisé
+
+### Positionnement
 
 Dans une logique d’**accessibilité potentielle**, je m’intéresse à la faisabilité physique de la marche plutôt qu’à la réglementation. Je  construit le réseau piéton à partir d’OpenStreetMap en s’alignant sur le profil `foot.lua` d'OSRM. Concrètement, je reprends la liste des types highway autorisés par `foot.lua`, j’exclus les tronçons interdits aux piétons (foot=no), j'accepte ceux dont l’accès est restreint (access=|private|delivery|agricultural|forestry, etc.), et j’écarte les objets non routables (platform, area=yes).
 
@@ -267,5 +267,6 @@ A la fin, j'exporte les `nodes` et `egdes` et je visualise dans QGIS.
 **Extrait des noeuds et troncçons de route (OSMnx, profil “personalisé”)**
 :::
 
-> Le profil personnalisé ajuste leurs filtres OSMnx (walk) et OSMR (foot) pour mieux correspondre à un réseau piéton adapté aux besoins de calcul d’accessibilité.
+> Le profil personnalisé ajuste les filtres OSMnx (walk) et OSMR (foot) pour contruire un réseau piéton adapté au calcul d'indicateur de proximité à l'echelle de la marche à pied.
+> Le reseau obtenu couvre la quasi-totalité des endroits accessibles ou semi-privés, permettant ainsi des calculs à n'importe quel adresse dans une ville.
 
