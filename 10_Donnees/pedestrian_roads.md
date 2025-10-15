@@ -1,490 +1,271 @@
-# Construction d’un réseau piéton
 
-## Objectif
+# Extraction du réseau piéton avec OSMnx
 
-L’objectif est de construire un **réseau piéton cohérent** pour analyser l’accessibilité à l’échelle de la marche.
+**Hypothèse de travail :**
+> *Tout segment de voie praticable à pied appartient au réseau piéton, qu’il soit public ou privé.*
 
-À ce jour, je n'ai trouvé aucune base ouverte complète regroupant l’ensemble du réseau piéton de Marseille.
-Les sources disponibles présentent des lacunes et des incohérences :
+## Les outils disponibles
 
-* routes mal classifiées,
-* trottoirs manquants,
-* escaliers ou passages oubliés,
-* tronçons partagés (voiture, vélo, piéton) difficiles à interpréter.
+Deux outils majeurs permettent de travailler sur un réseau piéton issu d’OSM :
 
-Cette section détaille ma démarche pour reconstruire un réseau praticable à pied, à partir des données **OpenStreetMap (OSM)**.
+1. **[OSMnx](https://osmnx.readthedocs.io/en/stable/)**
+   → bibliothèque Python pour **télécharger**, **construire** et **analyser** des graphes urbains (piéton, vélo, voiture, etc.).
 
+2. **[OSRM](https://project-osrm.org/)**
+   → moteur de **routage** capable de calculer des itinéraires selon des profils (`car`, `bike`, `foot`, …).
 
-## Téléchargement des données OSM
-
-Les données **OpenStreetMap** sont libres et collaboratives : des contributeurs enrichissent continuellement la base en ajoutant routes, bâtiments, équipements, etc.
-
-Le **25 mai 2025**, j’ai téléchargé le fichier **`.pbf`** de la région Provence-Alpes-Côte d’Azur via **[Geofabrik](https://download.geofabrik.de/europe/france.html)**.
-Ce fichier contient l’ensemble des données OSM de la région, y compris le réseau routier.
+Ces outils utilisent des **profils prédéfinis** qui filtrent automatiquement les types de voies selon les modes de déplacement autorisés.
 
 
-## Définir ce qu’est un chemin piéton
+## Extraction du réseau piéton avec OSMnx
 
-Ma question était :  
+OSMnx propose différents types de réseaux :
+`drive` (voitures), `bike` (vélos), `walk` (piétons) ou `all` (toutes voies).
 
-> *Qu’est-ce qu’un “chemin piéton”, et comment le filtrer correctement ?*
-
-### Premiers tests : OSMnx et BDTOPO
-
-J’ai d’abord testé **[OSMnx](https://osmnx.readthedocs.io/en/stable/)** pour extraire le réseau piéton :  
+Nous utilisons ici le **profil “walk”**, qui conserve uniquement les voies accessibles aux piétons (trottoirs, allées, chemins, escaliers, etc).
 
 ```python
 import osmnx as ox
+import geopandas as gpd
 
-G = ox.graph_from_place("Marseille, France", network_type="walk")
+# Chargement du périmètre d'étude
+cadre = gpd.read_file("../../Proximity/data/raw/personal/CadreMarseille.gpkg")
+cadre = cadre.to_crs("EPSG:4326")  # Conversion en coordonnées WGS84
+polygon = cadre.geometry.iloc[0]
+
+# Extraction du réseau piéton
+G = ox.graph_from_polygon(polygon, network_type='walk', simplify=True, retain_all=False)
+```
+
+Le graphe `G` est un **MultiDiGraph** : un graphe **orienté** où plusieurs arêtes peuvent relier les mêmes nœuds (ex. deux sens de circulation).
+
+* `simplify=True` fusionne les segments redondants entre intersections.
+* `retain_all=False` conserve seulement le **plus grand composant connexe**, assurant la continuité du réseau.
+
+### Les filtres du profil “walk”
+
+OSMnx applique automatiquement un filtre pour sélectionner les voies piétonnes :
+
+```python
+["highway"]["area"!~"yes"]["access"!~"private"]
+["highway"!~"abandoned|bus_guideway|construction|cycleway|motor|no|planned|platform|proposed|raceway|razed"]
+["foot"!~"no"]["service"!~"private"]
+```
+
+Ce filtre exclut les autoroutes, zones privées ou pistes cyclables isolées, et conserve les voies ouvertes aux piétons.
+
+
+### Vérification du graphe obtenu
+
+```python
+# Fonction pour afficher quelques infos sur le graphe
+def graph_info(G):
+    print(f"Type du graphe : {type(G).__name__}")
+    print(f"Nombre de nœuds : {G.number_of_nodes()}")
+    print(f"Nombre d’arêtes : {G.number_of_edges()}")
+    print(f"Est orienté : {G.is_directed()}")
+    print(f"Est connexe : {nx.is_weakly_connected(G) if G.is_directed() else nx.is_connected(G)}")
+
+graph_info(G)
+```
+
+```
+Type du graphe : MultiDiGraph
+Nombre de nœuds : 113230
+Nombre d’arêtes : 302816
+Est orienté : True
+Est connexe : True
+```
+
+**À retenir :**
+
+* `G` est un **graphe orienté** (chaque arête a un sens) ;
+* Les arêtes possèdent des **attributs** : `oneway`, `length`, `name`, `highway`, `geometry`, etc.
+* `u` = nœud origine, `v` = nœud destination.
+
+  * Si `oneway=False`, deux arêtes sont créées (`u→v` et `v→u`).
+
+**Astuce:**
+On lit d’abord la **structure topologique** (qui relie quoi), puis la **géométrie spatiale** (où cela se trouve réellement).
+
+### Visualisation du graphe
+
+Le graphe peut etre orienté (tient compte du sens de circulation) ou non orienté :
+
+#### a) Graphe topologique orienté
+
+J'extrais une petite partie du graphe et j'affiche le graphe grace à `nx.draw()`.
+
+```python
+# Trouver un nœud central
+center_node = list(G.nodes())[len(G)//2]
+
+# Extraire un sous-graphe dans un rayon de 600 m
+subG = ox.truncate.truncate_graph_dist(G, center_node, max_dist=600)
+
+plt.figure(figsize=(7,6))
+nx.draw(subG, node_size=20, edge_color='gray', node_color='red')
+plt.show()
+```
+
+::: {card}
+
+```{figure} ../images/graph_topo.png
+:alt: Graphe topologique du réseau piéton à Marseille
+:width: 100%
+```
+
+**Graphe topologique orienté (OSMnx, profil “walk”)**
+:::
+
+Les points rouges représentent les intersections, les traits gris les connexions (avec un sens implicite).
+
+#### b) Graphe non orienté
+
+On peut ignorer les sens de circulation : 
+
+```python
+subG_undirected = subG.to_undirected()
+
+plt.figure(figsize=(7,6))
+nx.draw(subG_undirected, node_size=20, edge_color='gray', node_color='red')
+plt.show()
+```
+
+::: {card}
+
+```{figure} ../images/graph_undirect.png
+:alt: Graphe non orienté du réseau piéton à Marseille
+:width: 100%
+```
+
+**Graphe topologique non orienté (OSMnx, profil “walk”)**
+:::
+
+Ici, les arêtes ne sont plus directionnelles : elles indiquent simplement qu’une connexion existe entre deux nœuds. 
+
+#### c) Graphe géographique
+
+Pour visualiser le réseau dans l’espace réel, la fonction `ox.plot_graph` permet de le faire. Il prend en compte des coordonnées GPS des nodes et des egdes.
+
+```python
+fig, ax = plt.subplots(figsize=(9, 20))
+ox.plot_graph(subG, ax=ax, node_size=20, node_color='red', edge_color='gray', bgcolor='white')
+plt.show()
+```
+
+::: {card}
+
+```{figure} ../images/graph_geo.png
+:alt: Graphe géographique du réseau piéton à Marseille
+:width: 100%
+```
+
+> Le **graphe géographique** montre les nœuds et arêtes selon leurs **coordonnées GPS**.
+> :::
+
+### Export du réseau vers QGIS
+
+On peut extraire les nœuds et arêtes du graphe sous forme de GeoDataFrames et les sauvegarder pour un usage SIG.
+
+```python
 nodes, edges = ox.graph_to_gdfs(G)
+
+# Sauvegarde en GeoPackage (format compatible QGIS)
 edges.to_file("marseille_walk_edges.gpkg", layer="edges", driver="GPKG")
 nodes.to_file("marseille_walk_nodes.gpkg", layer="nodes", driver="GPKG")
 ```
 
-Mais le mode `walk` s’est révélé trop **approximatif** :  
+::: {card}
 
-- certaines routes principales étaient incluses,  
-- des escaliers ou petits chemins manquaient,  
-- et de nombreux tronçons ne correspondaient pas à la réalité du terrain.  
+```{figure} ../images/omsnx_walk.png
+:alt: Extrait des arêtes du réseau piéton (profil “walk”)
+:width: 100%
+```
 
-J’ai ensuite testé le réseau de l’**[IGN - BDTOPO](https://geoservices.ign.fr/route500)**.  
-Les géométries y sont plus précises, mais la base est **incomplète** pour la marche : beaucoup de passages piétons, d’escaliers ou de ruelles locales n’y figurent pas. En pratique, la BDTOPO décrit surtout les grands axes (autoroutes, nationales, départementales) et des éléments adaptés à une lecture à l’échelle régionale ou nationale.
+**Extrait des arêtes du réseau piéton (OSMnx, mode “walk”)**
+:::
 
-Finalement, parmi toutes les sources ouvertes testées, le réseau **brut d’OSM** est **le plus complet**. Le seul enjeu est d’apprendre à filtrer intelligemment les données pour isoler ce qui correspond réellement à un chemin piéton.
+Le réseau obtenu est **géométriquement précis**, mais certaines voies semi-publiques ou internes manquent à cause du filtre “walk”.
+Cela necessite des ajustements manuels ou un profil personnalisé pour améliorer la couverture afin d'obtenrir un réseau piéton complet.
 
-### Inspiration : le profil *piéton* d’[OSRM](https://map.project-osrm.org/)
 
-Pour définir mes propres règles de filtrage, je me suis appuyé sur le projet **[OSRM (Open Source Routing Machine)](https://github.com/Project-OSRM/osrm-backend)**,
-un moteur de calcul d’itinéraires libre utilisant OSM.
+## OSRM : profil `foot.lua`
 
-OSRM propose un **profil “piéton”**, défini dans le fichier [https://github.com/Project-OSRM/osrm-backend/blob/master/profiles/foot.lua](https://github.com/Project-OSRM/osrm-backend/blob/master/profiles/foot.lua),
-qui spécifie quelles routes sont autorisées ou interdites pour la marche.
+Extrait (voir le profil complet : [foot.lua](https://github.com/Project-OSRM/osrm-backend/blob/master/profiles/foot.lua)) :
 
-````{dropdown} Cliquez ici pour afficher le profil piéton *foot.lua* d'OSRM
+
+Le profil `foot.lua` d’OSRM définit trois listes principales pour construire le réseau piéton :  
+
 ```lua
--- Foot profile
+highway = {primary,primary_link,secondary,secondary_link,tertiary,tertiary_link,unclassified,residential,road,living_street ,service,track,path,steps,pedestrian,platform,footway,pier}
 
-api_version = 2
-
-Set = require('lib/set')
-Sequence = require('lib/sequence')
-Handlers = require("lib/way_handlers")
-find_access_tag = require("lib/access").find_access_tag
-
-function setup()
-  local walking_speed = 5
-  return {
-    properties = {
-      weight_name                   = 'duration',
-      max_speed_for_map_matching    = 40/3.6, -- kmph -> m/s
-      call_tagless_node_function    = false,
-      traffic_signal_penalty        = 2,
-      u_turn_penalty                = 2,
-      continue_straight_at_waypoint = false,
-      use_turn_restrictions         = false,
-    },
-
-    default_mode            = mode.walking,
-    default_speed           = walking_speed,
-    oneway_handling         = 'specific',     -- respect 'oneway:foot' but not 'oneway'
-
-    barrier_blacklist = Set {
-      'yes',
-      'wall',
-      'fence'
-    },
-
-    access_tag_whitelist = Set {
-      'yes',
-      'foot',
-      'permissive',
-      'designated'
-    },
-
-    access_tag_blacklist = Set {
-      'no',
-      'agricultural',
-      'forestry',
-      'private',
-      'delivery',
-    },
-
-    restricted_access_tag_list = Set { },
-
-    restricted_highway_whitelist = Set { },
-
-    construction_whitelist = Set {},
-
-    access_tags_hierarchy = Sequence {
-      'foot',
-      'access'
-    },
-
-    -- tags disallow access to in combination with highway=service
-    service_access_tag_blacklist = Set { },
-
-    restrictions = Sequence {
-      'foot'
-    },
-
-    -- list of suffixes to suppress in name change instructions
-    suffix_list = Set {
-      'N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW', 'North', 'South', 'West', 'East'
-    },
-
-    avoid = Set {
-      'impassable',
-      'proposed'
-    },
-
-    speeds = Sequence {
-      highway = {
-        primary         = walking_speed,
-        primary_link    = walking_speed,
-        secondary       = walking_speed,
-        secondary_link  = walking_speed,
-        tertiary        = walking_speed,
-        tertiary_link   = walking_speed,
-        unclassified    = walking_speed,
-        residential     = walking_speed,
-        road            = walking_speed,
-        living_street   = walking_speed,
-        service         = walking_speed,
-        track           = walking_speed,
-        path            = walking_speed,
-        steps           = walking_speed,
-        pedestrian      = walking_speed,
-        platform        = walking_speed,
-        footway         = walking_speed,
-        pier            = walking_speed,
-      },
-
-      railway = {
-        platform        = walking_speed
-      },
-
-      amenity = {
-        parking         = walking_speed,
-        parking_entrance= walking_speed
-      },
-
-      man_made = {
-        pier            = walking_speed
-      },
-
-      leisure = {
-        track           = walking_speed
-      }
-    },
-
-    route_speeds = {
-      ferry = 5
-    },
-
-    bridge_speeds = {
-    },
-
-    surface_speeds = {
-      fine_gravel =   walking_speed*0.75,
-      gravel =        walking_speed*0.75,
-      pebblestone =   walking_speed*0.75,
-      mud =           walking_speed*0.5,
-      sand =          walking_speed*0.5
-    },
-
-    tracktype_speeds = {
-    },
-
-    smoothness_speeds = {
-    }
-  }
-end
-
-function process_node(profile, node, result)
-  -- parse access and barrier tags
-  local access = find_access_tag(node, profile.access_tags_hierarchy)
-  if access then
-    if profile.access_tag_blacklist[access] then
-      result.barrier = true
-    end
-  else
-    local barrier = node:get_value_by_key("barrier")
-    if barrier then
-      --  make an exception for rising bollard barriers
-      local bollard = node:get_value_by_key("bollard")
-      local rising_bollard = bollard and "rising" == bollard
-
-      if profile.barrier_blacklist[barrier] and not rising_bollard then
-        result.barrier = true
-      end
-    end
-  end
-
-  -- check if node is a traffic light
-  local tag = node:get_value_by_key("highway")
-  if "traffic_signals" == tag then
-    -- Direction should only apply to vehicles
-    result.traffic_lights = true
-  end
-end
-
--- main entry point for processsing a way
-function process_way(profile, way, result)
-  -- the intial filtering of ways based on presence of tags
-  -- affects processing times significantly, because all ways
-  -- have to be checked.
-  -- to increase performance, prefetching and intial tag check
-  -- is done in directly instead of via a handler.
-
-  -- in general we should  try to abort as soon as
-  -- possible if the way is not routable, to avoid doing
-  -- unnecessary work. this implies we should check things that
-  -- commonly forbids access early, and handle edge cases later.
-
-  -- data table for storing intermediate values during processing
-  local data = {
-    -- prefetch tags
-    highway = way:get_value_by_key('highway'),
-    bridge = way:get_value_by_key('bridge'),
-    route = way:get_value_by_key('route'),
-    leisure = way:get_value_by_key('leisure'),
-    man_made = way:get_value_by_key('man_made'),
-    railway = way:get_value_by_key('railway'),
-    platform = way:get_value_by_key('platform'),
-    amenity = way:get_value_by_key('amenity'),
-    public_transport = way:get_value_by_key('public_transport')
-  }
-
-  -- perform an quick initial check and abort if the way is
-  -- obviously not routable. here we require at least one
-  -- of the prefetched tags to be present, ie. the data table
-  -- cannot be empty
-  if next(data) == nil then     -- is the data table empty?
-    return
-  end
-
-  local handlers = Sequence {
-    -- set the default mode for this profile. if can be changed later
-    -- in case it turns we're e.g. on a ferry
-    WayHandlers.default_mode,
-
-    -- check various tags that could indicate that the way is not
-    -- routable. this includes things like status=impassable,
-    -- toll=yes and oneway=reversible
-    WayHandlers.blocked_ways,
-
-    -- determine access status by checking our hierarchy of
-    -- access tags, e.g: motorcar, motor_vehicle, vehicle
-    WayHandlers.access,
-
-    -- check whether forward/backward directons are routable
-    WayHandlers.oneway,
-
-    -- check whether forward/backward directons are routable
-    WayHandlers.destinations,
-
-    -- check whether we're using a special transport mode
-    WayHandlers.ferries,
-    WayHandlers.movables,
-
-    -- compute speed taking into account way type, maxspeed tags, etc.
-    WayHandlers.speed,
-    WayHandlers.surface,
-
-    -- handle turn lanes and road classification, used for guidance
-    WayHandlers.classification,
-
-    -- handle various other flags
-    WayHandlers.roundabouts,
-    WayHandlers.startpoint,
-
-    -- set name, ref and pronunciation
-    WayHandlers.names,
-
-    -- set weight properties of the way
-    WayHandlers.weights
-  }
-
-  WayHandlers.run(profile, way, result, data, handlers)
-end
-
-function process_turn (profile, turn)
-  turn.duration = 0.
-
-  if turn.direction_modifier == direction_modifier.u_turn then
-     turn.duration = turn.duration + profile.properties.u_turn_penalty
-  end
-
-  if turn.has_traffic_light then
-     turn.duration = profile.properties.traffic_signal_penalty
-  end
-  if profile.properties.weight_name == 'routability' then
-      -- penalize turns from non-local access only segments onto local access only tags
-      if not turn.source_restricted and turn.target_restricted then
-          turn.weight = turn.weight + 3000
-      end
-  end
-end
-
-return {
-  setup = setup,
-  process_way =  process_way,
-  process_node = process_node,
-  process_turn = process_turn
-}
+access_tag_whitelist = { 'yes', 'foot', 'permissive', 'designated' }
+access_tag_blacklist = {'no', 'private', 'delivery','agricultural', 'forestry' }
 ```
 
-````
+- **`highway`** : indique les types de routes considérées comme marchables, depuis les grands axes (`primary`, `secondary`) jusqu’aux voies locales (`residential`, `service`, `path`, `footway`, `pier`).  
+- **`access_tag_whitelist`** : répertorie les accès autorisés ou tolérés, comme les rues publiques (`yes`), les itinéraires piétons (`foot`), les accès libres (`permissive`) ou désignés (`designated`).  
+- **`access_tag_blacklist`** : regroupe les accès interdits ou restreints, tels que les propriétés privées (`private`), les zones de livraison (`delivery`), les chemins agricoles (`agricultural`) ou forestiers (`forestry`).  
 
-Ce profil m’a servi de référence conceptuelle :  
-- exclure les tronçons interdits (`foot=no`, `access=private`, `highway=platform`, etc.),  
-- conserver les voies explicitement piétonnes (`footway`, `path`, `pedestrian`, `steps`, etc.),  
-- et tolérer certaines routes partagées (`residential`, `living_street`, `service`, …).  
+En pratique, OSRM inclut une route si elle figure dans la liste `highway` et que son accès est autorisé (liste blanche). Elle l’exclut si elle correspond à un cas de la liste noire.
+ 
+## Positionnement : un profil piéton personalisé
 
-
-## Extraction avec Osmium
-
-Pour extraire le réseau piéton, j’utilise la bibliothèque **[Osmium pour Python](https://osmcode.org/pyosmium/)**, familièrement appelée *PyOsmium*.  
-C’est une interface Python de la bibliothèque C++ Osmium, qui permet de lire et filtrer les fichiers OpenStreetMap au format `.pbf`.
-
-Contrairement à des outils comme **OSMnx**, Osmium ne charge pas tout le fichier en mémoire : il lit les données en continu (*streaming*). C’est beaucoup plus rapide et stable quand on travaille sur des bases de grande taille comme celle de la région PACA.
-
-```{admonition} Note technique
-:class: tip
-Le terme **Osmium** peut désigner trois choses :
-- **Osmium** : la bibliothèque C++ d’origine,  
-- **PyOsmium** : son interface Python (importée sous le nom `osmium`),  
-- **osmium-tool** : un outil en ligne de commande pour manipuler les fichiers OSM.  
-```
-
-Ici, j’utilise bien la **bibliothèque Python `osmium`**.
+Dans une logique d’**accessibilité potentielle**, je m’intéresse à la faisabilité physique de la marche plutôt qu’à la réglementation. Je  construit le réseau piéton à partir d’OpenStreetMap en s’alignant sur le profil `foot.lua` d'OSRM. Concrètement, je reprends la liste des types highway autorisés par `foot.lua`, j’exclus les tronçons interdits aux piétons (foot=no), j'accepte ceux dont l’accès est restreint (access=|private|delivery|agricultural|forestry, etc.), et j’écarte les objets non routables (platform, area=yes).
 
 
-### Étapes principales
+| Règle                                            | Décision | Pourquoi                                                                 |
+| ------------------------------------------------ | -------- | ------------------------------------------------------------------------ |
+| Inclure la **liste blanche OSRM** `highway_whitelist` | OK        | Couverture des structures marchables (rues, sentiers, escaliers,...) |
+| Exclure `foot=no`                               | OK        | Interdiction explicite aux piétons                                       |
+| Inclure `access=private` et `service=private`    | OK        | Espaces résidentiels/semi-publics                  |
+| Exclure `platform` et `area=yes`                 | OK        | Surfaces non topologiques (quais, places) pour un graphe routable        |
 
-Voici les principales opérations réalisées lors de l’extraction du réseau piéton :
+### Implémentation technique (OSMnx)
 
-```{figure} ../images/roads_osm_foot.png
-:name: fig-extraction-reseau-pieton
-:alt: Schéma des étapes principales d’extraction du réseau piéton
-:width: 80%
-:align: center
-```
+#### Mon filtre personnalisé 
 
-````{dropdown} Afficher / masquer le code Python
 ```python
-import osmium
-import shapely.wkb as wkblib
-import geopandas as gpd
-from tqdm import tqdm
+custom_filter = (
+    '["highway"~"primary|primary_link|secondary|secondary_link|tertiary|tertiary_link|'
+    'unclassified|residential|road|living_street|service|track|path|steps|pedestrian|'
+    'footway|pier"]'
+    '["highway"!~"platform"]'
+    '["area"!~"yes"]["foot"!~"no"]'
+)
+```
 
-from config import (
-    input_pbf
+#### Construction du **graphe** pièton
+
+**Implementation (extraction du graphe avec OSMnx)**
+
+```python
+import osmnx as ox
+
+G = graph_from_polygon(
+    polygon,
+    custom_filter=custom_filter,
+    simplify=True,
+    retain_all=True
 )
 
-def extract_reseau():
-    wkbfab = osmium.geom.WKBFactory()
-    ways = []
-    total_ways = 0
-
-    class WayCounter(osmium.SimpleHandler):
-        def way(self, w):
-            nonlocal total_ways
-            total_ways += 1
-
-    print("Counting ways...")
-    counter = WayCounter()
-    counter.apply_file(str(input_pbf), locations=False)
-    print(f"Total number of ways: {total_ways}")
-
-    print("Extracting pedestrian network...")
-    pbar = tqdm(total=total_ways, desc="Processing ways")
-
-    class FootwayHandler(osmium.SimpleHandler):
-        def way(self, w):
-            try:
-                tags = w.tags
-                highway = tags.get('highway', '')
-                access = tags.get('access', '')
-                foot = tags.get('foot', '')
-                
-                highway_whitelist = [
-                    'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary',
-                    'tertiary_link', 'unclassified', 'residential', 'road', 'living_street',
-                    'service', 'track', 'path', 'steps', 'pedestrian', 'platform',
-                    'footway', 'pier'
-                ]
-                if highway not in highway_whitelist:
-                    pbar.update(1)
-                    return
-                
-                # Filtrer foot=no
-                if foot == 'no':
-                    pbar.update(1)
-                    return
-
-                # Filtrer highway=platform
-                if highway == 'platform':
-                    pbar.update(1)
-                    return
-                
-                wkb = wkbfab.create_linestring(w)
-                geom = wkblib.loads(wkb, hex=True)
-
-                way_info = {
-                    'osm_id': w.id,
-                    'geometry': geom,
-                    'highway': highway,
-                    'name': tags.get('name', ''),
-                    'access': access,
-                    'foot': foot,
-                    'surface': tags.get('surface', ''),
-                    'incline': tags.get('incline', ''),
-                    'smoothness': tags.get('smoothness', ''),
-                    'width': tags.get('width', ''),
-                    'sidewalk': tags.get('sidewalk', ''),
-                    'crossing': tags.get('crossing', ''),
-                    'lit': tags.get('lit', ''),
-                    'bridge': tags.get('bridge', ''),
-                    'tunnel': tags.get('tunnel', ''),
-                    'layer': tags.get('layer', '0'),  # '0' par défaut si non renseigné
-                    'oneway': tags.get('oneway', 'no')  # 'no' par défaut si non renseigné
-                }
-                ways.append(way_info)
-
-            except Exception as e:
-                print(f"Error processing way {w.id}: {e}")
-            finally:
-                pbar.update(1)
-
-    handler = FootwayHandler()
-    handler.apply_file(str(input_pbf), locations=True)
-    pbar.close()
-
-    gdf = gpd.GeoDataFrame(ways, crs="EPSG:4326")
-    return gdf
+nodes, edges = ox.graph_to_gdfs(G)
+edges.to_file("marseille_walk_edges.gpkg", driver="GPKG")  # les arcs (tronçons)
+nodes.to_file("marseille_walk_nodes.gpkg", driver="GPKG")  # les nœuds (intersections)
 ```
 
-````
+A la fin, j'exporte les `nodes` et `egdes` et je visualise dans QGIS.
 
-## Filtrage spatial sur Marseille  
+::: {card}
 
-Le fichier `.pbf` couvre toute la région PACA.  
-J’applique ensuite un **filtrage spatial** pour ne garder que les tronçons à l’intérieur du périmètre de Marseille :
-
-```python
-# Filtrage spatial
-cadre = gpd.read_file("data/raw/personal/CadreMarseille.gpkg")
-gdf = gdf.to_crs(cadre.crs)
-roads_mrs = gdf[gdf.geometry.within(cadre.geometry.iloc[0])]
+```{figure} ../images/extr_nodes_egdes.png
+:alt: Extrait du graphe généré.
+:width: 100%
 ```
 
-## Conclusion
-J'ai montré la d"marche me permettant de passer d’un fichier brut `.pbf` OSM couvrant toute la région PACA à un **réseau piéton** inspiré de OSRM centré sur Marseille. 
+**Extrait des noeuds et troncçons de route (OSMnx, profil “personalisé”)**
+:::
 
-```{admonition} À venir
-:class: note
-Le réseau obtenu présente encore quelques imperfections (tronçons isolés, doublons ou intersections manquantes, etc) qu’il ne faut pas négliger pour les analyses de proximité sur le réseau.  
-La prochaine étape consistera donc à **nettoyer et simplifier le réseau** afin de le rendre exploitable pour les calculs de distance et de d'accessiblité piétonne.
-```
+> Le profil personnalisé ajuste leurs filtres OSMnx (walk) et OSMR (foot) pour mieux correspondre à un réseau piéton adapté aux besoins de calcul d’accessibilité.
+

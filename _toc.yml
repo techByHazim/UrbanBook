@@ -1,18 +1,21 @@
 format: jb-book
 root: intro
 parts:
+  - caption: Environnement
+    chapters:
+      - file: 00_Projet/environnement
   # - caption: Projet
   #   chapters:
   #     - file: 00_Projet/objectifs
   #     - file: 00_Projet/questions_recherche
   #     - file: 00_Projet/hypotheses
-  # - caption: Données
-  #   chapters:
-  #     - file: 10_Donnees/catalogue_donnees
-  #     - file: 10_Donnees/dictionnaire_variables
-  #     - file: 10_Donnees/osm_label
-  #     - file: 10_Donnees/osm_overpass
-  #     - file: 10_Donnees/pedestrian_roads
+  - caption: Les équipements urbains
+    chapters:
+      - file: 10_Donnees/catalogue_donnees
+      - file: 10_Donnees/dictionnaire_variables
+      - file: 10_Donnees/osm_label
+      - file: 10_Donnees/osm_overpass
+      # - file: 10_Donnees/pedestrian_roads
   # - caption: Le traitements des données
   #   chapters:
   #     - file: 10_Donnees/donnees_bpe
@@ -23,9 +26,11 @@ parts:
   # - caption: Indicateurs
   - caption: Réseau de route pièton
     chapters:
+      - file: 10_Donnees/reseau-pieton-intro
       - file: 10_Donnees/pedestrian_roads
-      - file: 10_Donnees/simplified_network
-      - file: 10_Donnees/simplified_roads
+      - file: 10_Donnees/automatisation_roads
+      # - file: 10_Donnees/simplified_network
+      # - file: 10_Donnees/simplified_roads
       - file: 10_Donnees/lixelization
   #   chapters:
   #     - file: 20_Indicateurs/specification_PAL
@@ -39,9 +44,8 @@ parts:
   #   chapters:
   #     - file: 40_Experiences/carnet_resultats
   #     - file: 40_Experiences/xp_template
-  - caption: Reproductibilité
+  - caption: Calcul d'indicateur de proximité
     chapters:
-      - file: 50_Reproductibilite/environnement
       - file: 50_Reproductibilite/structure_projet
       - file: 50_Reproductibilite/comment_reproduire
       # - file: 50_Reproductibilite/visualisation

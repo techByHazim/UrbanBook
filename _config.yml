@@ -59,3 +59,13 @@ launch_buttons:
   binderhub_url: ""   # à activer plus tard si j'allèges l'env
   colab_url: ""       # à activer seulement pour des .ipynb ciblés
   thebe: false        # Je garde off (env lourd)
+
+
+sphinx:
+  extra_extensions:
+    - sphinx_design
+  config:
+    myst_enable_extensions:
+      - colon_fence
+
+
