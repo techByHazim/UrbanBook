@@ -29,7 +29,7 @@ parts:
       - file: 10_Donnees/reseau-pieton-intro
       - file: 10_Donnees/pedestrian_roads
       - file: 10_Donnees/automatisation_roads
-      # - file: 10_Donnees/simplified_network
+      - file: 10_Donnees/graph_OSMnx
       # - file: 10_Donnees/simplified_roads
       - file: 10_Donnees/lixelization
   #   chapters:

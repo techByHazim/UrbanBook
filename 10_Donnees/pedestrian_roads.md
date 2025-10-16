@@ -1,12 +1,88 @@
 
-# Extraction du réseau piéton avec OSMnx
+# Extraction du réseau piéton 
 
-**Hypothèse de travail :**
-> *Tout segment de voie praticable à pied appartient au réseau piéton, qu’il soit public ou privé.*
+```{note}
+**Hypothèse de travail :**  
+*Tout segment de voie praticable à pied appartient au réseau piéton, qu’il soit public ou privé.*
+```
 
-## Les outils disponibles
+## Notions de base sur les graphes et leur représentation géométrique
 
-Deux outils majeurs permettent de travailler sur un réseau piéton issu d’OSM :
+Avant d’aborder la construction du réseau piéton à partir d’OpenStreetMap, il est utile de rappeler brièvement quelques notions fondamentales de [**théorie des graphes**](https://fr.wikipedia.org/wiki/Th%C3%A9orie_des_graphes), afin de comprendre ce que représente concrètement un graphe urbain.
+
+### Définition générale
+
+Un **graphe** est un objet mathématique formellement défini comme un couple :
+
+```{math}
+G = (V, E)
+```
+où :
+
+* (V) est l’ensemble des **sommets** (ou *nœuds*),
+* (E) est l’ensemble des **arêtes** reliant ces sommets.
+
+Une arête ( (u, v) \in E ) indique simplement qu’il existe une **connexion** entre les nœuds (u) et (v).
+Le graphe décrit donc la **structure des relations**, sans aucune notion de distance ou de position.
+
+**Exemple simple :**
+
+```{math}
+V = \{A, B, C\}, \quad E = \{(A, B), (B, C)\}
+```
+
+→ (A) est relié à (B), et (B) à (C).
+Cette structure peut se dessiner de multiples façons : le dessin n’a pas de valeur géométrique, seule la **connectivité** compte.
+
+> *Réf. :* Harary, F. (1969). *Graph Theory*. Addison-Wesley.
+
+> *Réf. :* West, D. B. (2001). *Introduction to Graph Theory*. Prentice Hall.
+
+### Graphes orientés et non orientés
+
+Un graphe peut être :
+
+* **Non orienté** : les liens sont symétriques ((A - B \equiv B - A)).
+
+* **Orienté** : chaque lien possède un **sens** ((A \to B)).
+  Typique des réseaux routiers ou des flux dirigés (ex. circulation à sens unique).
+
+En Python, les graphes orientés sont souvent représentés par des objets `DiGraph` ou `MultiDiGraph` (NetworkX / OSMnx).
+
+### Graphes topologiques et géographiques
+
+La **théorie des graphes** est d’abord abstraite : elle décrit *qui relie qui*.
+Mais pour modéliser un réseau urbain, on ajoute une **dimension géométrique** :
+
+* chaque nœud reçoit des **coordonnées** ((x, y)) (longitude, latitude),
+* chaque arête reçoit une **géométrie** (souvent une courbe `LineString`),
+* la distance entre deux nœuds peut alors être mesurée dans l’espace réel.
+
+Ainsi, un **graphe géographique** est un **graphe topologique plongé dans l’espace**.
+Il conserve la logique relationnelle du graphe abstrait, tout en permettant des analyses spatiales : calculs de distance, itinéraires, accessibilité, etc.
+
+> *Réf. :* Boeing, G. (2017). *OSMnx: New methods for acquiring, constructing, analyzing, and visualizing complex street networks.* *Computers, Environment and Urban Systems*, 65, 126–139.
+
+### Application : le réseau piéton
+
+Dans le cadre de cette étude, le graphe représente :
+
+* les **nœuds** : intersections, bifurcations ou extrémités de voies ;
+* les **arêtes** : segments de voie praticables à pied.
+
+Chaque arête possède à la fois :
+
+* une **structure topologique** : connexion entre deux nœuds `u` et `v` ;
+* une **géométrie spatiale** : forme de la voie.
+
+L’analyse du réseau repose donc sur une double lecture :
+
+1. **Topologique** : comprendre la structure du graphe (connectivité, continuité).
+2. **Géographique** : interpréter le graphe dans l’espace réel (distances, tracés, accessibilité, etc.).
+
+## Outils d'extraction du réseau
+
+Deux outils majeurs permettent de travailler sur un réseau piéton issu d’OpenStreetMap :
 
 1. **[OSMnx](https://osmnx.readthedocs.io/en/stable/)**
    → bibliothèque Python pour **télécharger**, **construire** et **analyser** des graphes urbains (piéton, vélo, voiture, etc.).
@@ -16,8 +92,7 @@ Deux outils majeurs permettent de travailler sur un réseau piéton issu d’OSM
 
 Ces outils utilisent des **profils prédéfinis** qui filtrent automatiquement les types de voies selon les modes de déplacement autorisés.
 
-
-## Extraction du réseau piéton avec OSMnx
+## construction du réseau piéton à partir d'OSMnx
 
 OSMnx propose différents types de réseaux :
 `drive` (voitures), `bike` (vélos), `walk` (piétons) ou `all` (toutes voies).
@@ -37,7 +112,10 @@ polygon = cadre.geometry.iloc[0]
 G = ox.graph_from_polygon(polygon, network_type='walk', simplify=True, retain_all=False)
 ```
 
-Le graphe `G` est un **MultiDiGraph** : un graphe **orienté** où plusieurs arêtes peuvent relier les mêmes nœuds (ex. deux sens de circulation).
+Ce code permet d'obtenir le graphe du réseau routier piéton dans notre zone d'analyses.
+Le graphe `G` obtenu est par defaut un **MultiDiGraph** : un graphe **orienté** où plusieurs arêtes peuvent relier les mêmes nœuds (ex. deux sens de circulation).
+
+Les arguments :
 
 * `simplify=True` fusionne les segments redondants entre intersections.
 * `retain_all=False` conserve seulement le **plus grand composant connexe**, assurant la continuité du réseau.
@@ -79,7 +157,6 @@ Est connexe : True
 
 **À retenir :**
 
-* `G` est un **graphe orienté** (chaque arête a un sens) ;
 * Les arêtes possèdent des **attributs** : `oneway`, `length`, `name`, `highway`, `geometry`, etc.
 * `u` = nœud origine, `v` = nœud destination.
 
@@ -90,19 +167,23 @@ On lit d’abord la **structure topologique** (qui relie quoi), puis la **géom�
 
 ### Visualisation du graphe
 
-Le graphe peut etre orienté (tient compte du sens de circulation) ou non orienté :
-
-#### a) Graphe topologique orienté
-
-J'extrais une petite partie du graphe et j'affiche le graphe grace à `nx.draw()`.
+Pour la réprensation du graphe, je ne présente pas le graphe sur toute la zone d'étude (trop grand) mais j'extrais une petite 
+partie pour l'illustration.
 
 ```python
 # Trouver un nœud central
 center_node = list(G.nodes())[len(G)//2]
 
-# Extraire un sous-graphe dans un rayon de 600 m
-subG = ox.truncate.truncate_graph_dist(G, center_node, max_dist=600)
+# Extraire un sous-graphe dans un rayon de 1 km
+subG = ox.truncate.truncate_graph_dist(G, center_node, max_dist=1000)
+```
+Cela permet d'obtenir un sous graphe de rayon 600m centré au milieu de ma zone d'étude. 
 
+#### a) Graphe topologique orienté
+
+Pour tracer le graphe topologique, la fonction `nx.draw()` le fait rapidement.
+
+```python
 plt.figure(figsize=(7,6))
 nx.draw(subG, node_size=20, edge_color='gray', node_color='red')
 plt.show()
@@ -114,11 +195,10 @@ plt.show()
 :alt: Graphe topologique du réseau piéton à Marseille
 :width: 100%
 ```
-
-**Graphe topologique orienté (OSMnx, profil “walk”)**
+**Extrait du Graphe topologique (orienté) (OSMnx, “walk”)**
 :::
 
-Les points rouges représentent les intersections, les traits gris les connexions (avec un sens implicite).
+Les points rouges représentent les intersections, les traits gris les connexions et leurs sens.
 
 #### b) Graphe non orienté
 
@@ -138,15 +218,15 @@ plt.show()
 :alt: Graphe non orienté du réseau piéton à Marseille
 :width: 100%
 ```
-
-**Graphe topologique non orienté (OSMnx, profil “walk”)**
+**Extrait du Graphe topologique (non orienté) (OSMnx, “walk”)**
 :::
 
 Ici, les arêtes ne sont plus directionnelles : elles indiquent simplement qu’une connexion existe entre deux nœuds. 
 
 #### c) Graphe géographique
 
-Pour visualiser le réseau dans l’espace réel, la fonction `ox.plot_graph` permet de le faire. Il prend en compte des coordonnées GPS des nodes et des egdes.
+De la meme manière, on peut representer le grpahe en prenant compte des coordonées GPS des nodes et des egdes.
+La fonction `ox.plot_graph` contient les outils necessaires pour cette tache.
 
 ```python
 fig, ax = plt.subplots(figsize=(9, 20))
@@ -160,13 +240,13 @@ plt.show()
 :alt: Graphe géographique du réseau piéton à Marseille
 :width: 100%
 ```
+**Extrait du Graphe géographique (non orienté) (OSMnx, “walk”)**
+:::
+`ox.plot_graph()` ne trace pas les flèches de direction sur les routes
 
-> Le **graphe géographique** montre les nœuds et arêtes selon leurs **coordonnées GPS**.
-> :::
+### Export du réseau 
 
-### Export du réseau vers QGIS
-
-On peut extraire les nœuds et arêtes du graphe sous forme de GeoDataFrames et les sauvegarder pour un usage SIG.
+On peut extraire les nœuds et arêtes du graphe sous forme de GeoDataFrames.
 
 ```python
 nodes, edges = ox.graph_to_gdfs(G)
@@ -186,12 +266,13 @@ nodes.to_file("marseille_walk_nodes.gpkg", layer="nodes", driver="GPKG")
 **Extrait des arêtes du réseau piéton (OSMnx, mode “walk”)**
 :::
 
-Le réseau obtenu est **géométriquement précis**, mais certaines voies semi-publiques ou internes manquent à cause du filtre “walk”.
-Cela necessite des ajustements manuels ou un profil personnalisé pour améliorer la couverture afin d'obtenrir un réseau piéton complet.
- 
-## Vers un profil piéton personalisé
+> Le réseau obtenu, construit à partir du paramètre `network_type="walk"` dans la fonction `ox.graph_from_polygon`, est **géométriquement cohérent**.
+> Toutefois, il reste **incomplet sur le plan topologique**, car certaines voies semi-publiques ou internes ne sont pas incluses par ce filtre.
+> Une phase d’enrichissement du réseau est donc nécessaire pour garantir la **continuité du maillage piéton**.
 
-### Le profil piéton OSRM `foot.lua`
+## Définition d’un filtre piéton personnalisé
+
+### Profil  piéton OSRM `foot.lua`
 
 Le profil `foot.lua` d’OSRM définit trois listes principales pour construire le réseau piéton : 
 
@@ -212,8 +293,8 @@ En pratique, OSRM inclut une route si elle figure dans la liste `highway` et que
 
 ### Positionnement
 
-Dans une logique d’**accessibilité potentielle**, je m’intéresse à la faisabilité physique de la marche plutôt qu’à la réglementation. Je  construit le réseau piéton à partir d’OpenStreetMap en s’alignant sur le profil `foot.lua` d'OSRM. Concrètement, je reprends la liste des types highway autorisés par `foot.lua`, j’exclus les tronçons interdits aux piétons (foot=no), j'accepte ceux dont l’accès est restreint (access=|private|delivery|agricultural|forestry, etc.), et j’écarte les objets non routables (platform, area=yes).
-
+> Dans une logique d’**accessibilité réelle**, je m’intéresse à ce qu’il est **physiquement possible de parcourir à pied**, indépendamment des restrictions administratives.
+> Le réseau piéton est donc construit à partir d’OpenStreetMap en suivant la logique du profil `foot.lua` d’OSRM : je conserve les types de voies habituellement praticables à pied, j’exclus celles explicitement interdites (`foot=no`), j’inclus les accès restreints mais franchissables (zones privées ou résidentielles), et j’écarte les objets non routables comme les quais ou les surfaces (`platform`, `area=yes`).
 
 | Règle                                            | Décision | Pourquoi                                                                 |
 | ------------------------------------------------ | -------- | ------------------------------------------------------------------------ |
@@ -222,9 +303,9 @@ Dans une logique d’**accessibilité potentielle**, je m’intéresse à la fai
 | Inclure `access=private` et `service=private`    | OK        | Espaces résidentiels/semi-publics                  |
 | Exclure `platform` et `area=yes`                 | OK        | Surfaces non topologiques (quais, places) pour un graphe routable        |
 
-### Implémentation technique (OSMnx)
+**Implémentation technique (OSMnx)**
 
-#### Mon filtre personnalisé 
+**Mon filtre personnalisé** 
 
 ```python
 custom_filter = (
@@ -236,7 +317,7 @@ custom_filter = (
 )
 ```
 
-#### Construction du **graphe** pièton
+**Construction du **graphe** pièton**
 
 **Implementation (extraction du graphe avec OSMnx)**
 
@@ -255,7 +336,7 @@ edges.to_file("marseille_walk_edges.gpkg", driver="GPKG")  # les arcs (tronçons
 nodes.to_file("marseille_walk_nodes.gpkg", driver="GPKG")  # les nœuds (intersections)
 ```
 
-A la fin, j'exporte les `nodes` et `egdes` et je visualise dans QGIS.
+A la fin, j'exporte les `nodes` et `egdes` que je peux visualiser dans QGIS.
 
 ::: {card}
 
@@ -263,10 +344,10 @@ A la fin, j'exporte les `nodes` et `egdes` et je visualise dans QGIS.
 :alt: Extrait du graphe généré.
 :width: 100%
 ```
-
-**Extrait des noeuds et troncçons de route (OSMnx, profil “personalisé”)**
+**Extrait des noeuds et tronçons de route (OSMnx, filtre “personalisé”)**
 :::
 
-> Le profil personnalisé ajuste les filtres OSMnx (walk) et OSMR (foot) pour contruire un réseau piéton adapté au calcul d'indicateur de proximité à l'echelle de la marche à pied.
-> Le reseau obtenu couvre la quasi-totalité des endroits accessibles ou semi-privés, permettant ainsi des calculs à n'importe quel adresse dans une ville.
+> Ce profil personnalisé combine la logique des filtres d’OSMnx et d’OSRM afin de construire un **réseau piéton cohérent avec la marche**.
+> Le réseau obtenu couvre la grande majorité des espaces accessibles, y compris certaines zones semi-privées, ce qui permet de réaliser des calculs d’accessibilité **depuis n’importe quelle adresse de la ville**. Je mets à dispostion dans section suivante, le notebook exploratoire [graph_OSMnx.ipynb](graph_OSMnx.ipynb) qui détaille la structure du graphe.
+
 

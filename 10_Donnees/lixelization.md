@@ -1,10 +1,10 @@
-# Lixelisation du réseau routier
+# Lixelisation et graphe du réseau 
 
-## Objectif  
+## Lixelisation du réseau routier 
 
 Cette étape consiste à **lixeliser le réseau routier**, c’est-à-dire à découper chaque tronçon en petits segments de longueur fixe (*lixels*). Cela permet d’obtenir un réseau régulier, mieux adapté aux calculs de distance, d’accessibilité ou de densité le long des voies.  
 
-## Méthode 1 : Lixelisation via QGIS Processing  
+### Méthode 1 : Lixelisation via QGIS Processing  
 
 Dans une première version, la lixelisation était effectuée directement à l’aide de l’algorithme intégré de QGIS : [`native:splitlinesbylength`](https://docs.qgis.org/3.40/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#split-lines-by-maximum-length) 
 .  
@@ -94,7 +94,7 @@ Cette méthode repose sur le moteur **Processing**, qui exécute les outils géo
 
 Cette approche donne de bons résultats, mais elle dépend d’une installation complète de QGIS et de sa configuration interne, ce qui la rend peu portable.
 
-## Méthode 2 : Lixelisation en Python   
+### Méthode 2 : Lixelisation en Python   
 
 Pour lever cette contrainte, je propose une version **entièrement Python**.  
 J'utilise les bibliothèques **GeoPandas** et **Shapely** pour les opérations géométriques,  
@@ -341,7 +341,7 @@ def lixelize_roads(
 ```
 ````
 
-## Discussion sur les limites du découpage
+### Discussion sur les limites du découpage
 
 Dans cette méthode, chaque tronçon est découpé en segments de longueur fixe, ce qui rend le réseau plus homogène.  
 Mais ce choix n’est pas sans conséquences.  
@@ -356,3 +356,32 @@ Cela introduit une petite hétérogénéité dans le réseau, mais qui reste acc
 Elle s’appuie uniquement sur la distance parcourue le long des lignes, ce qui peut légèrement décaler les points de coupure dans les zones très sinueuses.  
  
 
+## Creation d'un graphe du réseau lixelisé
+
+Pour exploiter le réseau lixelisé dans des analyses d’accessibilité, il est utile de le convertir en un **graphe**.
+Je propose une fonction simple pour créer un graphe NetworkX à partir du GeoDataFrame des lixels.
+
+````{dropdown} Afficher le code Python
+```python
+def create_graph_from_lixels(lixels_gdf):
+    """Create a graph from the lixelized network"""
+    G = nx.Graph()  # ou nx.DiGraph() si orienté
+    for _, row in lixels_gdf.iterrows():
+        line = row["geometry"]
+        start = (line.coords[0][0], line.coords[0][1])
+        end = (line.coords[-1][0], line.coords[-1][1])
+
+        G.add_edge(
+            start,
+            end,
+            length=line.length,
+            lixel_id=row["id"],
+            # geometry=line  
+        )
+    return G
+```
+````
+
+Je prends les lixels et pour chaque segment, j’ajoute une arête entre ses points de début et de fin grâce à la fonction `add_edge` de NetworkX.
+Ensuite, je stocke d'autres informations utiles dans le graphe (ID du lixel, longueur, type de voie,  etc.).
+L’argument `geometry=line` permet de conserver la géométrie du lixel dans le graphe, ce qui est utile pour des analyses spatiales (calculs de distances , visualisation, etc.).
