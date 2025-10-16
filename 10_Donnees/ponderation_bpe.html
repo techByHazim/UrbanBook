@@ -1,0 +1,916 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Pondération des équipements de la BPE &#8212; Proximité urbaine</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '10_Donnees/ponderation_bpe';</script>
+    <link rel="icon" href="../_static/carte.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/carte.png" class="logo__image only-light" alt="Proximité urbaine - Home"/>
+    <script>document.write(`<img src="../_static/carte.png" class="logo__image only-dark" alt="Proximité urbaine - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    UrbanBook
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Environnement</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_Projet/environnement.html">Installation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Les équipements urbains</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="catalogue_donnees.html">Catalogue des données</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dictionnaire_variables.html">Dictionnaire des variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="osm_label.html">Les équipements rétenus dans OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="osm_overpass.html">Extraction et prétraitement des données OSM</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Réseau de route pièton</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="reseau-pieton-intro.html">Construction d’un réseau piéton pour l’analyse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pedestrian_roads.html">Extraction du réseau piéton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automatisation_roads.html">Automatisation du processus d’extraction du réseau</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph_OSMnx.html">Notebook d’exploration du graphe OSMnx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lixelization.html">Lixelisation et graphe du réseau</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Calcul d'indicateur de proximité</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../50_Reproductibilite/structure_projet.html">Structure du projet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../50_Reproductibilite/comment_reproduire.html">Produire les indicateurs de proximité</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook/issues/new?title=Issue%20on%20page%20%2F10_Donnees/ponderation_bpe.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/10_Donnees/ponderation_bpe.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Pondération des équipements de la BPE</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#les-types-de-ponderation">Les types de pondération</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chargement-des-donnees">Chargement des données</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ponderation-intrinseque-des-equipements">Pondération intrinsèque des équipements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attribution-des-poids-aux-equipements">Attribution des poids aux équipements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#poids-intrinseques">Poids intrinsèques</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#poids-extrinseques-variete-environnante">Poids extrinsèques (variété environnante)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sauvegarde-des-donnees-ponderees">Sauvegarde des données pondérées</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="ponderation-des-equipements-de-la-bpe">
+<h1>Pondération des équipements de la BPE<a class="headerlink" href="#ponderation-des-equipements-de-la-bpe" title="Link to this heading">#</a></h1>
+<p>Dans la section précédente, j’ai montré comment filtrer les données de la BPE afin de ne conserver que les équipements associés à une catégorie sociale.
+J’ai également introduit la notion de pondération, qui permet de tenir compte à la fois de l’importance propre des équipements et de la diversité de leur environnement.</p>
+<p>Dans cette partie, je vais montrer comment attribuer des poids aux équipements.</p>
+<section id="les-types-de-ponderation">
+<h2>Les types de pondération<a class="headerlink" href="#les-types-de-ponderation" title="Link to this heading">#</a></h2>
+<p>Deux dimensions de pondération sont considérées :</p>
+<ol class="arabic simple">
+<li><p><strong>Pondération par importance intrinsèque</strong> : chaque type d’équipement reçoit un poids en fonction de son rôle social. Par exemple, un supermarché peut avoir un poids plus élevé qu’une boulangerie.</p></li>
+<li><p><strong>Pondération par variété environnante</strong> : la valeur d’un équipement dépend aussi du contexte. Par exemple, un parc situé près de plusieurs écoles et centres communautaires peut être considéré comme plus précieux qu’un parc isolé.</p></li>
+</ol>
+<p>Pour cela, je vais utiliser des outils d’analyse spatiale en Python, <strong>GeoPandas</strong>, <strong>NumPy</strong> et la classe <strong>BallTree</strong> de <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>, qui permet de gérer les calculs de voisinage.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import bibliothèque </span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">BallTree</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="chargement-des-donnees">
+<h2>Chargement des données<a class="headerlink" href="#chargement-des-donnees" title="Link to this heading">#</a></h2>
+<p>Je commence par recharger les données de la <strong>BPE (2023)</strong> que j’ai sauvegardées lors du prétraitement dans la section précédente.
+À ce stade, le fichier contient uniquement les équipements filtrés selon leur qualité de géolocalisation et regroupés par grandes catégories sociales (santé, éducation, commerce, etc.).</p>
+<p>Pour la suite de la démonstration, je vais m’appuyer sur l’exemple du domaine <strong>santé</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data_path</span> <span class="o">=</span> <span class="s2">&quot;../../proxy/data/processed/b3_2501171030_health_mrs.gpkg&quot;</span> 
+<span class="c1"># Chargement des données de la BPE (points)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span>
+<span class="c1"># Affichage des premières lignes du GeoDataFrame</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>TYPEQU</th>
+      <th>cat</th>
+      <th>wi</th>
+      <th>wecat</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>D201</td>
+      <td>health</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>POINT (901648.360 6253959.190)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>D201</td>
+      <td>health</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>POINT (901650.000 6253850.000)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>D201</td>
+      <td>health</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>POINT (901387.000 6251711.700)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>D201</td>
+      <td>health</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>POINT (901236.730 6251635.020)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>D201</td>
+      <td>health</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>POINT (901244.210 6251911.890)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="ponderation-intrinseque-des-equipements">
+<h2>Pondération intrinsèque des équipements<a class="headerlink" href="#ponderation-intrinseque-des-equipements" title="Link to this heading">#</a></h2>
+<p>L’objectif est d’associer à chaque type d’équipement un poids numérique, reflétant son importance sociale.
+Ces poids sont définis de manière subjective, en fonction du rôle joué par l’équipement dans la vie quotidienne.</p>
+<p>Pour illustrer la démarche, je reprends l’exemple du domaine <strong>santé</strong> et je construis un dictionnaire où les clés correspondent aux types d’équipements et les valeurs aux poids attribués.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">poids_health</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;D108&#39;</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span> <span class="c1"># CENTRE DE SANTÉ</span>
+    <span class="s1">&#39;D113&#39;</span><span class="p">:</span> <span class="mf">2.0</span><span class="p">,</span> <span class="c1"># MAISON DE SANTÉ PLURIDISCIPLINAIRE</span>
+    <span class="s1">&#39;D201&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="c1"># MÉDECIN GÉNÉRALISTE</span>
+    <span class="s1">&#39;D233&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="c1"># MASSEUR KINÉSITHÉRAPEUTE</span>
+    <span class="s1">&#39;D302&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="c1"># LABORATOIRE D&#39;ANALYSES ET DE BIOLOGIE MÉDICALE</span>
+    <span class="s1">&#39;D307&#39;</span><span class="p">:</span> <span class="mf">3.0</span><span class="p">,</span> <span class="c1"># PHARMACIE</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="attribution-des-poids-aux-equipements">
+<h2>Attribution des poids aux équipements<a class="headerlink" href="#attribution-des-poids-aux-equipements" title="Link to this heading">#</a></h2>
+<section id="poids-intrinseques">
+<h3>Poids intrinsèques<a class="headerlink" href="#poids-intrinseques" title="Link to this heading">#</a></h3>
+<p>La colonne <code class="docutils literal notranslate"><span class="pre">wi</span></code> est complétée automatiquement à partir du dictionnaire : chaque équipement reçoit son poids, et ceux non définis prennent la valeur <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fonction pour obtenir le poids en fonction de TYPEQU</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_weight</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;TYPEQU&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">poids_health</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">poids_health</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;TYPEQU&#39;</span><span class="p">]]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>  <span class="c1"># Valeur par défaut si TYPEQU n&#39;est pas trouvé</span>
+
+<span class="c1"># Application de la fonction pour remplir la colonne `wi`</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;wi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_weight</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Affichage des premières lignes pour vérifier les poids attribués</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>TYPEQU</th>
+      <th>cat</th>
+      <th>wi</th>
+      <th>wecat</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>D201</td>
+      <td>health</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>POINT (901648.360 6253959.190)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>D201</td>
+      <td>health</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>POINT (901650.000 6253850.000)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>D201</td>
+      <td>health</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>POINT (901387.000 6251711.700)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>D201</td>
+      <td>health</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>POINT (901236.730 6251635.020)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>D201</td>
+      <td>health</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>POINT (901244.210 6251911.890)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;cat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([&#39;health&#39;], dtype=object)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="poids-extrinseques-variete-environnante">
+<h3>Poids extrinsèques (variété environnante)<a class="headerlink" href="#poids-extrinseques-variete-environnante" title="Link to this heading">#</a></h3>
+<p>La colonne <code class="docutils literal notranslate"><span class="pre">wecat</span></code> dépend de la diversité des équipements autour de chaque point.
+Concrètement, je regarde combien de types différents se trouvent dans un certain rayon (un paramètre que je choisis). Plus la variété est grande, plus le poids augmente.
+Pour faire ce calcul rapidement, j’utilise <code class="docutils literal notranslate"><span class="pre">BallTree</span></code> de <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code>, qui permet de trouver efficacement les voisins dans ce rayon.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Construction de l&#39;arbre spatial avec BallTree</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">data</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">y</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">BallTree</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;euclidean&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Je ne compte pas l&#39;equipement principal, il a dejà un poids intrinsèque</span>
+
+<span class="n">rayon</span> <span class="o">=</span> <span class="mf">50.0</span> <span class="c1"># Rayon pour calculer la diversité</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">wecat</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">point</span><span class="p">,</span> <span class="n">typequ</span><span class="p">,</span> <span class="n">radius</span> <span class="o">=</span> <span class="n">rayon</span><span class="p">):</span> 
+
+    <span class="n">indices</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">query_radius</span><span class="p">([</span><span class="n">point</span><span class="p">],</span> <span class="n">r</span><span class="o">=</span><span class="n">radius</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="n">neighboors</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+    <span class="n">types_diff</span> <span class="o">=</span> <span class="n">neighboors</span><span class="p">[</span><span class="s1">&#39;TYPEQU&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    
+    <span class="n">types_diff</span> <span class="o">=</span> <span class="n">types_diff</span><span class="p">[</span><span class="n">types_diff</span> <span class="o">!=</span> <span class="n">typequ</span><span class="p">]</span>
+    
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">types_diff</span><span class="p">)</span> <span class="c1">#+ 1 pour compter l&#39;equipement principale</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># calcul et Ajout des poids extrasinque dans les données</span>
+<span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s1">&#39;wecat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">wecat</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="p">[</span><span class="n">row</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">y</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;TYPEQU&#39;</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Affichage pour verif</span>
+<span class="n">data</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>TYPEQU</th>
+      <th>cat</th>
+      <th>wi</th>
+      <th>wecat</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>4665</th>
+      <td>D307</td>
+      <td>health</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>POINT (887533.550 6254087.900)</td>
+    </tr>
+    <tr>
+      <th>4666</th>
+      <td>D307</td>
+      <td>health</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>POINT (889993.590 6253679.560)</td>
+    </tr>
+    <tr>
+      <th>4667</th>
+      <td>D307</td>
+      <td>health</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>POINT (888278.580 6254291.320)</td>
+    </tr>
+    <tr>
+      <th>4668</th>
+      <td>D307</td>
+      <td>health</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>POINT (889128.080 6253952.660)</td>
+    </tr>
+    <tr>
+      <th>4669</th>
+      <td>D307</td>
+      <td>health</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>POINT (889005.540 6254025.890)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+<section id="sauvegarde-des-donnees-ponderees">
+<h2>Sauvegarde des données pondérées<a class="headerlink" href="#sauvegarde-des-donnees-ponderees" title="Link to this heading">#</a></h2>
+<p>Les données, désormais enrichies avec les poids, sont sauvegardées dans un nouveau fichier GeoPackage afin de pouvoir être réutilisées dans les analyses suivantes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;../../proxy/data/processed/b3_2501171030_health_mrs_50.gpkg&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<p>Dans cette section, j’ai présenté la démarche de pondération des équipements.
+D’abord, chaque équipement a reçu un <strong>poids intrinsèque</strong>, en fonction de son importance sociale. Ensuite, j’ai ajouté un <strong>poids extrinsèque</strong>, basé sur la diversité des équipements présents dans son voisinage.</p>
+<p>Le résultat est un GeoDataFrame enrichi et sauvegardé dans un fichier GeoPackage.
+Cette base pondérée constitue un point d’appui pour la suite du travail, et sera utilisée dans le calcul des indices de proximité dans les prochaines sections.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./10_Donnees"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#les-types-de-ponderation">Les types de pondération</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chargement-des-donnees">Chargement des données</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ponderation-intrinseque-des-equipements">Pondération intrinsèque des équipements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attribution-des-poids-aux-equipements">Attribution des poids aux équipements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#poids-intrinseques">Poids intrinsèques</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#poids-extrinseques-variete-environnante">Poids extrinsèques (variété environnante)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sauvegarde-des-donnees-ponderees">Sauvegarde des données pondérées</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By M. Hazim (CINaM/CNRS/AMU)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="font-size:0.9rem; line-height:1.4; margin-top:0.5rem;">
+  Contact : <a href="mailto:moindze-boina.hazim@cnrs.fr">moindze-boina.hazim@cnrs.fr</a>
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

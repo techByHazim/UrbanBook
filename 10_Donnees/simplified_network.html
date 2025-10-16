@@ -1,0 +1,719 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Traitement du réseau routier &#8212; Proximité urbaine</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '10_Donnees/simplified_network';</script>
+    <link rel="icon" href="../_static/carte.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/carte.png" class="logo__image only-light" alt="Proximité urbaine - Home"/>
+    <script>document.write(`<img src="../_static/carte.png" class="logo__image only-dark" alt="Proximité urbaine - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    UrbanBook
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Environnement</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_Projet/environnement.html">Installation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Les équipements urbains</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="catalogue_donnees.html">Catalogue des données</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dictionnaire_variables.html">Dictionnaire des variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="osm_label.html">Les équipements rétenus dans OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="osm_overpass.html">Extraction et prétraitement des données OSM</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Réseau de route pièton</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="reseau-pieton-intro.html">Construction d’un réseau piéton pour l’analyse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pedestrian_roads.html">Extraction du réseau piéton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automatisation_roads.html">Automatisation du processus d’extraction du réseau</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph_OSMnx.html">Notebook d’exploration du graphe OSMnx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lixelization.html">Lixelisation et graphe du réseau</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Calcul d'indicateur de proximité</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../50_Reproductibilite/structure_projet.html">Structure du projet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../50_Reproductibilite/comment_reproduire.html">Produire les indicateurs de proximité</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook/issues/new?title=Issue%20on%20page%20%2F10_Donnees/simplified_network.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/10_Donnees/simplified_network.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Traitement du réseau routier</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-des-geometries">Validation des géométries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extraction-des-lignes">Extraction des lignes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexation-spatiale">Indexation spatiale</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detection-des-intersections">Détection des intersections</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regles-principales">Règles principales</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decoupage-des-lignes">Découpage des lignes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#details-techniques">Détails techniques</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#suppression-des-doublons">Suppression des doublons</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sauvegarde-du-reseau-traite">Sauvegarde du réseau traité</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#illustration-avant-apres">Illustration avant / après</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-sur-les-limites-du-traitement">Discussion sur les limites du traitement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="traitement-du-reseau-routier">
+<h1>Traitement du réseau routier<a class="headerlink" href="#traitement-du-reseau-routier" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Comme je l’ai évoqué dans la section précédente, le réseau OSM n’est pas toujours cohérent avec la réalité du terrain. Certaines routes sont incomplètes, d’autres se superposent ou ne sont pas connectées correctement.</p>
+<p>Avant de pouvoir l’utiliser pour des analyses (par exemple pour construire un graphe piéton cohérent). Il faut donc nettoyer et corriger le réseau afin d’en éliminer les incohérences.</p>
+<p>Voici la suite du pipeline de traitement que j’ai mis en place :</p>
+<figure class="align-center" id="fig-extraction-reseau-pieton">
+<a class="reference internal image-reference" href="../_images/traitement_roads.png"><img alt="Schéma des étapes principales d’extraction du réseau piéton" src="../_images/traitement_roads.png" style="width: 80%;" />
+</a>
+</figure>
+</section>
+<section id="validation-des-geometries">
+<h2>Validation des géométries<a class="headerlink" href="#validation-des-geometries" title="Link to this heading">#</a></h2>
+<p><strong>Idée :</strong>
+Avant tout traitement, je m’assure que les géométries soient valides.</p>
+<p><strong>Pseudo-code :</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pour</span> <span class="n">chaque</span> <span class="n">géométrie</span> <span class="p">:</span>
+    <span class="n">si</span> <span class="n">géométrie</span> <span class="n">est</span> <span class="n">vide</span> <span class="n">OU</span> <span class="n">invalide</span> <span class="p">:</span>
+        <span class="n">supprimer</span>
+    <span class="n">sinon</span> <span class="p">:</span>
+        <span class="n">conserver</span>
+</pre></div>
+</div>
+<p>Cela permet d’éviter que des objets corrompus fassent planter les étapes suivantes.</p>
+</section>
+<section id="extraction-des-lignes">
+<h2>Extraction des lignes<a class="headerlink" href="#extraction-des-lignes" title="Link to this heading">#</a></h2>
+<p><strong>Idée :</strong>
+OSM peut contenir des <code class="docutils literal notranslate"><span class="pre">LineString</span></code> (simple) ou des <code class="docutils literal notranslate"><span class="pre">MultiLineString</span></code> (plusieurs segments regroupés).
+On transforme tout en une liste de lignes simples.</p>
+<p><strong>Pseudo-code :</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lignes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">pour</span> <span class="n">chaque</span> <span class="n">géométrie</span> <span class="n">dans</span> <span class="n">le</span> <span class="n">réseau</span> <span class="p">:</span>
+    <span class="n">si</span> <span class="n">LineString</span> <span class="p">:</span>
+        <span class="n">ajouter</span> <span class="n">directement</span>
+    <span class="n">si</span> <span class="n">MultiLineString</span> <span class="p">:</span>
+        <span class="n">découper</span> <span class="n">en</span> <span class="n">plusieurs</span> <span class="n">LineString</span> <span class="n">et</span> <span class="n">les</span> <span class="n">ajouter</span>
+</pre></div>
+</div>
+</section>
+<section id="indexation-spatiale">
+<h2>Indexation spatiale<a class="headerlink" href="#indexation-spatiale" title="Link to this heading">#</a></h2>
+<p><strong>Idée :</strong>
+Pour éviter de comparer toutes les lignes entre elles (coût énorme), j’utilise un <strong>index spatial (R-tree)</strong> qui permet de trouver rapidement les candidates à une intersection.</p>
+<p><strong>Pseudo-code :</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>créer index R-tree
+pour chaque ligne :
+    insérer sa bounding box dans l’index
+</pre></div>
+</div>
+</section>
+<section id="detection-des-intersections">
+<h2>Détection des intersections<a class="headerlink" href="#detection-des-intersections" title="Link to this heading">#</a></h2>
+<p>C’est l’étape la plus délicate.
+On parcourt chaque paire de lignes <strong>potentiellement en intersection</strong> (détectée via l’index spatial), puis on applique des règles.</p>
+<section id="regles-principales">
+<h3>Règles principales<a class="headerlink" href="#regles-principales" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Si les lignes se croisent au <strong>milieu</strong>, elles ne sont connectées que si :</p>
+<ul>
+<li><p>leurs <code class="docutils literal notranslate"><span class="pre">layer</span></code> sont compatibles (ex : 0 et 0, 1 et 1 ou -2 et -2, etc.).</p></li>
+<li><p>ni tunnel/ni pont incohérent.</p></li>
+</ul>
+</li>
+<li><p>Si elles se rejoignent à une <strong>extrémité</strong> :</p>
+<ul>
+<li><p>intersection acceptée même si les <code class="docutils literal notranslate"><span class="pre">layer</span></code> diffèrent légèrement (<code class="docutils literal notranslate"><span class="pre">tolérance</span> <span class="pre">=</span> <span class="pre">±1</span></code>).</p></li>
+</ul>
+</li>
+<li><p>Cas particuliers :</p>
+<ul>
+<li><p><strong>Escaliers (<code class="docutils literal notranslate"><span class="pre">steps</span></code>)</strong> → toujours connectés.</p></li>
+<li><p><strong>Ponts vs tunnels</strong> → jamais connectés sauf aux extrémités.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Pseudo-code :</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pour chaque paire de lignes (i, j) candidate :
+    calculer intersection géométrique
+    
+    si aucune intersection :
+        passer
+    
+    si intersection est un point :
+        vérifier règles :
+            - si escaliers → accepter
+            - si intersection à une extrémité ET layers compatibles → accepter
+            - si intersection au milieu ET layers strictement égaux → accepter
+            - sinon → ignorer
+        ajouter point si accepté
+</pre></div>
+</div>
+</section>
+</section>
+<section id="decoupage-des-lignes">
+<h2>Découpage des lignes<a class="headerlink" href="#decoupage-des-lignes" title="Link to this heading">#</a></h2>
+<p>Une fois les intersections identifiées, on <strong>découpe les lignes</strong> aux points de croisement.
+Cela permet de représenter correctement les nœuds dans un futur graphe.</p>
+<section id="details-techniques">
+<h3>Détails techniques<a class="headerlink" href="#details-techniques" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Avant de couper, on <strong>“snap”</strong> les lignes aux points proches pour éviter des erreurs numériques (tolérance très petite : <code class="docutils literal notranslate"><span class="pre">1e-7</span></code>).</p></li>
+<li><p>Chaque segment hérite des attributs de la ligne d’origine (<code class="docutils literal notranslate"><span class="pre">osm_id</span></code>, <code class="docutils literal notranslate"><span class="pre">highway</span></code>, etc.).</p></li>
+</ul>
+<p><strong>Pseudo-code :</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>pour chaque ligne :
+    chercher les points d’intersection proches (via index de points)
+    si intersections :
+        snap la ligne sur ces points
+        découper la ligne en plusieurs segments
+        conserver chaque segment avec attributs
+    sinon :
+        conserver ligne telle quelle
+</pre></div>
+</div>
+</section>
+</section>
+<section id="suppression-des-doublons">
+<h2>Suppression des doublons<a class="headerlink" href="#suppression-des-doublons" title="Link to this heading">#</a></h2>
+<p>Certaines lignes sont parfaitement superposées (mêmes coordonnées).
+On les supprime pour éviter de compter deux fois la même route.</p>
+<p><strong>Pseudo-code :</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">convertir</span> <span class="n">chaque</span> <span class="n">géométrie</span> <span class="n">en</span> <span class="n">WKB</span> <span class="p">(</span><span class="n">représentation</span> <span class="n">binaire</span> <span class="n">unique</span><span class="p">)</span>
+<span class="n">supprimer</span> <span class="n">doublons</span>
+</pre></div>
+</div>
+</section>
+<section id="sauvegarde-du-reseau-traite">
+<h2>Sauvegarde du réseau traité<a class="headerlink" href="#sauvegarde-du-reseau-traite" title="Link to this heading">#</a></h2>
+<p>On obtient un <strong>GeoDataFrame</strong> :</p>
+<ul class="simple">
+<li><p>geom valide,</p></li>
+<li><p>découpé,</p></li>
+<li><p>nettoyé,</p></li>
+<li><p>sans doublons.</p></li>
+</ul>
+<p>Il est sauvegardé au format <strong>GeoPackage</strong>.</p>
+</section>
+<section id="illustration-avant-apres">
+<h2>Illustration avant / après<a class="headerlink" href="#illustration-avant-apres" title="Link to this heading">#</a></h2>
+<p>Une comparaison graphique permet de voir l’impact du traitement (Visualisation sous QGIS).</p>
+</section>
+<section id="discussion-sur-les-limites-du-traitement">
+<h2>Discussion sur les limites du traitement<a class="headerlink" href="#discussion-sur-les-limites-du-traitement" title="Link to this heading">#</a></h2>
+<p>Certaines décisions que j’ai prises ont permis de simplifier le traitement, mais elles ont aussi leurs limites. Voici les principaux points que je garde en tête :</p>
+<ul class="simple">
+<li><p><strong>Géométries isolées</strong> : il reste quelques lignes qui ne sont connectées à rien, souvent des chemins piétons indépendants. Il faudra voir si ces segments doivent être conservés ou supprimés.</p></li>
+<li><p><strong>Seuils fixes</strong> : j’ai utilisé une tolérance très faible (<code class="docutils literal notranslate"><span class="pre">1e-7</span></code>) et un buffer constant (<code class="docutils literal notranslate"><span class="pre">0.001</span></code>) pour être précis. Avec le recul, ces valeurs sont peut-être un peu trop strictes et peuvent empêcher la reconnexion de lignes presque jointes. Une tolérance ajustée selon la densité du réseau serait peu etre plus adaptée.</p></li>
+<li><p><strong>Couches (<code class="docutils literal notranslate"><span class="pre">layer</span></code>)</strong> : pour gérer les intersections, j’ai appliqué une règle simple de compatibilité (±1). C’est efficace pour éviter les erreurs, mais ça passe à côté de certains croisements valides sur plusieurs niveaux.</p></li>
+<li><p><strong>Cas particuliers</strong> : j’ai choisi de toujours connecter les <code class="docutils literal notranslate"><span class="pre">steps</span></code>, pour garantir la continuité du graphe piéton. C’est pratique, mais ça peut créer des connexions verticales un peu irréalistes (escaliers, rampes, etc.).</p></li>
+<li><p><strong>Attributs OSM</strong> : après le découpage, chaque segment garde les attributs du tronçon d’origine. C’est simple et lisible, mais ça ne préserve pas toujours la cohérence des champs si on fusionne ou réutilise le réseau plus tard.</p></li>
+<li><p><strong>Performance</strong> : l’index spatial (<code class="docutils literal notranslate"><span class="pre">R-tree</span></code>) m’a permis de réduire les temps de calcul, mais ça reste lent dans les zones très denses. À terme, il faudrait sans doute envisager une approche par tuiles ou du calcul parallèle.</p></li>
+</ul>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<p>Cette étape m’a permis de rendre le réseau OSM beaucoup plus cohérent et exploitable, même si tout n’est pas parfait.
+J’ai réussi à corriger une grande partie des incohérences géométriques, à identifier les vrais points d’intersection et à découper les tronçons.
+Il reste encore des cas particuliers à améliorer mais la base obtenue est déjà solide pour construire un graphe piéton fiable et poursuivre les analyses.</p>
+<blockquote>
+<div><p>Le réseau obtenu constitue la base pour construire un graphe piéton cohérent.
+Le notebook détaillé permettant de réaliser ce nettoyage est présenté dans la section suivante : <a class="reference internal" href="simplified_roads.html"><span class="doc std std-doc"><em>Nettoyage et simplification du réseau piéton</em></span></a>.</p>
+</div></blockquote>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./10_Donnees"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-des-geometries">Validation des géométries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extraction-des-lignes">Extraction des lignes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexation-spatiale">Indexation spatiale</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detection-des-intersections">Détection des intersections</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regles-principales">Règles principales</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decoupage-des-lignes">Découpage des lignes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#details-techniques">Détails techniques</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#suppression-des-doublons">Suppression des doublons</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sauvegarde-du-reseau-traite">Sauvegarde du réseau traité</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#illustration-avant-apres">Illustration avant / après</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-sur-les-limites-du-traitement">Discussion sur les limites du traitement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By M. Hazim (CINaM/CNRS/AMU)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="font-size:0.9rem; line-height:1.4; margin-top:0.5rem;">
+  Contact : <a href="mailto:moindze-boina.hazim@cnrs.fr">moindze-boina.hazim@cnrs.fr</a>
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

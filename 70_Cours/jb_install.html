@@ -1,0 +1,1163 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Déploiement d’un Jupyter Book avec GitHub Pages &#8212; Proximité urbaine</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '70_Cours/jb_install';</script>
+    <link rel="icon" href="../_static/carte.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/carte.png" class="logo__image only-light" alt="Proximité urbaine - Home"/>
+    <script>document.write(`<img src="../_static/carte.png" class="logo__image only-dark" alt="Proximité urbaine - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    UrbanBook
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Environnement</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_Projet/environnement.html">Installation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Les équipements urbains</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/catalogue_donnees.html">Catalogue des données</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/dictionnaire_variables.html">Dictionnaire des variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/osm_label.html">Les équipements rétenus dans OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/osm_overpass.html">Extraction et prétraitement des données OSM</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Réseau de route pièton</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/reseau-pieton-intro.html">Construction d’un réseau piéton pour l’analyse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/pedestrian_roads.html">Extraction du réseau piéton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/automatisation_roads.html">Automatisation du processus d’extraction du réseau</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/graph_OSMnx.html">Notebook d’exploration du graphe OSMnx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/lixelization.html">Lixelisation et graphe du réseau</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Calcul d'indicateur de proximité</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../50_Reproductibilite/structure_projet.html">Structure du projet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../50_Reproductibilite/comment_reproduire.html">Produire les indicateurs de proximité</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook/issues/new?title=Issue%20on%20page%20%2F70_Cours/jb_install.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/70_Cours/jb_install.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Déploiement d’un Jupyter Book avec GitHub Pages</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Déploiement d’un Jupyter Book avec GitHub Pages</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparer-le-projet">Préparer le projet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initialiser-github">Initialiser GitHub</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurer-jupyter-book">Configurer Jupyter Book</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ajouter-le-workflow-github-actions">Ajouter le workflow GitHub Actions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#activer-github-pages">Activer GitHub Pages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#routine-de-travail">Routine de travail</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-dun-reseau-pieton">Construction d’un réseau piéton</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectif">Objectif</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#telechargement-des-donnees-osm">Téléchargement des données OSM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definir-ce-quest-un-chemin-pieton">Définir ce qu’est un chemin piéton</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#premiers-tests-osmnx-et-bdtopo">Premiers tests : OSMnx et BDTOPO</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspiration-le-profil-pieton-dosrm">Inspiration : le profil <em>piéton</em> d’OSRM</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extraction-avec-osmium">Extraction avec Osmium</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etapes-principales">Étapes principales</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtrage-spatial-sur-marseille">Filtrage spatial sur Marseille</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="deploiement-dun-jupyter-book-avec-github-pages">
+<h1>Déploiement d’un Jupyter Book avec GitHub Pages<a class="headerlink" href="#deploiement-dun-jupyter-book-avec-github-pages" title="Link to this heading">#</a></h1>
+<section id="preparer-le-projet">
+<h2>Préparer le projet<a class="headerlink" href="#preparer-le-projet" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>J’ai mon dossier <strong>UrbanBook</strong> avec :</p>
+<ul>
+<li><p>fichiers <code class="docutils literal notranslate"><span class="pre">.md</span></code> (notes) et <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> (notebooks avec sorties exécutées)</p></li>
+<li><p>fichiers de config : <code class="docutils literal notranslate"><span class="pre">_config.yml</span></code>, <code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code></p></li>
+<li><p>un dossier <code class="docutils literal notranslate"><span class="pre">images/</span></code> pour les logos et illustrations</p></li>
+</ul>
+</li>
+<li><p>J’ajouter un fichier <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> pour exclure <code class="docutils literal notranslate"><span class="pre">_build/</span></code>, <code class="docutils literal notranslate"><span class="pre">__pycache__/</span></code>, etc.</p></li>
+</ul>
+</section>
+<section id="initialiser-github">
+<h2>Initialiser GitHub<a class="headerlink" href="#initialiser-github" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>Je crée un repo sur GitHub → <strong>UrbanBook</strong> (public pour que le site soit visible).</p></li>
+<li><p>Je lis mon projet local :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>init
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/techByHazim/UrbanBook.git
+git<span class="w"> </span>branch<span class="w"> </span>-M<span class="w"> </span>main
+git<span class="w"> </span>push<span class="w"> </span>--set-upstream<span class="w"> </span>origin<span class="w"> </span>main
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="configurer-jupyter-book">
+<h2>Configurer Jupyter Book<a class="headerlink" href="#configurer-jupyter-book" title="Link to this heading">#</a></h2>
+<p>Dans <code class="docutils literal notranslate"><span class="pre">_config.yml</span></code> :</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Proximité urbaine</span>
+<span class="nt">author</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Hazim Moindze</span>
+<span class="nt">logo</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">images/carte.png</span>
+<span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fr</span>
+
+<span class="nt">execute</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">execute_notebooks</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;off&quot;</span><span class="w">   </span><span class="c1"># GitHub n’exécute pas mon code</span>
+</pre></div>
+</div>
+<p>Les notebooks doivent être <strong>exécutés localement</strong> et sauvegardés avec leurs sorties.</p>
+</section>
+<section id="ajouter-le-workflow-github-actions">
+<h2>Ajouter le workflow GitHub Actions<a class="headerlink" href="#ajouter-le-workflow-github-actions" title="Link to this heading">#</a></h2>
+<p>Dans <code class="docutils literal notranslate"><span class="pre">.github/workflows/deploy-book.yml</span></code> :</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy Jupyter Book</span>
+
+<span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">build</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v3</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up Python</span>
+<span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v4</span>
+<span class="w">      </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.10&#39;</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install Jupyter Book</span>
+<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install jupyter-book ghp-import</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build the book</span>
+<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jupyter-book build .</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy to GitHub Pages</span>
+<span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ghp-import -n -p -f _build/html</span>
+</pre></div>
+</div>
+</section>
+<section id="activer-github-pages">
+<h2>Activer GitHub Pages<a class="headerlink" href="#activer-github-pages" title="Link to this heading">#</a></h2>
+<ul>
+<li><p>Aller dans <strong>Settings &gt; Pages</strong></p></li>
+<li><p>Choisir :</p>
+<ul class="simple">
+<li><p><strong>Source</strong> → <code class="docutils literal notranslate"><span class="pre">Deploy</span> <span class="pre">from</span> <span class="pre">a</span> <span class="pre">branch</span></code></p></li>
+<li><p><strong>Branch</strong> → <code class="docutils literal notranslate"><span class="pre">gh-pages</span></code></p></li>
+</ul>
+</li>
+<li><p>Le site sera disponible à :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">techByHazim</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">UrbanBook</span><span class="o">/</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="routine-de-travail">
+<h2>Routine de travail<a class="headerlink" href="#routine-de-travail" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Je modifie mes <code class="docutils literal notranslate"><span class="pre">.md</span></code> ou <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> localement.</p></li>
+<li><p>J’exécutes mes notebooks localement (pour avoir les sorties).</p></li>
+<li><p>Je sauvegarde et pushe :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Mise à jour&quot;</span>
+git<span class="w"> </span>push
+</pre></div>
+</div>
+</li>
+<li><p>GitHub Actions rebuild et publie le site automatiquement</p></li>
+</ol>
+<p>Résultat :</p>
+<ul class="simple">
+<li><p>Je travaille <strong>localement</strong> (avec mes bibliothèques installées).</p></li>
+<li><p>GitHub ne fait que <strong>mettre en ligne</strong> ce que j’ai produit → pas d’erreurs pandas/numpy.</p></li>
+<li><p>Chaque <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code> = nouvelle version du site.</p></li>
+</ul>
+<p>Pour supprimer un dossier suivi par Git</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>ggit<span class="w"> </span>rm<span class="w"> </span>-r<span class="w"> </span>--cached<span class="w"> </span>.history
+</pre></div>
+</div>
+</section>
+</section>
+<section id="construction-dun-reseau-pieton">
+<h1>Construction d’un réseau piéton<a class="headerlink" href="#construction-dun-reseau-pieton" title="Link to this heading">#</a></h1>
+<section id="objectif">
+<h2>Objectif<a class="headerlink" href="#objectif" title="Link to this heading">#</a></h2>
+<p>L’objectif est de construire un <strong>réseau piéton cohérent</strong> pour analyser l’accessibilité à l’échelle de la marche.</p>
+<p>À ce jour, je n’ai trouvé aucune base ouverte complète regroupant l’ensemble du réseau piéton de Marseille.
+Les sources disponibles présentent des lacunes et des incohérences :</p>
+<ul class="simple">
+<li><p>routes mal classifiées,</p></li>
+<li><p>trottoirs manquants,</p></li>
+<li><p>escaliers ou passages oubliés,</p></li>
+<li><p>tronçons partagés (voiture, vélo, piéton) difficiles à interpréter.</p></li>
+</ul>
+<p>Cette section détaille ma démarche pour reconstruire un réseau praticable à pied, à partir des données <strong>OpenStreetMap (OSM)</strong>.</p>
+</section>
+<section id="telechargement-des-donnees-osm">
+<h2>Téléchargement des données OSM<a class="headerlink" href="#telechargement-des-donnees-osm" title="Link to this heading">#</a></h2>
+<p>Les données <strong>OpenStreetMap</strong> sont libres et collaboratives : des contributeurs enrichissent continuellement la base en ajoutant routes, bâtiments, équipements, etc.</p>
+<p>Le <strong>25 mai 2025</strong>, j’ai téléchargé le fichier <strong><code class="docutils literal notranslate"><span class="pre">.pbf</span></code></strong> de la région Provence-Alpes-Côte d’Azur via <strong><a class="reference external" href="https://download.geofabrik.de/europe/france.html">Geofabrik</a></strong>.
+Ce fichier contient l’ensemble des données OSM de la région, y compris le réseau routier.</p>
+</section>
+<section id="definir-ce-quest-un-chemin-pieton">
+<h2>Définir ce qu’est un chemin piéton<a class="headerlink" href="#definir-ce-quest-un-chemin-pieton" title="Link to this heading">#</a></h2>
+<p>Ma question était :</p>
+<blockquote>
+<div><p><em>Qu’est-ce qu’un “chemin piéton”, et comment le filtrer correctement ?</em></p>
+</div></blockquote>
+<section id="premiers-tests-osmnx-et-bdtopo">
+<h3>Premiers tests : OSMnx et BDTOPO<a class="headerlink" href="#premiers-tests-osmnx-et-bdtopo" title="Link to this heading">#</a></h3>
+<p>J’ai d’abord testé <strong><a class="reference external" href="https://osmnx.readthedocs.io/en/stable/">OSMnx</a></strong> pour extraire le réseau piéton :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">osmnx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ox</span>
+
+<span class="n">G</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph_from_place</span><span class="p">(</span><span class="s2">&quot;Marseille, France&quot;</span><span class="p">,</span> <span class="n">network_type</span><span class="o">=</span><span class="s2">&quot;walk&quot;</span><span class="p">)</span>
+<span class="n">nodes</span><span class="p">,</span> <span class="n">edges</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph_to_gdfs</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="n">edges</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;marseille_walk_edges.gpkg&quot;</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;edges&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>
+<span class="n">nodes</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;marseille_walk_nodes.gpkg&quot;</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;nodes&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Mais le mode <code class="docutils literal notranslate"><span class="pre">walk</span></code> s’est révélé trop <strong>approximatif</strong> :</p>
+<ul class="simple">
+<li><p>certaines routes principales étaient incluses,</p></li>
+<li><p>des escaliers ou petits chemins manquaient,</p></li>
+<li><p>et de nombreux tronçons ne correspondaient pas à la réalité du terrain.</p></li>
+</ul>
+<p>J’ai ensuite testé le réseau de l’<strong><a class="reference external" href="https://geoservices.ign.fr/route500">IGN - BDTOPO</a></strong>.<br />
+Les géométries y sont plus précises, mais la base est <strong>incomplète</strong> pour la marche : beaucoup de passages piétons, d’escaliers ou de ruelles locales n’y figurent pas. En pratique, la BDTOPO décrit surtout les grands axes (autoroutes, nationales, départementales) et des éléments adaptés à une lecture à l’échelle régionale ou nationale.</p>
+<p>Finalement, parmi toutes les sources ouvertes testées, le réseau <strong>brut d’OSM</strong> est <strong>le plus complet</strong>. Le seul enjeu est d’apprendre à filtrer intelligemment les données pour isoler ce qui correspond réellement à un chemin piéton.</p>
+</section>
+<section id="inspiration-le-profil-pieton-dosrm">
+<h3>Inspiration : le profil <em>piéton</em> d’<a class="reference external" href="https://map.project-osrm.org/">OSRM</a><a class="headerlink" href="#inspiration-le-profil-pieton-dosrm" title="Link to this heading">#</a></h3>
+<p>Pour définir mes propres règles de filtrage, je me suis appuyé sur le projet <strong><a class="reference external" href="https://github.com/Project-OSRM/osrm-backend">OSRM (Open Source Routing Machine)</a></strong>,
+un moteur de calcul d’itinéraires libre utilisant OSM.</p>
+<p>OSRM propose un <strong>profil “piéton”</strong>, défini dans le fichier <a class="github reference external" href="https://github.com/Project-OSRM/osrm-backend/blob/master/profiles/foot.lua">Project-OSRM/osrm-backend</a>,
+qui spécifie quelles routes sont autorisées ou interdites pour la marche.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Cliquez ici pour afficher le profil piéton <em>foot.lua</em> d’OSRM</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Foot profile</span>
+
+<span class="nv">api_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+
+<span class="nv">Set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;lib/set&#39;</span><span class="p">)</span>
+<span class="nv">Sequence</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;lib/sequence&#39;</span><span class="p">)</span>
+<span class="nv">Handlers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">require</span><span class="p">(</span><span class="s2">&quot;lib/way_handlers&quot;</span><span class="p">)</span>
+<span class="nv">find_access_tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">require</span><span class="p">(</span><span class="s2">&quot;lib/access&quot;</span><span class="p">).</span><span class="nv">find_access_tag</span>
+
+<span class="kr">function</span><span class="w"> </span><span class="nf">setup</span><span class="p">()</span>
+<span class="w">  </span><span class="kd">local</span><span class="w"> </span><span class="nv">walking_speed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">  </span><span class="kr">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nv">properties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nv">weight_name</span><span class="w">                   </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;duration&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nv">max_speed_for_map_matching</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">40</span><span class="o">/</span><span class="mf">3.6</span><span class="p">,</span><span class="w"> </span><span class="c1">-- kmph -&gt; m/s</span>
+<span class="w">      </span><span class="nv">call_tagless_node_function</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">      </span><span class="nv">traffic_signal_penalty</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">      </span><span class="nv">u_turn_penalty</span><span class="w">                </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">      </span><span class="nv">continue_straight_at_waypoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">      </span><span class="nv">use_turn_restrictions</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+
+<span class="w">    </span><span class="nv">default_mode</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="nv">mode</span><span class="p">.</span><span class="py">walking</span><span class="p">,</span>
+<span class="w">    </span><span class="nv">default_speed</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">    </span><span class="nv">oneway_handling</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;specific&#39;</span><span class="p">,</span><span class="w">     </span><span class="c1">-- respect &#39;oneway:foot&#39; but not &#39;oneway&#39;</span>
+
+<span class="w">    </span><span class="nv">barrier_blacklist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Set</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s1">&#39;yes&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="s1">&#39;wall&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="s1">&#39;fence&#39;</span>
+<span class="w">    </span><span class="p">},</span>
+
+<span class="w">    </span><span class="nv">access_tag_whitelist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Set</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s1">&#39;yes&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="s1">&#39;foot&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="s1">&#39;permissive&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="s1">&#39;designated&#39;</span>
+<span class="w">    </span><span class="p">},</span>
+
+<span class="w">    </span><span class="nv">access_tag_blacklist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Set</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s1">&#39;no&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="s1">&#39;agricultural&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="s1">&#39;forestry&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="s1">&#39;private&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="s1">&#39;delivery&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="p">},</span>
+
+<span class="w">    </span><span class="nv">restricted_access_tag_list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Set</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">},</span>
+
+<span class="w">    </span><span class="nv">restricted_highway_whitelist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Set</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">},</span>
+
+<span class="w">    </span><span class="nv">construction_whitelist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Set</span><span class="w"> </span><span class="p">{},</span>
+
+<span class="w">    </span><span class="nv">access_tags_hierarchy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Sequence</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s1">&#39;foot&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="s1">&#39;access&#39;</span>
+<span class="w">    </span><span class="p">},</span>
+
+<span class="w">    </span><span class="c1">-- tags disallow access to in combination with highway=service</span>
+<span class="w">    </span><span class="nv">service_access_tag_blacklist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Set</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">},</span>
+
+<span class="w">    </span><span class="nv">restrictions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Sequence</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s1">&#39;foot&#39;</span>
+<span class="w">    </span><span class="p">},</span>
+
+<span class="w">    </span><span class="c1">-- list of suffixes to suppress in name change instructions</span>
+<span class="w">    </span><span class="nv">suffix_list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Set</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s1">&#39;N&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;NE&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;E&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SE&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;S&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;SW&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;W&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;NW&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;North&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;South&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;West&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;East&#39;</span>
+<span class="w">    </span><span class="p">},</span>
+
+<span class="w">    </span><span class="nv">avoid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Set</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s1">&#39;impassable&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="s1">&#39;proposed&#39;</span>
+<span class="w">    </span><span class="p">},</span>
+
+<span class="w">    </span><span class="nv">speeds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Sequence</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nv">highway</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nv">primary</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">primary_link</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">secondary</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">secondary_link</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">tertiary</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">tertiary_link</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">unclassified</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">residential</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">road</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">living_street</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">service</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">track</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">path</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">steps</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">pedestrian</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">platform</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">footway</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">pier</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">      </span><span class="p">},</span>
+
+<span class="w">      </span><span class="nv">railway</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nv">platform</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span>
+<span class="w">      </span><span class="p">},</span>
+
+<span class="w">      </span><span class="nv">amenity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nv">parking</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span><span class="p">,</span>
+<span class="w">        </span><span class="nv">parking_entrance</span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span>
+<span class="w">      </span><span class="p">},</span>
+
+<span class="w">      </span><span class="nv">man_made</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nv">pier</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span>
+<span class="w">      </span><span class="p">},</span>
+
+<span class="w">      </span><span class="nv">leisure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nv">track</span><span class="w">           </span><span class="o">=</span><span class="w"> </span><span class="nv">walking_speed</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+
+<span class="w">    </span><span class="nv">route_speeds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nv">ferry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">    </span><span class="p">},</span>
+
+<span class="w">    </span><span class="nv">bridge_speeds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">},</span>
+
+<span class="w">    </span><span class="nv">surface_speeds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nv">fine_gravel</span><span class="w"> </span><span class="o">=</span><span class="w">   </span><span class="nv">walking_speed</span><span class="o">*</span><span class="mf">0.75</span><span class="p">,</span>
+<span class="w">      </span><span class="nv">gravel</span><span class="w"> </span><span class="o">=</span><span class="w">        </span><span class="nv">walking_speed</span><span class="o">*</span><span class="mf">0.75</span><span class="p">,</span>
+<span class="w">      </span><span class="nv">pebblestone</span><span class="w"> </span><span class="o">=</span><span class="w">   </span><span class="nv">walking_speed</span><span class="o">*</span><span class="mf">0.75</span><span class="p">,</span>
+<span class="w">      </span><span class="nv">mud</span><span class="w"> </span><span class="o">=</span><span class="w">           </span><span class="nv">walking_speed</span><span class="o">*</span><span class="mf">0.5</span><span class="p">,</span>
+<span class="w">      </span><span class="nv">sand</span><span class="w"> </span><span class="o">=</span><span class="w">          </span><span class="nv">walking_speed</span><span class="o">*</span><span class="mf">0.5</span>
+<span class="w">    </span><span class="p">},</span>
+
+<span class="w">    </span><span class="nv">tracktype_speeds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">},</span>
+
+<span class="w">    </span><span class="nv">smoothness_speeds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="kr">end</span>
+
+<span class="kr">function</span><span class="w"> </span><span class="nf">process_node</span><span class="p">(</span><span class="nv">profile</span><span class="p">,</span><span class="w"> </span><span class="nv">node</span><span class="p">,</span><span class="w"> </span><span class="nv">result</span><span class="p">)</span>
+<span class="w">  </span><span class="c1">-- parse access and barrier tags</span>
+<span class="w">  </span><span class="kd">local</span><span class="w"> </span><span class="nv">access</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">find_access_tag</span><span class="p">(</span><span class="nv">node</span><span class="p">,</span><span class="w"> </span><span class="nv">profile</span><span class="p">.</span><span class="py">access_tags_hierarchy</span><span class="p">)</span>
+<span class="w">  </span><span class="kr">if</span><span class="w"> </span><span class="nv">access</span><span class="w"> </span><span class="kr">then</span>
+<span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">profile</span><span class="p">.</span><span class="py">access_tag_blacklist</span><span class="p">[</span><span class="nv">access</span><span class="p">]</span><span class="w"> </span><span class="kr">then</span>
+<span class="w">      </span><span class="nv">result</span><span class="p">.</span><span class="py">barrier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="kr">end</span>
+<span class="w">  </span><span class="kr">else</span>
+<span class="w">    </span><span class="kd">local</span><span class="w"> </span><span class="nv">barrier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">node</span><span class="p">:</span><span class="nf">get_value_by_key</span><span class="p">(</span><span class="s2">&quot;barrier&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kr">if</span><span class="w"> </span><span class="nv">barrier</span><span class="w"> </span><span class="kr">then</span>
+<span class="w">      </span><span class="c1">--  make an exception for rising bollard barriers</span>
+<span class="w">      </span><span class="kd">local</span><span class="w"> </span><span class="nv">bollard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">node</span><span class="p">:</span><span class="nf">get_value_by_key</span><span class="p">(</span><span class="s2">&quot;bollard&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="kd">local</span><span class="w"> </span><span class="nv">rising_bollard</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">bollard</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="s2">&quot;rising&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">bollard</span>
+
+<span class="w">      </span><span class="kr">if</span><span class="w"> </span><span class="nv">profile</span><span class="p">.</span><span class="py">barrier_blacklist</span><span class="p">[</span><span class="nv">barrier</span><span class="p">]</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">rising_bollard</span><span class="w"> </span><span class="kr">then</span>
+<span class="w">        </span><span class="nv">result</span><span class="p">.</span><span class="py">barrier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">      </span><span class="kr">end</span>
+<span class="w">    </span><span class="kr">end</span>
+<span class="w">  </span><span class="kr">end</span>
+
+<span class="w">  </span><span class="c1">-- check if node is a traffic light</span>
+<span class="w">  </span><span class="kd">local</span><span class="w"> </span><span class="nv">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">node</span><span class="p">:</span><span class="nf">get_value_by_key</span><span class="p">(</span><span class="s2">&quot;highway&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="kr">if</span><span class="w"> </span><span class="s2">&quot;traffic_signals&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">tag</span><span class="w"> </span><span class="kr">then</span>
+<span class="w">    </span><span class="c1">-- Direction should only apply to vehicles</span>
+<span class="w">    </span><span class="nv">result</span><span class="p">.</span><span class="py">traffic_lights</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">  </span><span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="c1">-- main entry point for processsing a way</span>
+<span class="kr">function</span><span class="w"> </span><span class="nf">process_way</span><span class="p">(</span><span class="nv">profile</span><span class="p">,</span><span class="w"> </span><span class="nv">way</span><span class="p">,</span><span class="w"> </span><span class="nv">result</span><span class="p">)</span>
+<span class="w">  </span><span class="c1">-- the intial filtering of ways based on presence of tags</span>
+<span class="w">  </span><span class="c1">-- affects processing times significantly, because all ways</span>
+<span class="w">  </span><span class="c1">-- have to be checked.</span>
+<span class="w">  </span><span class="c1">-- to increase performance, prefetching and intial tag check</span>
+<span class="w">  </span><span class="c1">-- is done in directly instead of via a handler.</span>
+
+<span class="w">  </span><span class="c1">-- in general we should  try to abort as soon as</span>
+<span class="w">  </span><span class="c1">-- possible if the way is not routable, to avoid doing</span>
+<span class="w">  </span><span class="c1">-- unnecessary work. this implies we should check things that</span>
+<span class="w">  </span><span class="c1">-- commonly forbids access early, and handle edge cases later.</span>
+
+<span class="w">  </span><span class="c1">-- data table for storing intermediate values during processing</span>
+<span class="w">  </span><span class="kd">local</span><span class="w"> </span><span class="nv">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">-- prefetch tags</span>
+<span class="w">    </span><span class="nv">highway</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">way</span><span class="p">:</span><span class="nf">get_value_by_key</span><span class="p">(</span><span class="s1">&#39;highway&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="nv">bridge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">way</span><span class="p">:</span><span class="nf">get_value_by_key</span><span class="p">(</span><span class="s1">&#39;bridge&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="nv">route</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">way</span><span class="p">:</span><span class="nf">get_value_by_key</span><span class="p">(</span><span class="s1">&#39;route&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="nv">leisure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">way</span><span class="p">:</span><span class="nf">get_value_by_key</span><span class="p">(</span><span class="s1">&#39;leisure&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="nv">man_made</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">way</span><span class="p">:</span><span class="nf">get_value_by_key</span><span class="p">(</span><span class="s1">&#39;man_made&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="nv">railway</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">way</span><span class="p">:</span><span class="nf">get_value_by_key</span><span class="p">(</span><span class="s1">&#39;railway&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="nv">platform</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">way</span><span class="p">:</span><span class="nf">get_value_by_key</span><span class="p">(</span><span class="s1">&#39;platform&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="nv">amenity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">way</span><span class="p">:</span><span class="nf">get_value_by_key</span><span class="p">(</span><span class="s1">&#39;amenity&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="nv">public_transport</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">way</span><span class="p">:</span><span class="nf">get_value_by_key</span><span class="p">(</span><span class="s1">&#39;public_transport&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">-- perform an quick initial check and abort if the way is</span>
+<span class="w">  </span><span class="c1">-- obviously not routable. here we require at least one</span>
+<span class="w">  </span><span class="c1">-- of the prefetched tags to be present, ie. the data table</span>
+<span class="w">  </span><span class="c1">-- cannot be empty</span>
+<span class="w">  </span><span class="kr">if</span><span class="w"> </span><span class="nb">next</span><span class="p">(</span><span class="nv">data</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="kr">then</span><span class="w">     </span><span class="c1">-- is the data table empty?</span>
+<span class="w">    </span><span class="kr">return</span>
+<span class="w">  </span><span class="kr">end</span>
+
+<span class="w">  </span><span class="kd">local</span><span class="w"> </span><span class="nv">handlers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">Sequence</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">-- set the default mode for this profile. if can be changed later</span>
+<span class="w">    </span><span class="c1">-- in case it turns we&#39;re e.g. on a ferry</span>
+<span class="w">    </span><span class="nv">WayHandlers</span><span class="p">.</span><span class="py">default_mode</span><span class="p">,</span>
+
+<span class="w">    </span><span class="c1">-- check various tags that could indicate that the way is not</span>
+<span class="w">    </span><span class="c1">-- routable. this includes things like status=impassable,</span>
+<span class="w">    </span><span class="c1">-- toll=yes and oneway=reversible</span>
+<span class="w">    </span><span class="nv">WayHandlers</span><span class="p">.</span><span class="py">blocked_ways</span><span class="p">,</span>
+
+<span class="w">    </span><span class="c1">-- determine access status by checking our hierarchy of</span>
+<span class="w">    </span><span class="c1">-- access tags, e.g: motorcar, motor_vehicle, vehicle</span>
+<span class="w">    </span><span class="nv">WayHandlers</span><span class="p">.</span><span class="py">access</span><span class="p">,</span>
+
+<span class="w">    </span><span class="c1">-- check whether forward/backward directons are routable</span>
+<span class="w">    </span><span class="nv">WayHandlers</span><span class="p">.</span><span class="py">oneway</span><span class="p">,</span>
+
+<span class="w">    </span><span class="c1">-- check whether forward/backward directons are routable</span>
+<span class="w">    </span><span class="nv">WayHandlers</span><span class="p">.</span><span class="py">destinations</span><span class="p">,</span>
+
+<span class="w">    </span><span class="c1">-- check whether we&#39;re using a special transport mode</span>
+<span class="w">    </span><span class="nv">WayHandlers</span><span class="p">.</span><span class="py">ferries</span><span class="p">,</span>
+<span class="w">    </span><span class="nv">WayHandlers</span><span class="p">.</span><span class="py">movables</span><span class="p">,</span>
+
+<span class="w">    </span><span class="c1">-- compute speed taking into account way type, maxspeed tags, etc.</span>
+<span class="w">    </span><span class="nv">WayHandlers</span><span class="p">.</span><span class="py">speed</span><span class="p">,</span>
+<span class="w">    </span><span class="nv">WayHandlers</span><span class="p">.</span><span class="py">surface</span><span class="p">,</span>
+
+<span class="w">    </span><span class="c1">-- handle turn lanes and road classification, used for guidance</span>
+<span class="w">    </span><span class="nv">WayHandlers</span><span class="p">.</span><span class="py">classification</span><span class="p">,</span>
+
+<span class="w">    </span><span class="c1">-- handle various other flags</span>
+<span class="w">    </span><span class="nv">WayHandlers</span><span class="p">.</span><span class="py">roundabouts</span><span class="p">,</span>
+<span class="w">    </span><span class="nv">WayHandlers</span><span class="p">.</span><span class="py">startpoint</span><span class="p">,</span>
+
+<span class="w">    </span><span class="c1">-- set name, ref and pronunciation</span>
+<span class="w">    </span><span class="nv">WayHandlers</span><span class="p">.</span><span class="py">names</span><span class="p">,</span>
+
+<span class="w">    </span><span class="c1">-- set weight properties of the way</span>
+<span class="w">    </span><span class="nv">WayHandlers</span><span class="p">.</span><span class="py">weights</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nv">WayHandlers</span><span class="p">.</span><span class="nf">run</span><span class="p">(</span><span class="nv">profile</span><span class="p">,</span><span class="w"> </span><span class="nv">way</span><span class="p">,</span><span class="w"> </span><span class="nv">result</span><span class="p">,</span><span class="w"> </span><span class="nv">data</span><span class="p">,</span><span class="w"> </span><span class="nv">handlers</span><span class="p">)</span>
+<span class="kr">end</span>
+
+<span class="kr">function</span><span class="w"> </span><span class="nf">process_turn</span><span class="w"> </span><span class="p">(</span><span class="nv">profile</span><span class="p">,</span><span class="w"> </span><span class="nv">turn</span><span class="p">)</span>
+<span class="w">  </span><span class="nv">turn</span><span class="p">.</span><span class="py">duration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.</span>
+
+<span class="w">  </span><span class="kr">if</span><span class="w"> </span><span class="nv">turn</span><span class="p">.</span><span class="py">direction_modifier</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">direction_modifier</span><span class="p">.</span><span class="py">u_turn</span><span class="w"> </span><span class="kr">then</span>
+<span class="w">     </span><span class="nv">turn</span><span class="p">.</span><span class="py">duration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">turn</span><span class="p">.</span><span class="py">duration</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">profile</span><span class="p">.</span><span class="py">properties</span><span class="p">.</span><span class="py">u_turn_penalty</span>
+<span class="w">  </span><span class="kr">end</span>
+
+<span class="w">  </span><span class="kr">if</span><span class="w"> </span><span class="nv">turn</span><span class="p">.</span><span class="py">has_traffic_light</span><span class="w"> </span><span class="kr">then</span>
+<span class="w">     </span><span class="nv">turn</span><span class="p">.</span><span class="py">duration</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">profile</span><span class="p">.</span><span class="py">properties</span><span class="p">.</span><span class="py">traffic_signal_penalty</span>
+<span class="w">  </span><span class="kr">end</span>
+<span class="w">  </span><span class="kr">if</span><span class="w"> </span><span class="nv">profile</span><span class="p">.</span><span class="py">properties</span><span class="p">.</span><span class="py">weight_name</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;routability&#39;</span><span class="w"> </span><span class="kr">then</span>
+<span class="w">      </span><span class="c1">-- penalize turns from non-local access only segments onto local access only tags</span>
+<span class="w">      </span><span class="kr">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nv">turn</span><span class="p">.</span><span class="py">source_restricted</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nv">turn</span><span class="p">.</span><span class="py">target_restricted</span><span class="w"> </span><span class="kr">then</span>
+<span class="w">          </span><span class="nv">turn</span><span class="p">.</span><span class="py">weight</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">turn</span><span class="p">.</span><span class="py">weight</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3000</span>
+<span class="w">      </span><span class="kr">end</span>
+<span class="w">  </span><span class="kr">end</span>
+<span class="kr">end</span>
+
+<span class="kr">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nv">setup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">setup</span><span class="p">,</span>
+<span class="w">  </span><span class="nv">process_way</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="nv">process_way</span><span class="p">,</span>
+<span class="w">  </span><span class="nv">process_node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">process_node</span><span class="p">,</span>
+<span class="w">  </span><span class="nv">process_turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">process_turn</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</details><p>Ce profil m’a servi de référence conceptuelle :</p>
+<ul class="simple">
+<li><p>exclure les tronçons interdits (<code class="docutils literal notranslate"><span class="pre">foot=no</span></code>, <code class="docutils literal notranslate"><span class="pre">access=private</span></code>, <code class="docutils literal notranslate"><span class="pre">highway=platform</span></code>, etc.),</p></li>
+<li><p>conserver les voies explicitement piétonnes (<code class="docutils literal notranslate"><span class="pre">footway</span></code>, <code class="docutils literal notranslate"><span class="pre">path</span></code>, <code class="docutils literal notranslate"><span class="pre">pedestrian</span></code>, <code class="docutils literal notranslate"><span class="pre">steps</span></code>, etc.),</p></li>
+<li><p>et tolérer certaines routes partagées (<code class="docutils literal notranslate"><span class="pre">residential</span></code>, <code class="docutils literal notranslate"><span class="pre">living_street</span></code>, <code class="docutils literal notranslate"><span class="pre">service</span></code>, …).</p></li>
+</ul>
+</section>
+</section>
+<section id="extraction-avec-osmium">
+<h2>Extraction avec Osmium<a class="headerlink" href="#extraction-avec-osmium" title="Link to this heading">#</a></h2>
+<p>Pour extraire le réseau piéton, j’utilise la bibliothèque <strong><a class="reference external" href="https://osmcode.org/pyosmium/">Osmium pour Python</a></strong>, familièrement appelée <em>PyOsmium</em>.<br />
+C’est une interface Python de la bibliothèque C++ Osmium, qui permet de lire et filtrer les fichiers OpenStreetMap au format <code class="docutils literal notranslate"><span class="pre">.pbf</span></code>.</p>
+<p>Contrairement à des outils comme <strong>OSMnx</strong>, Osmium ne charge pas tout le fichier en mémoire : il lit les données en continu (<em>streaming</em>). C’est beaucoup plus rapide et stable quand on travaille sur des bases de grande taille comme celle de la région PACA.</p>
+<div class="tip admonition">
+<p class="admonition-title">Note technique</p>
+<p>Le terme <strong>Osmium</strong> peut désigner trois choses :</p>
+<ul class="simple">
+<li><p><strong>Osmium</strong> : la bibliothèque C++ d’origine,</p></li>
+<li><p><strong>PyOsmium</strong> : son interface Python (importée sous le nom <code class="docutils literal notranslate"><span class="pre">osmium</span></code>),</p></li>
+<li><p><strong>osmium-tool</strong> : un outil en ligne de commande pour manipuler les fichiers OSM.</p></li>
+</ul>
+</div>
+<p>Ici, j’utilise bien la <strong>bibliothèque Python <code class="docutils literal notranslate"><span class="pre">osmium</span></code></strong>.</p>
+<section id="etapes-principales">
+<h3>Étapes principales<a class="headerlink" href="#etapes-principales" title="Link to this heading">#</a></h3>
+<p>Voici les principales opérations réalisées lors de l’extraction du réseau piéton :</p>
+<figure class="align-center" id="fig-extraction-reseau-pieton">
+<a class="reference internal image-reference" href="../_images/roads_osm_foot.png"><img alt="Schéma des étapes principales d’extraction du réseau piéton" src="../_images/roads_osm_foot.png" style="width: 80%;" />
+</a>
+</figure>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Afficher / masquer le code Python</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">osmium</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shapely.wkb</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">wkblib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">config</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">input_pbf</span>
+<span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_reseau</span><span class="p">():</span>
+    <span class="n">wkbfab</span> <span class="o">=</span> <span class="n">osmium</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">WKBFactory</span><span class="p">()</span>
+    <span class="n">ways</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">total_ways</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">WayCounter</span><span class="p">(</span><span class="n">osmium</span><span class="o">.</span><span class="n">SimpleHandler</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">way</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+            <span class="k">nonlocal</span> <span class="n">total_ways</span>
+            <span class="n">total_ways</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Counting ways...&quot;</span><span class="p">)</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="n">WayCounter</span><span class="p">()</span>
+    <span class="n">counter</span><span class="o">.</span><span class="n">apply_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">input_pbf</span><span class="p">),</span> <span class="n">locations</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total number of ways: </span><span class="si">{</span><span class="n">total_ways</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extracting pedestrian network...&quot;</span><span class="p">)</span>
+    <span class="n">pbar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">total</span><span class="o">=</span><span class="n">total_ways</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Processing ways&quot;</span><span class="p">)</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">FootwayHandler</span><span class="p">(</span><span class="n">osmium</span><span class="o">.</span><span class="n">SimpleHandler</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">way</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">tags</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">tags</span>
+                <span class="n">highway</span> <span class="o">=</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;highway&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">access</span> <span class="o">=</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;access&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">foot</span> <span class="o">=</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;foot&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                
+                <span class="n">highway_whitelist</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="s1">&#39;primary&#39;</span><span class="p">,</span> <span class="s1">&#39;primary_link&#39;</span><span class="p">,</span> <span class="s1">&#39;secondary&#39;</span><span class="p">,</span> <span class="s1">&#39;secondary_link&#39;</span><span class="p">,</span> <span class="s1">&#39;tertiary&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;tertiary_link&#39;</span><span class="p">,</span> <span class="s1">&#39;unclassified&#39;</span><span class="p">,</span> <span class="s1">&#39;residential&#39;</span><span class="p">,</span> <span class="s1">&#39;road&#39;</span><span class="p">,</span> <span class="s1">&#39;living_street&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;service&#39;</span><span class="p">,</span> <span class="s1">&#39;track&#39;</span><span class="p">,</span> <span class="s1">&#39;path&#39;</span><span class="p">,</span> <span class="s1">&#39;steps&#39;</span><span class="p">,</span> <span class="s1">&#39;pedestrian&#39;</span><span class="p">,</span> <span class="s1">&#39;platform&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;footway&#39;</span><span class="p">,</span> <span class="s1">&#39;pier&#39;</span>
+                <span class="p">]</span>
+                <span class="k">if</span> <span class="n">highway</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">highway_whitelist</span><span class="p">:</span>
+                    <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="k">return</span>
+                
+                <span class="c1"># Filtrer foot=no</span>
+                <span class="k">if</span> <span class="n">foot</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span><span class="p">:</span>
+                    <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="k">return</span>
+
+                <span class="c1"># Filtrer highway=platform</span>
+                <span class="k">if</span> <span class="n">highway</span> <span class="o">==</span> <span class="s1">&#39;platform&#39;</span><span class="p">:</span>
+                    <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="k">return</span>
+                
+                <span class="n">wkb</span> <span class="o">=</span> <span class="n">wkbfab</span><span class="o">.</span><span class="n">create_linestring</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+                <span class="n">geom</span> <span class="o">=</span> <span class="n">wkblib</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">wkb</span><span class="p">,</span> <span class="nb">hex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+                <span class="n">way_info</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;osm_id&#39;</span><span class="p">:</span> <span class="n">w</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                    <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">geom</span><span class="p">,</span>
+                    <span class="s1">&#39;highway&#39;</span><span class="p">:</span> <span class="n">highway</span><span class="p">,</span>
+                    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;access&#39;</span><span class="p">:</span> <span class="n">access</span><span class="p">,</span>
+                    <span class="s1">&#39;foot&#39;</span><span class="p">:</span> <span class="n">foot</span><span class="p">,</span>
+                    <span class="s1">&#39;surface&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;surface&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;incline&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;incline&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;smoothness&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;smoothness&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;sidewalk&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sidewalk&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;crossing&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;crossing&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;lit&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lit&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;bridge&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;bridge&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;tunnel&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tunnel&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;layer&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;layer&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">),</span>  <span class="c1"># &#39;0&#39; par défaut si non renseigné</span>
+                    <span class="s1">&#39;oneway&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;oneway&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">)</span>  <span class="c1"># &#39;no&#39; par défaut si non renseigné</span>
+                <span class="p">}</span>
+                <span class="n">ways</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">way_info</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error processing way </span><span class="si">{</span><span class="n">w</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">handler</span> <span class="o">=</span> <span class="n">FootwayHandler</span><span class="p">()</span>
+    <span class="n">handler</span><span class="o">.</span><span class="n">apply_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">input_pbf</span><span class="p">),</span> <span class="n">locations</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">pbar</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">ways</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">gdf</span>
+</pre></div>
+</div>
+</div>
+</details></section>
+</section>
+<section id="filtrage-spatial-sur-marseille">
+<h2>Filtrage spatial sur Marseille<a class="headerlink" href="#filtrage-spatial-sur-marseille" title="Link to this heading">#</a></h2>
+<p>Le fichier <code class="docutils literal notranslate"><span class="pre">.pbf</span></code> couvre toute la région PACA.<br />
+J’applique ensuite un <strong>filtrage spatial</strong> pour ne garder que les tronçons à l’intérieur du périmètre de Marseille :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filtrage spatial</span>
+<span class="n">cadre</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;data/raw/personal/CadreMarseille.gpkg&quot;</span><span class="p">)</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">cadre</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+<span class="n">roads_mrs</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[</span><span class="n">gdf</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">within</span><span class="p">(</span><span class="n">cadre</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+</pre></div>
+</div>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<p>J’ai montré la d”marche me permettant de passer d’un fichier brut <code class="docutils literal notranslate"><span class="pre">.pbf</span></code> OSM couvrant toute la région PACA à un <strong>réseau piéton</strong> inspiré de OSRM centré sur Marseille.</p>
+<div class="note admonition">
+<p class="admonition-title">À venir</p>
+<p>Le réseau obtenu présente encore quelques imperfections (tronçons isolés, doublons ou intersections manquantes, etc) qu’il ne faut pas négliger pour les analyses de proximité sur le réseau.<br />
+La prochaine étape consistera donc à <strong>nettoyer et simplifier le réseau</strong> afin de le rendre exploitable pour les calculs de distance et de d’accessiblité piétonne.</p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./70_Cours"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Déploiement d’un Jupyter Book avec GitHub Pages</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparer-le-projet">Préparer le projet</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initialiser-github">Initialiser GitHub</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#configurer-jupyter-book">Configurer Jupyter Book</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ajouter-le-workflow-github-actions">Ajouter le workflow GitHub Actions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#activer-github-pages">Activer GitHub Pages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#routine-de-travail">Routine de travail</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-dun-reseau-pieton">Construction d’un réseau piéton</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objectif">Objectif</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#telechargement-des-donnees-osm">Téléchargement des données OSM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definir-ce-quest-un-chemin-pieton">Définir ce qu’est un chemin piéton</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#premiers-tests-osmnx-et-bdtopo">Premiers tests : OSMnx et BDTOPO</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspiration-le-profil-pieton-dosrm">Inspiration : le profil <em>piéton</em> d’OSRM</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extraction-avec-osmium">Extraction avec Osmium</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etapes-principales">Étapes principales</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtrage-spatial-sur-marseille">Filtrage spatial sur Marseille</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By M. Hazim (CINaM/CNRS/AMU)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="font-size:0.9rem; line-height:1.4; margin-top:0.5rem;">
+  Contact : <a href="mailto:moindze-boina.hazim@cnrs.fr">moindze-boina.hazim@cnrs.fr</a>
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

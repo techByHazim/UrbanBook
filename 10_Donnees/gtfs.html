@@ -1,0 +1,1513 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Transport en commun - Données GTFS &#8212; Proximité urbaine</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '10_Donnees/gtfs';</script>
+    <link rel="icon" href="../_static/carte.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/carte.png" class="logo__image only-light" alt="Proximité urbaine - Home"/>
+    <script>document.write(`<img src="../_static/carte.png" class="logo__image only-dark" alt="Proximité urbaine - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    UrbanBook
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Environnement</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_Projet/environnement.html">Installation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Les équipements urbains</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="catalogue_donnees.html">Catalogue des données</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dictionnaire_variables.html">Dictionnaire des variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="osm_label.html">Les équipements rétenus dans OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="osm_overpass.html">Extraction et prétraitement des données OSM</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Réseau de route pièton</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="reseau-pieton-intro.html">Construction d’un réseau piéton pour l’analyse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pedestrian_roads.html">Extraction du réseau piéton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automatisation_roads.html">Automatisation du processus d’extraction du réseau</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph_OSMnx.html">Notebook d’exploration du graphe OSMnx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lixelization.html">Lixelisation et graphe du réseau</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Calcul d'indicateur de proximité</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../50_Reproductibilite/structure_projet.html">Structure du projet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../50_Reproductibilite/comment_reproduire.html">Produire les indicateurs de proximité</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook/issues/new?title=Issue%20on%20page%20%2F10_Donnees/gtfs.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/10_Donnees/gtfs.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Transport en commun - Données GTFS</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quest-ce-que-le-gtfs">Qu’est-ce que le GTFS ?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation-configuration">Préparation &amp; configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lecture-des-fichiers-gtfs-controles-rapides">Lecture des fichiers GTFS + contrôles rapides</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verifications-integrite-horaires">Vérifications (intégrité + horaires)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrite-referentielle-minimale">Intégrité référentielle minimale</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#horaires-24h-pedago">3.2 Horaires &gt; 24h (pédago)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chainage-logique-type-majoritaire-par-arret">Chaînage logique — type majoritaire par arrêt</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#typage-clair-mapping-route-type-libelle">Typage clair (mapping route_type → libellé)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jointure-avec-stops-geodataframe">Jointure avec <code class="docutils literal notranslate"><span class="pre">stops</span></code> + GeoDataFrame</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtrage-spatial-par-lemprise-marseille">Filtrage spatial par l’emprise (Marseille)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#petit-diagnostic">Petit diagnostic</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#export-geopackage-et-formats-annexes">Export GeoPackage (et formats annexes)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#encapsulation-reutilisable">Encapsulation réutilisable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-aller-plus-loin">Conclusion/ aller plus loin</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="transport-en-commun-donnees-gtfs">
+<h1>Transport en commun - Données GTFS<a class="headerlink" href="#transport-en-commun-donnees-gtfs" title="Link to this heading">#</a></h1>
+<section id="quest-ce-que-le-gtfs">
+<h2>Qu’est-ce que le GTFS ?<a class="headerlink" href="#quest-ce-que-le-gtfs" title="Link to this heading">#</a></h2>
+<p><strong>GTFS</strong> (<em>General Transit Feed Specification</em>) est un format ouvert pour décrire une <strong>offre de transport en commun</strong> (statique) : lignes, trajets, arrêts, horaires.
+Il existe deux familles :</p>
+<ul class="simple">
+<li><p><strong>GTFS Statique</strong> (ce que nous utilisons ici) : planning de référence, valable sur une période donnée (ex. du 06/06/2025 au 05/08/2025).</p></li>
+<li><p><strong>GTFS-Realtime</strong> : informations en temps réel (retards, positions des véhicules, alertes), sur d’autres flux protobuf. <em>(non traité ici).</em></p></li>
+</ul>
+<p>Pour plus de détails sur ces types <strong>GTFS</strong> voir <a class="reference external" href="https://en.wikipedia.org/wiki/GTFS">https://en.wikipedia.org/wiki/GTFS</a></p>
+<p>Un jeu GTFS statique est une <strong>archive .zip</strong> qui contient des <strong>fichiers .txt</strong> (CSV) inter-liés.</p>
+<p>Les plus fréquents :</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fichier</p></th>
+<th class="head"><p>Rôle</p></th>
+<th class="head"><p>Clés importantes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">routes.txt</span></code></p></td>
+<td><p>Lignes commerciales (bus, tram, métro…)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">route_id</span></code>, <code class="docutils literal notranslate"><span class="pre">route_type</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">trips.txt</span></code></p></td>
+<td><p>Trajets (un “service” d’une route, dans un sens, un jour donné)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">trip_id</span></code>, <code class="docutils literal notranslate"><span class="pre">route_id</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stops.txt</span></code></p></td>
+<td><p>Arrêts (nom, coordonnées)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">stop_id</span></code>, <code class="docutils literal notranslate"><span class="pre">stop_name</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">stop_times.txt</span></code></p></td>
+<td><p>Passage d’un trajet à un arrêt (ordre + horaires)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">trip_id</span></code>, <code class="docutils literal notranslate"><span class="pre">stop_id</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calendar.txt</span></code></p></td>
+<td><p>Jours de service “réguliers” (lun-dim, dates de début/fin)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">service_id</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">calendar_dates.txt</span></code></p></td>
+<td><p>Exceptions au calendrier (jours ajoutés/retirés)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">service_id</span></code>, <code class="docutils literal notranslate"><span class="pre">date</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">shapes.txt</span></code></p></td>
+<td><p>Géométrie des trajets (polylignes) <em>(facultatif, utile pour la carte)</em></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">shape_id</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Relations clés (simplifiées)</strong>
+<code class="docutils literal notranslate"><span class="pre">routes</span> <span class="pre">(route_id)</span> <span class="pre">⟵</span> <span class="pre">trips</span> <span class="pre">(route_id,</span> <span class="pre">trip_id)</span> <span class="pre">⟵</span> <span class="pre">stop_times</span> <span class="pre">(trip_id,</span> <span class="pre">stop_id)</span> <span class="pre">⟶</span> <span class="pre">stops</span> <span class="pre">(stop_id)</span></code></p>
+<p><strong>Particularités à connaître</strong></p>
+<ul class="simple">
+<li><p>Les horaires sont au format <code class="docutils literal notranslate"><span class="pre">HH:MM:SS</span></code> et peuvent <strong>dépasser 24h</strong> (ex. <code class="docutils literal notranslate"><span class="pre">25:12:00</span></code> pour un service après minuit).</p></li>
+<li><p>Les arrêts peuvent avoir des <strong>relations parent/enfant</strong> (<code class="docutils literal notranslate"><span class="pre">parent_station</span></code>) ; ici, on reste à l’échelle <code class="docutils literal notranslate"><span class="pre">stop_id</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">route_type</span></code> suit un code standard (0=tram, 1=métro, 2=train, 3=bus, 4=ferry…).</p></li>
+<li><p>Le GTFS <strong>ne contient pas</strong> de projection : les coordonnées des arrêts sont en <strong>WGS84</strong> (lat/lon).</p></li>
+<li><p><strong>Période de validité</strong> : toujours vérifier les dates publiées avec la source.</p></li>
+</ul>
+</section>
+<section id="sources">
+<h2>Sources<a class="headerlink" href="#sources" title="Link to this heading">#</a></h2>
+<p>Ce fichier GTFS fait partie du jeu de données “Réseaux urbains de la Métropole Aix-Marseille-Provence”. Il couvre les réseaux exploités par la RTM (Régie des Transports Métropolitains).</p>
+<p><strong>Informations générales :</strong></p>
+<ul class="simple">
+<li><p>Réseau concerné : RTM</p></li>
+<li><p>Modes de transport couverts : bus, ferry, métro, tramway</p></li>
+<li><p>Nombre de lignes : 130</p></li>
+<li><p>Nombre de points d’arrêt : 2 677</p></li>
+<li><p>Nombre de zones d’arrêt : 0</p></li>
+<li><p>Données GTFS téléchargées depuis : <a class="reference external" href="https://transport.data.gouv.fr/datasets/reseau-rtm-gtfs/">https://transport.data.gouv.fr/datasets/reseau-rtm-gtfs/</a></p></li>
+<li><p>Format : archive <code class="docutils literal notranslate"><span class="pre">.zip</span></code> contenant des fichiers <code class="docutils literal notranslate"><span class="pre">.txt</span></code> structurés.</p></li>
+<li><p><strong>Période de validité des données : du 6 juin 2025 au 5 août 2025</strong></p></li>
+</ul>
+</section>
+<section id="preparation-configuration">
+<h2>Préparation &amp; configuration<a class="headerlink" href="#preparation-configuration" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importation des bibliothèques necessaires</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">Point</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="c1"># Paramètres centralisés (déjà existants dans ton projet)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">config</span><span class="w"> </span><span class="kn">import</span> <span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="n">city</span><span class="p">,</span> <span class="n">cadre_file</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;..&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;proxy&quot;</span> <span class="o">/</span> <span class="s2">&quot;data&quot;</span> <span class="o">/</span> <span class="s2">&quot;raw&quot;</span> <span class="o">/</span><span class="s2">&quot;transport&quot;</span> <span class="o">/</span> <span class="s2">&quot;mamp-all.gtfs&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Affichage chemin de fichiers</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;GTFS dir      :&quot;</span><span class="p">,</span> <span class="n">base_path</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Sortie GPKG   :&quot;</span><span class="p">,</span> <span class="n">OUTPUT_DIR</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ville         :&quot;</span><span class="p">,</span> <span class="n">city</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Cadre (fichier):&quot;</span><span class="p">,</span> <span class="n">cadre_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GTFS dir      : ..\proxy\data\raw\transport\mamp-all.gtfs
+Sortie GPKG   : ..\proxy\data\processed\overpass_results_Marseille
+Ville         : Marseille
+Cadre (fichier): ..\proxy\data\raw\insee\CadreMarseille.shp
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="lecture-des-fichiers-gtfs-controles-rapides">
+<h2>Lecture des fichiers GTFS + contrôles rapides<a class="headerlink" href="#lecture-des-fichiers-gtfs-controles-rapides" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lecture </span>
+<span class="n">stops</span>      <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">base_path</span> <span class="o">/</span> <span class="s2">&quot;stops.txt&quot;</span><span class="p">)</span>
+<span class="n">routes</span>     <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">base_path</span> <span class="o">/</span> <span class="s2">&quot;routes.txt&quot;</span><span class="p">)</span>
+<span class="n">trips</span>      <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">base_path</span> <span class="o">/</span> <span class="s2">&quot;trips.txt&quot;</span><span class="p">)</span>
+<span class="n">stop_times</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">base_path</span> <span class="o">/</span> <span class="s2">&quot;stop_times.txt&quot;</span><span class="p">)</span>
+
+<span class="c1"># Colonnes minimales </span>
+<span class="n">required_cols</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;stops&quot;</span>     <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;stop_id&quot;</span><span class="p">,</span> <span class="s2">&quot;stop_name&quot;</span><span class="p">,</span> <span class="s2">&quot;stop_lat&quot;</span><span class="p">,</span> <span class="s2">&quot;stop_lon&quot;</span><span class="p">},</span>
+    <span class="s2">&quot;routes&quot;</span>    <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;route_id&quot;</span><span class="p">,</span> <span class="s2">&quot;route_type&quot;</span><span class="p">},</span>
+    <span class="s2">&quot;trips&quot;</span>     <span class="p">:</span> <span class="p">{</span><span class="s2">&quot;trip_id&quot;</span><span class="p">,</span> <span class="s2">&quot;route_id&quot;</span><span class="p">},</span>
+    <span class="s2">&quot;stop_times&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;stop_id&quot;</span><span class="p">,</span> <span class="s2">&quot;trip_id&quot;</span><span class="p">,</span> <span class="s2">&quot;stop_sequence&quot;</span><span class="p">,</span> <span class="s2">&quot;arrival_time&quot;</span><span class="p">,</span> <span class="s2">&quot;departure_time&quot;</span><span class="p">},</span>
+<span class="p">}</span>
+<span class="n">datasets</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;stops&quot;</span><span class="p">:</span> <span class="n">stops</span><span class="p">,</span> <span class="s2">&quot;routes&quot;</span><span class="p">:</span> <span class="n">routes</span><span class="p">,</span> <span class="s2">&quot;trips&quot;</span><span class="p">:</span> <span class="n">trips</span><span class="p">,</span> <span class="s2">&quot;stop_times&quot;</span><span class="p">:</span> <span class="n">stop_times</span><span class="p">}</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">df</span> <span class="ow">in</span> <span class="n">datasets</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">missing</span> <span class="o">=</span> <span class="n">required_cols</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">:</span><span class="s2">10s</span><span class="si">}</span><span class="s2"> - shape=</span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> - missing=</span><span class="si">{</span><span class="n">missing</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\hazim\AppData\Local\Temp\ipykernel_24040\1191352773.py:5: DtypeWarning: Columns (5) have mixed types. Specify dtype option on import or set low_memory=False.
+  stop_times = pd.read_csv(base_path / &quot;stop_times.txt&quot;)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>stops      - shape=(16548, 15) - missing=set()
+routes     - shape=(820, 13) - missing=set()
+trips      - shape=(96160, 11) - missing=set()
+stop_times - shape=(2092782, 10) - missing=set()
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Affichage de quelques lignes</span>
+<span class="n">display</span><span class="p">(</span><span class="n">stops</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">routes</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">trips</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">stop_times</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>stop_id</th>
+      <th>stop_code</th>
+      <th>stop_name</th>
+      <th>stop_desc</th>
+      <th>stop_lat</th>
+      <th>stop_lon</th>
+      <th>zone_id</th>
+      <th>stop_url</th>
+      <th>location_type</th>
+      <th>parent_station</th>
+      <th>wheelchair_boarding</th>
+      <th>import_id</th>
+      <th>city_name</th>
+      <th>ext_netex_id</th>
+      <th>postal_code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>AST-AIX-21230-AIX-24090</td>
+      <td>NaN</td>
+      <td>08 mai 1945</td>
+      <td>NaN</td>
+      <td>43.522967</td>
+      <td>5.432991</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>Aix-en-Provence</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>MAMP-S30245</td>
+      <td>30245</td>
+      <td>08-mai-45</td>
+      <td>NaN</td>
+      <td>43.456311</td>
+      <td>5.558428</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>Fuveau</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>MAMP-S31127</td>
+      <td>31127</td>
+      <td>08-mai-45</td>
+      <td>NaN</td>
+      <td>43.458669</td>
+      <td>5.478744</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>Gardanne</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>route_id</th>
+      <th>agency_id</th>
+      <th>route_short_name</th>
+      <th>route_long_name</th>
+      <th>route_desc</th>
+      <th>route_type</th>
+      <th>route_color</th>
+      <th>route_text_color</th>
+      <th>route_sort_order</th>
+      <th>direction0_name</th>
+      <th>direction1_name</th>
+      <th>route_group</th>
+      <th>import_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ULY-1BIS</td>
+      <td>ULY</td>
+      <td>1BIS</td>
+      <td>Ligne 1Bis</td>
+      <td>NaN</td>
+      <td>3</td>
+      <td>6ABC87</td>
+      <td>FFFFFF</td>
+      <td>NaN</td>
+      <td>Istres</td>
+      <td>Miramas / Istres / Fos-sur-Mer</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ENV-1</td>
+      <td>ENV</td>
+      <td>1</td>
+      <td>1 - Gare SNCF &lt;&gt; Barriol</td>
+      <td>1</td>
+      <td>3</td>
+      <td>FF0000</td>
+      <td>ffffff</td>
+      <td>NaN</td>
+      <td>Gare SNCF</td>
+      <td>Barriol</td>
+      <td>NaN</td>
+      <td>38</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>BDE-1</td>
+      <td>BDE</td>
+      <td>1</td>
+      <td>Avenue Général Leclerc - Gare Saint-Antoine</td>
+      <td>NaN</td>
+      <td>3</td>
+      <td>FFD800</td>
+      <td>000000</td>
+      <td>NaN</td>
+      <td>Marseille</td>
+      <td>Les Pennes-Mirabeau</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>route_id</th>
+      <th>service_id</th>
+      <th>trip_id</th>
+      <th>trip_headsign</th>
+      <th>trip_short_name</th>
+      <th>direction_id</th>
+      <th>block_id</th>
+      <th>shape_id</th>
+      <th>wheelchair_accessible</th>
+      <th>bikes_allowed</th>
+      <th>import_id</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ULY-1BIS</td>
+      <td>ULY-18663</td>
+      <td>ULY-1BISx1Ax3x1</td>
+      <td>Istres</td>
+      <td>Course 1</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ULY-1BIS</td>
+      <td>ULY-18672</td>
+      <td>ULY-1BISx1Rx1x1</td>
+      <td>Istres</td>
+      <td>Course 1</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ULY-1BIS</td>
+      <td>ULY-18663</td>
+      <td>ULY-1BISx5Rx2x1</td>
+      <td>Istres</td>
+      <td>Course 1</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>trip_id</th>
+      <th>arrival_time</th>
+      <th>departure_time</th>
+      <th>stop_id</th>
+      <th>stop_sequence</th>
+      <th>stop_headsign</th>
+      <th>pickup_type</th>
+      <th>drop_off_type</th>
+      <th>shape_dist_traveled</th>
+      <th>timepoint</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ULY-1BISx1Ax3x1</td>
+      <td>06:40:00</td>
+      <td>06:40:00</td>
+      <td>MAMP-22529</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ULY-1BISx1Ax3x1</td>
+      <td>06:42:00</td>
+      <td>06:42:00</td>
+      <td>MAMP-20583</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ULY-1BISx1Ax3x1</td>
+      <td>06:44:00</td>
+      <td>06:44:00</td>
+      <td>MAMP-25434</td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>0</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="verifications-integrite-horaires">
+<h2>Vérifications (intégrité + horaires)<a class="headerlink" href="#verifications-integrite-horaires" title="Link to this heading">#</a></h2>
+<section id="integrite-referentielle-minimale">
+<h3>Intégrité référentielle minimale<a class="headerlink" href="#integrite-referentielle-minimale" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Chaque trip_id de stop_times doit exister dans trips</span>
+<span class="n">unknown_trips</span> <span class="o">=</span> <span class="n">stop_times</span><span class="p">[</span><span class="o">~</span><span class="n">stop_times</span><span class="p">[</span><span class="s2">&quot;trip_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">trips</span><span class="p">[</span><span class="s2">&quot;trip_id&quot;</span><span class="p">])]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1"># Chaque route_id de trips doit exister dans routes</span>
+<span class="n">unknown_routes</span> <span class="o">=</span> <span class="n">trips</span><span class="p">[</span><span class="o">~</span><span class="n">trips</span><span class="p">[</span><span class="s2">&quot;route_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">routes</span><span class="p">[</span><span class="s2">&quot;route_id&quot;</span><span class="p">])]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;trip_id inconnus dans stop_times:&quot;</span><span class="p">,</span> <span class="n">unknown_trips</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;route_id inconnus dans trips   :&quot;</span><span class="p">,</span> <span class="n">unknown_routes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>trip_id inconnus dans stop_times: 0
+route_id inconnus dans trips   : 0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Si &gt;0, le jeu est inconsistant (ou incomplet) → consigner/traiter selon besoin.</p>
+</section>
+<section id="horaires-24h-pedago">
+<h3>3.2 Horaires &gt; 24h (pédago)<a class="headerlink" href="#horaires-24h-pedago" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">hhmmss_to_seconds</span><span class="p">(</span><span class="n">hms</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Transforme HH:MM:SS en secondes, supporte HH &gt;= 24.&quot;&quot;&quot;</span>
+    <span class="n">h</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">hms</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">h</span><span class="o">*</span><span class="mi">3600</span> <span class="o">+</span> <span class="n">m</span><span class="o">*</span><span class="mi">60</span> <span class="o">+</span> <span class="n">s</span>
+
+<span class="n">sample_times</span> <span class="o">=</span> <span class="n">stop_times</span><span class="p">[</span><span class="s2">&quot;arrival_time&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exemples d&#39;horaires:&quot;</span><span class="p">,</span> <span class="n">sample_times</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;En secondes        :&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">hhmmss_to_seconds</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">sample_times</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exemples d&#39;horaires: [&#39;06:40:00&#39;, &#39;06:42:00&#39;, &#39;06:44:00&#39;, &#39;06:47:00&#39;, &#39;06:48:00&#39;]
+En secondes        : [24000, 24120, 24240, 24420, 24480]
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p><em>Pourquoi utile ?</em> Pour des analyses de fréquences/amplitudes, mieux vaut convertir en secondes (gère proprement le &gt;24h).</p>
+</div></blockquote>
+</section>
+</section>
+<section id="chainage-logique-type-majoritaire-par-arret">
+<h2>Chaînage logique — type majoritaire par arrêt<a class="headerlink" href="#chainage-logique-type-majoritaire-par-arret" title="Link to this heading">#</a></h2>
+<p>On détermine, pour chaque <code class="docutils literal notranslate"><span class="pre">stop_id</span></code>, le <strong>mode qui passe le plus souvent</strong> (bus/tram/métro).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Liaison stop_times → trips → routes</span>
+<span class="n">stop_trip</span>   <span class="o">=</span> <span class="n">stop_times</span><span class="p">[[</span><span class="s2">&quot;stop_id&quot;</span><span class="p">,</span> <span class="s2">&quot;trip_id&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+<span class="n">trip_route</span>  <span class="o">=</span> <span class="n">trips</span><span class="p">[[</span><span class="s2">&quot;trip_id&quot;</span><span class="p">,</span> <span class="s2">&quot;route_id&quot;</span><span class="p">]]</span>
+<span class="n">route_type</span>  <span class="o">=</span> <span class="n">routes</span><span class="p">[[</span><span class="s2">&quot;route_id&quot;</span><span class="p">,</span> <span class="s2">&quot;route_type&quot;</span><span class="p">]]</span>
+
+<span class="n">stops_type</span>  <span class="o">=</span> <span class="n">stop_trip</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">trip_route</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;trip_id&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+<span class="n">stops_type</span>  <span class="o">=</span> <span class="n">stops_type</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">route_type</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;route_id&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Type majoritaire par stop_id</span>
+<span class="n">mode_per_stop</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">stops_type</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;stop_id&quot;</span><span class="p">)[</span><span class="s2">&quot;route_type&quot;</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">idxmax</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">missing_rt</span> <span class="o">=</span> <span class="n">mode_per_stop</span><span class="p">[</span><span class="s2">&quot;route_type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;stop_id sans route_type (après jointures) :&quot;</span><span class="p">,</span> <span class="n">missing_rt</span><span class="p">)</span>
+<span class="n">mode_per_stop</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>stop_id sans route_type (après jointures) : 0
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>stop_id</th>
+      <th>route_type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>AIX-00026</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>AIX-10006</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AIX-12744</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AIX-12745</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>AIX-15109</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="typage-clair-mapping-route-type-libelle">
+<h2>Typage clair (mapping route_type → libellé)<a class="headerlink" href="#typage-clair-mapping-route-type-libelle" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">type_map</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;tram&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;metro&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;bus&quot;</span><span class="p">}</span>  <span class="c1"># étends si besoin (ex: 4: ferry)</span>
+
+<span class="n">mode_per_stop</span> <span class="o">=</span> <span class="n">mode_per_stop</span><span class="p">[</span><span class="n">mode_per_stop</span><span class="p">[</span><span class="s2">&quot;route_type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">type_map</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">mode_per_stop</span><span class="p">[</span><span class="s2">&quot;motive_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mode_per_stop</span><span class="p">[</span><span class="s2">&quot;route_type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">type_map</span><span class="p">)</span>
+
+<span class="n">mode_per_stop</span><span class="p">[</span><span class="s2">&quot;motive_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>motive_id
+bus      10312
+tram        80
+metro       61
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="jointure-avec-stops-geodataframe">
+<h2>Jointure avec <code class="docutils literal notranslate"><span class="pre">stops</span></code> + GeoDataFrame<a class="headerlink" href="#jointure-avec-stops-geodataframe" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">stops_filtered</span> <span class="o">=</span> <span class="n">stops</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">mode_per_stop</span><span class="p">[[</span><span class="s2">&quot;stop_id&quot;</span><span class="p">,</span> <span class="s2">&quot;motive_id&quot;</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;stop_id&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">)</span>
+
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
+    <span class="n">stops_filtered</span><span class="p">,</span>
+    <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">stops_filtered</span><span class="p">[</span><span class="s2">&quot;stop_lon&quot;</span><span class="p">],</span> <span class="n">stops_filtered</span><span class="p">[</span><span class="s2">&quot;stop_lat&quot;</span><span class="p">]),</span>
+    <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s2">&quot;EPSG:2154&quot;</span><span class="p">)</span>
+
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[[</span><span class="s2">&quot;stop_id&quot;</span><span class="p">,</span> <span class="s2">&quot;stop_name&quot;</span><span class="p">,</span> <span class="s2">&quot;motive_id&quot;</span><span class="p">,</span> <span class="s2">&quot;geometry&quot;</span><span class="p">]]</span>
+<span class="n">gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>stop_id</th>
+      <th>stop_name</th>
+      <th>motive_id</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>AIX-21230</td>
+      <td>08 mai 1945</td>
+      <td>bus</td>
+      <td>POINT (896736.566 6272345.053)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>AIX-24090</td>
+      <td>08 mai 1945</td>
+      <td>bus</td>
+      <td>POINT (896749.870 6272359.696)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>MAMP-23431</td>
+      <td>08 mai 1945</td>
+      <td>bus</td>
+      <td>POINT (875842.544 6266900.430)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>MAMP-25627</td>
+      <td>08 mai 1945</td>
+      <td>bus</td>
+      <td>POINT (875853.866 6266915.641)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>BDE-23431</td>
+      <td>08-mai-45</td>
+      <td>bus</td>
+      <td>POINT (875879.396 6266917.678)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="filtrage-spatial-par-lemprise-marseille">
+<h2>Filtrage spatial par l’emprise (Marseille)<a class="headerlink" href="#filtrage-spatial-par-lemprise-marseille" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cadre</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">cadre_file</span><span class="p">)</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s2">&quot;EPSG:2154&quot;</span><span class="p">)</span>
+
+<span class="n">before</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">gdf</span><span class="p">)</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[</span><span class="n">gdf</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">within</span><span class="p">(</span><span class="n">cadre</span><span class="o">.</span><span class="n">unary_union</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">after</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">gdf</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Arrêts avant filtre  : </span><span class="si">{</span><span class="n">before</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Arrêts après filtre  : </span><span class="si">{</span><span class="n">after</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hors emprise supprimés: </span><span class="si">{</span><span class="n">before</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">after</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Arrêts avant filtre  : 10453
+Arrêts après filtre  : 5348
+Hors emprise supprimés: 5105
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Interprétation</strong> : si beaucoup de points sortent, vérifier CRS et exactitude du <code class="docutils literal notranslate"><span class="pre">cadre</span></code>.</p>
+</section>
+<section id="petit-diagnostic">
+<h2>Petit diagnostic<a class="headerlink" href="#petit-diagnostic" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Répartition par type (motive_id) :&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">gdf</span><span class="p">[</span><span class="s2">&quot;motive_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+
+<span class="n">dup_after</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;stop_id&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Duplicats sur stop_id :&quot;</span><span class="p">,</span> <span class="n">dup_after</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Répartition par type (motive_id) :
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>motive_id
+bus      5207
+tram       80
+metro      61
+Name: count, dtype: int64
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Duplicats sur stop_id : 0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="export-geopackage-et-formats-annexes">
+<h2>Export GeoPackage (et formats annexes)<a class="headerlink" href="#export-geopackage-et-formats-annexes" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">out_gpkg</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">)</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;gtfs_stops_</span><span class="si">{</span><span class="n">city</span><span class="si">}</span><span class="s2">.gpkg&quot;</span>
+<span class="n">out_gpkg</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">out_gpkg</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;arrets_tc&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Export GPKG :&quot;</span><span class="p">,</span> <span class="n">out_gpkg</span><span class="p">,</span> <span class="s2">&quot;| n =&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">gdf</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Export GPKG : ..\proxy\data\processed\overpass_results_Marseille\gtfs_stops_Marseille.gpkg | n = 5348
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="encapsulation-reutilisable">
+<h2>Encapsulation réutilisable<a class="headerlink" href="#encapsulation-reutilisable" title="Link to this heading">#</a></h2>
+<p><em>(fonction, prête pour le pipeline)</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">extract_gtfs_stops</span><span class="p">(</span><span class="n">export</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">output_gpkg</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">stops</span>      <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">base_path</span> <span class="o">/</span> <span class="s2">&quot;stops.txt&quot;</span><span class="p">)</span>
+    <span class="n">routes</span>     <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">base_path</span> <span class="o">/</span> <span class="s2">&quot;routes.txt&quot;</span><span class="p">)</span>
+    <span class="n">trips</span>      <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">base_path</span> <span class="o">/</span> <span class="s2">&quot;trips.txt&quot;</span><span class="p">)</span>
+    <span class="n">stop_times</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">base_path</span> <span class="o">/</span> <span class="s2">&quot;stop_times.txt&quot;</span><span class="p">)</span>
+
+    <span class="n">stop_trip</span>  <span class="o">=</span> <span class="n">stop_times</span><span class="p">[[</span><span class="s2">&quot;stop_id&quot;</span><span class="p">,</span> <span class="s2">&quot;trip_id&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+    <span class="n">trip_route</span> <span class="o">=</span> <span class="n">trips</span><span class="p">[[</span><span class="s2">&quot;trip_id&quot;</span><span class="p">,</span> <span class="s2">&quot;route_id&quot;</span><span class="p">]]</span>
+    <span class="n">route_type</span> <span class="o">=</span> <span class="n">routes</span><span class="p">[[</span><span class="s2">&quot;route_id&quot;</span><span class="p">,</span> <span class="s2">&quot;route_type&quot;</span><span class="p">]]</span>
+
+    <span class="n">stops_type</span> <span class="o">=</span> <span class="n">stop_trip</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">trip_route</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;trip_id&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">route_type</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;route_id&quot;</span><span class="p">)</span>
+    <span class="n">mode_per_stop</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">stops_type</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;stop_id&quot;</span><span class="p">)[</span><span class="s2">&quot;route_type&quot;</span><span class="p">]</span>
+        <span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">idxmax</span><span class="p">())</span>
+        <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="p">)</span>
+
+    <span class="n">type_map</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;tram&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;metro&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;bus&quot;</span><span class="p">}</span>
+    <span class="n">mode_per_stop</span> <span class="o">=</span> <span class="n">mode_per_stop</span><span class="p">[</span><span class="n">mode_per_stop</span><span class="p">[</span><span class="s2">&quot;route_type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">type_map</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">mode_per_stop</span><span class="p">[</span><span class="s2">&quot;motive_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mode_per_stop</span><span class="p">[</span><span class="s2">&quot;route_type&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">type_map</span><span class="p">)</span>
+
+    <span class="n">stops_filtered</span> <span class="o">=</span> <span class="n">stops</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">mode_per_stop</span><span class="p">[[</span><span class="s2">&quot;stop_id&quot;</span><span class="p">,</span> <span class="s2">&quot;motive_id&quot;</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;stop_id&quot;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;inner&quot;</span><span class="p">)</span>
+    <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
+        <span class="n">stops_filtered</span><span class="p">,</span>
+        <span class="n">geometry</span><span class="o">=</span><span class="n">gpd</span><span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span><span class="n">stops_filtered</span><span class="p">[</span><span class="s2">&quot;stop_lon&quot;</span><span class="p">],</span> <span class="n">stops_filtered</span><span class="p">[</span><span class="s2">&quot;stop_lat&quot;</span><span class="p">]),</span>
+        <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s2">&quot;EPSG:2154&quot;</span><span class="p">)</span>
+
+    <span class="n">cadre</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">cadre_file</span><span class="p">)</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s2">&quot;EPSG:2154&quot;</span><span class="p">)</span>
+    <span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[</span><span class="n">gdf</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">within</span><span class="p">(</span><span class="n">cadre</span><span class="o">.</span><span class="n">unary_union</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">gdf_final</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">[[</span><span class="s2">&quot;stop_id&quot;</span><span class="p">,</span> <span class="s2">&quot;stop_name&quot;</span><span class="p">,</span> <span class="s2">&quot;motive_id&quot;</span><span class="p">,</span> <span class="s2">&quot;geometry&quot;</span><span class="p">]]</span>
+
+    <span class="k">if</span> <span class="n">export</span> <span class="ow">and</span> <span class="n">output_gpkg</span><span class="p">:</span>
+        <span class="n">output_gpkg</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output_gpkg</span><span class="p">)</span>
+        <span class="n">output_gpkg</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">gdf_final</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">output_gpkg</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;arrets_tc&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">gdf_final</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test</span>
+<span class="n">out_gpkg</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">)</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;gtfs_stops_</span><span class="si">{</span><span class="n">city</span><span class="si">}</span><span class="s2">.gpkg&quot;</span>
+<span class="n">gdf_stops</span> <span class="o">=</span> <span class="n">extract_gtfs_stops</span><span class="p">(</span><span class="n">export</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">output_gpkg</span><span class="o">=</span><span class="n">out_gpkg</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Export OK :&quot;</span><span class="p">,</span> <span class="n">out_gpkg</span><span class="o">.</span><span class="n">exists</span><span class="p">(),</span> <span class="s2">&quot;| n =&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">gdf_stops</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">gdf_stops</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\hazim\AppData\Local\Temp\ipykernel_24040\416887354.py:5: DtypeWarning: Columns (5) have mixed types. Specify dtype option on import or set low_memory=False.
+  stop_times = pd.read_csv(base_path / &quot;stop_times.txt&quot;)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Export OK : True | n = 5348
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>stop_id</th>
+      <th>stop_name</th>
+      <th>motive_id</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>15</th>
+      <td>BDE-20299</td>
+      <td>19 mars 62</td>
+      <td>bus</td>
+      <td>POINT (881349.247 6263961.020)</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>BDE-25735</td>
+      <td>19 mars 62</td>
+      <td>bus</td>
+      <td>POINT (881384.711 6263984.488)</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>RTM-00001532</td>
+      <td>3 Frères Barthélemy</td>
+      <td>bus</td>
+      <td>POINT (893705.902 6246701.204)</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>RTM-00001685</td>
+      <td>3 Ponts Canal</td>
+      <td>bus</td>
+      <td>POINT (897955.203 6244778.833)</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>RTM-00001687</td>
+      <td>3 Ponts Canal</td>
+      <td>bus</td>
+      <td>POINT (897976.470 6244787.497)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="conclusion-aller-plus-loin">
+<h2>Conclusion/ aller plus loin<a class="headerlink" href="#conclusion-aller-plus-loin" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Le <strong>GTFS</strong> décrit une <strong>offre théorique</strong> (statique) — complémentaire, mais distinct, du <strong>temps réel</strong>.</p></li>
+<li><p>La <strong>jointure logique</strong> <code class="docutils literal notranslate"><span class="pre">stop_times</span> <span class="pre">→</span> <span class="pre">trips</span> <span class="pre">→</span> <span class="pre">routes</span></code> est le cœur de l’enrichissement.</p></li>
+<li><p>Les <strong>horaires &gt; 24h</strong> sont courants : préférer une conversion en <strong>secondes</strong> pour les calculs.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">route_type</span></code> peut inclure d’autres modes (ferry, train) : <strong>adapte le mapping</strong> à ton usage.</p></li>
+<li><p>Pour la suite : fréquences par arrêt (en combinant <code class="docutils literal notranslate"><span class="pre">stop_times</span></code> et <code class="docutils literal notranslate"><span class="pre">calendar/_dates</span></code>), amplitude horaire, maillage intermodal, etc.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./10_Donnees"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quest-ce-que-le-gtfs">Qu’est-ce que le GTFS ?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources">Sources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation-configuration">Préparation &amp; configuration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lecture-des-fichiers-gtfs-controles-rapides">Lecture des fichiers GTFS + contrôles rapides</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verifications-integrite-horaires">Vérifications (intégrité + horaires)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#integrite-referentielle-minimale">Intégrité référentielle minimale</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#horaires-24h-pedago">3.2 Horaires &gt; 24h (pédago)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chainage-logique-type-majoritaire-par-arret">Chaînage logique — type majoritaire par arrêt</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#typage-clair-mapping-route-type-libelle">Typage clair (mapping route_type → libellé)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jointure-avec-stops-geodataframe">Jointure avec <code class="docutils literal notranslate"><span class="pre">stops</span></code> + GeoDataFrame</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtrage-spatial-par-lemprise-marseille">Filtrage spatial par l’emprise (Marseille)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#petit-diagnostic">Petit diagnostic</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#export-geopackage-et-formats-annexes">Export GeoPackage (et formats annexes)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#encapsulation-reutilisable">Encapsulation réutilisable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-aller-plus-loin">Conclusion/ aller plus loin</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By M. Hazim (CINaM/CNRS/AMU)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="font-size:0.9rem; line-height:1.4; margin-top:0.5rem;">
+  Contact : <a href="mailto:moindze-boina.hazim@cnrs.fr">moindze-boina.hazim@cnrs.fr</a>
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

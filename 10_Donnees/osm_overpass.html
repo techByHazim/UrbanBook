@@ -1,0 +1,1319 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Extraction et prétraitement des données OSM &#8212; Proximité urbaine</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '10_Donnees/osm_overpass';</script>
+    <link rel="icon" href="../_static/carte.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Construction d’un réseau piéton pour l’analyse" href="reseau-pieton-intro.html" />
+    <link rel="prev" title="Les équipements rétenus dans OpenStreetMap" href="osm_label.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/carte.png" class="logo__image only-light" alt="Proximité urbaine - Home"/>
+    <script>document.write(`<img src="../_static/carte.png" class="logo__image only-dark" alt="Proximité urbaine - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    UrbanBook
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Environnement</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_Projet/environnement.html">Installation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Les équipements urbains</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="catalogue_donnees.html">Catalogue des données</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dictionnaire_variables.html">Dictionnaire des variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="osm_label.html">Les équipements rétenus dans OpenStreetMap</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Extraction et prétraitement des données OSM</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Réseau de route pièton</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="reseau-pieton-intro.html">Construction d’un réseau piéton pour l’analyse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pedestrian_roads.html">Extraction du réseau piéton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automatisation_roads.html">Automatisation du processus d’extraction du réseau</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph_OSMnx.html">Notebook d’exploration du graphe OSMnx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lixelization.html">Lixelisation et graphe du réseau</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Calcul d'indicateur de proximité</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../50_Reproductibilite/structure_projet.html">Structure du projet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../50_Reproductibilite/comment_reproduire.html">Produire les indicateurs de proximité</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook/issues/new?title=Issue%20on%20page%20%2F10_Donnees/osm_overpass.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/10_Donnees/osm_overpass.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Extraction et prétraitement des données OSM</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation">Préparation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overpass-endpoints-session-http">Overpass : endpoints &amp; session HTTP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#emprise-tuilage">Emprise &amp; tuilage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#construire-la-requete-overpass">Construire la requête Overpass</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fetch-robuste">Fetch robuste</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformer-le-json-en-points-sauvegarder">Transformer le JSON en points &amp; sauvegarder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collecte-sur-toutes-les-tuiles">Collecte sur toutes les tuiles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dry-run-1-tuile-1-tag-markdown">Dry-run : 1 tuile + 1 tag (Markdown)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#un-tag-complet-toutes-les-tuiles">Un tag complet (toutes les tuiles)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extraction-complete-securisee">Extraction complète (sécurisée)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verifier-les-sorties">Vérifier les sorties</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#affichage-d-un-fichier">Affichage d’un fichier</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonnes-pratiques-depannage">Bonnes pratiques &amp; dépannage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="extraction-et-pretraitement-des-donnees-osm">
+<h1>Extraction et prétraitement des données OSM<a class="headerlink" href="#extraction-et-pretraitement-des-donnees-osm" title="Link to this heading">#</a></h1>
+<p>Cette section montre comment extraire des données OSM avec Overpass sur une emprise donnée, en fractionnant la zone en tuiles raisonnables, en gérant les limitations de l’API et en sauvegardant un résultat propre en GeoPackage.</p>
+<section id="preparation">
+<h2>Préparation<a class="headerlink" href="#preparation" title="Link to this heading">#</a></h2>
+<p>On charge les bibliothèques usuelles et les paramètres centralisés dans config.py :</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">cycle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Iterable</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">Point</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="c1"># Seul fichier requis : config.py (présent dans ton projet)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">config</span><span class="w"> </span><span class="kn">import</span> <span class="n">CONFIG_PATH</span><span class="p">,</span> <span class="n">cadre_file</span><span class="p">,</span> <span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="n">epsg</span><span class="p">,</span> <span class="n">city</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CONFIG_PATH:&quot;</span><span class="p">,</span> <span class="n">CONFIG_PATH</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cadre_file:&quot;</span><span class="p">,</span> <span class="n">cadre_file</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;OUTPUT_DIR:&quot;</span><span class="p">,</span> <span class="n">OUTPUT_DIR</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;EPSG cible:&quot;</span><span class="p">,</span> <span class="n">epsg</span><span class="p">,</span> <span class="s2">&quot;| city:&quot;</span><span class="p">,</span> <span class="n">city</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CONFIG_PATH: ..\proxy\data\raw\insee\overpass_config.json
+cadre_file: ..\proxy\data\raw\insee\CadreMarseille.shp
+OUTPUT_DIR: ..\proxy\data\processed\overpass_results_Marseille
+EPSG cible: 2154 | city: Marseille
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>À retenir :</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CONFIG_PATH</span></code> pointe vers un JSON qui liste les tags OSM à extraire.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cadre_file</span></code> est l’emprise (shapefile/gpkg) : c’est notre zone d’étude.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OUTPUT_DIR</span></code> est où on sauvegarde les .gpkg.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">epsg</span></code> est la projection cible (ex : 2154).</p></li>
+</ul>
+<blockquote>
+<div><p>Lecture de la configuration: On veut vérifier que le fichier de configuration est correctement chargé et comprendre son contenu.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">CONFIG_PATH</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">conf</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Clés de config:&quot;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">conf</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;max_edge_deg:&quot;</span><span class="p">,</span> <span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;overpass&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;max_edge_deg&quot;</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
+
+<span class="n">tags</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">,</span> <span class="p">[])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nombre de tags:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">tags</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exemple de tag:&quot;</span><span class="p">,</span> <span class="n">tags</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">tags</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Clés de config: [&#39;tags&#39;]
+max_edge_deg: 0.25
+Nombre de tags: 55
+Exemple de tag: {&#39;key&#39;: &#39;highway&#39;, &#39;value&#39;: &#39;bus_stop&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>Interprétation :</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">max_edge_deg</span></code> = taille max d’une tuile en degrés → plus petit = plus de requêtes mais plus stables.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tags</span></code> est une liste de { “key”: “…”, “value”: “…” }. On extraira un fichier par tag.</p></li>
+</ul>
+</section>
+<section id="overpass-endpoints-session-http">
+<h2>Overpass : endpoints &amp; session HTTP<a class="headerlink" href="#overpass-endpoints-session-http" title="Link to this heading">#</a></h2>
+<p>Overpass impose des règles d’usage (éviter de marteler, s’identifier). On prépare :</p>
+<ul class="simple">
+<li><p>une liste de miroirs (rotation en cas d’échec),</p></li>
+<li><p>un User-Agent clair,</p></li>
+<li><p>un délai de politesse entre requêtes.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Overpass endpoints (HTTPS) – rotation en cas de retry</span>
+<span class="n">OVERPASS_ENDPOINTS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;https://overpass-api.de/api/interpreter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;https://lz4.overpass-api.de/api/interpreter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;https://z.overpass-api.de/api/interpreter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;https://overpass.kumi.systems/api/interpreter&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># Délai (s) pour éviter de marteler l&#39;API</span>
+<span class="n">POLITE_DELAY</span> <span class="o">=</span> <span class="mf">1.5</span>
+
+<span class="c1"># Session persistante</span>
+<span class="n">_SESSION</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_session</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">:</span>
+    <span class="k">global</span> <span class="n">_SESSION</span>
+    <span class="k">if</span> <span class="n">_SESSION</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+            <span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;AttractiveCity/1.0 (contact: hazim)&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Accept-Encoding&quot;</span><span class="p">:</span> <span class="s2">&quot;gzip, deflate&quot;</span><span class="p">,</span>
+        <span class="p">})</span>
+        <span class="n">_SESSION</span> <span class="o">=</span> <span class="n">s</span>
+    <span class="k">return</span> <span class="n">_SESSION</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>À retenir (éthique &amp; robustesse) :</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Ralentir volontairement (POLITE_DELAY).</p></li>
+<li><p>S’identifier (User-Agent).</p></li>
+<li><p>Tourner sur plusieurs endpoints → résilience.</p></li>
+</ul>
+</section>
+<section id="emprise-tuilage">
+<h2>Emprise &amp; tuilage<a class="headerlink" href="#emprise-tuilage" title="Link to this heading">#</a></h2>
+<p>Une bbox trop grande → requêtes lourdes → timeouts / 429.
+Le tuilage permet des requêtes plus petites, fiables, rejouables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load_bbox_from_shapefile</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+    <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">4326</span><span class="p">)</span>
+    <span class="n">tb</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">total_bounds</span>  <span class="c1"># [minx, miny, maxx, maxy]</span>
+    <span class="k">return</span> <span class="n">tb</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tb</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">tb</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">tb</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">tile_bbox</span><span class="p">(</span>
+    <span class="n">bbox</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">max_edge_deg</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.25</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Découpe la bbox en une grille de bboxes plus petites,</span>
+<span class="sd">    dont l&#39;arête max ≤ max_edge_deg (en degrés).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">minx</span><span class="p">,</span> <span class="n">miny</span><span class="p">,</span> <span class="n">maxx</span><span class="p">,</span> <span class="n">maxy</span> <span class="o">=</span> <span class="n">bbox</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">maxx</span> <span class="o">-</span> <span class="n">minx</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">maxy</span> <span class="o">-</span> <span class="n">miny</span>
+
+    <span class="n">nx</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span> <span class="o">//</span> <span class="n">max_edge_deg</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="n">width</span> <span class="o">%</span> <span class="n">max_edge_deg</span> <span class="o">&gt;</span> <span class="mf">1e-12</span> <span class="k">else</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">ny</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">height</span> <span class="o">//</span> <span class="n">max_edge_deg</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="n">height</span> <span class="o">%</span> <span class="n">max_edge_deg</span> <span class="o">&gt;</span> <span class="mf">1e-12</span> <span class="k">else</span> <span class="mi">0</span><span class="p">))</span>
+
+    <span class="n">dx</span> <span class="o">=</span> <span class="n">width</span> <span class="o">/</span> <span class="n">nx</span>
+    <span class="n">dy</span> <span class="o">=</span> <span class="n">height</span> <span class="o">/</span> <span class="n">ny</span>
+
+    <span class="k">for</span> <span class="n">iy</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ny</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ix</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nx</span><span class="p">):</span>
+            <span class="n">x0</span> <span class="o">=</span> <span class="n">minx</span> <span class="o">+</span> <span class="n">ix</span> <span class="o">*</span> <span class="n">dx</span>
+            <span class="n">x1</span> <span class="o">=</span> <span class="n">minx</span> <span class="o">+</span> <span class="p">(</span><span class="n">ix</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">dx</span>
+            <span class="n">y0</span> <span class="o">=</span> <span class="n">miny</span> <span class="o">+</span> <span class="n">iy</span> <span class="o">*</span> <span class="n">dy</span>
+            <span class="n">y1</span> <span class="o">=</span> <span class="n">miny</span> <span class="o">+</span> <span class="p">(</span><span class="n">iy</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">dy</span>
+            <span class="k">yield</span> <span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>Interprétation :</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>max_edge_deg est ton levier anti-timeout.</p></li>
+<li><p>Tu peux augmenter (plus rapide mais risqué) ou réduire (plus lent mais sûr).</p></li>
+</ul>
+</section>
+<section id="construire-la-requete-overpass">
+<h2>Construire la requête Overpass<a class="headerlink" href="#construire-la-requete-overpass" title="Link to this heading">#</a></h2>
+<p>Overpass prend (south, west, north, east) et permet d’interroger node / way / relation.
+out center fournit un point même pour les ways/relations → pratique pour tout stocker en points.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">build_query</span><span class="p">(</span><span class="n">bbox</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">timeout_s</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">180</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="c1"># Format Overpass: south,west,north,east =&gt; (miny,minx,maxy,maxx)</span>
+    <span class="n">minx</span><span class="p">,</span> <span class="n">miny</span><span class="p">,</span> <span class="n">maxx</span><span class="p">,</span> <span class="n">maxy</span> <span class="o">=</span> <span class="n">bbox</span>
+    <span class="n">bbox_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">miny</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">minx</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">maxy</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">maxx</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="c1"># out center -&gt; récupère un point même pour ways/relations</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    [out:json][timeout:</span><span class="si">{</span><span class="n">timeout_s</span><span class="si">}</span><span class="s2">];</span>
+<span class="s2">    (</span>
+<span class="s2">      node[&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;=&quot;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;](</span><span class="si">{</span><span class="n">bbox_str</span><span class="si">}</span><span class="s2">);</span>
+<span class="s2">      way[&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;=&quot;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;](</span><span class="si">{</span><span class="n">bbox_str</span><span class="si">}</span><span class="s2">);</span>
+<span class="s2">      relation[&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;=&quot;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;](</span><span class="si">{</span><span class="n">bbox_str</span><span class="si">}</span><span class="s2">);</span>
+<span class="s2">    );</span>
+<span class="s2">    out center;</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">query</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>À retenir :</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>timeout_s peut être augmenté pour les zones denses.</p></li>
+<li><p>Un tag = une requête (répétée pour chaque tuile).</p></li>
+</ul>
+</section>
+<section id="fetch-robuste">
+<h2>Fetch robuste<a class="headerlink" href="#fetch-robuste" title="Link to this heading">#</a></h2>
+<p>Le monde réel = erreurs réseau, serveurs saturés, limitations de débit.
+On gère :</p>
+<p>429 → on respecte Retry-After si présent, sinon backoff exponentiel ;</p>
+<p>5xx → on attend et on réessaie ;</p>
+<p>rotation automatique des miroirs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fetch_osm_data</span><span class="p">(</span>
+    <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">max_tries</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="n">initial_backoff</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">request_timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">180</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="n">session</span> <span class="o">=</span> <span class="n">_get_session</span><span class="p">()</span>
+    <span class="n">endpoints</span> <span class="o">=</span> <span class="n">cycle</span><span class="p">(</span><span class="n">OVERPASS_ENDPOINTS</span><span class="p">)</span>
+    <span class="n">errors</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_tries</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">endpoints</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">POLITE_DELAY</span><span class="p">)</span>
+            <span class="n">resp</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">query</span><span class="p">},</span> <span class="n">timeout</span><span class="o">=</span><span class="n">request_timeout</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">429</span><span class="p">:</span>
+                <span class="n">retry_after</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Retry-After&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">retry_after</span> <span class="ow">and</span> <span class="n">retry_after</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+                    <span class="n">delay</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">retry_after</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">delay</span> <span class="o">=</span> <span class="n">initial_backoff</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">attempt</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">delay</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="n">resp</span><span class="o">.</span><span class="n">status_code</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">502</span><span class="p">,</span> <span class="mi">503</span><span class="p">,</span> <span class="mi">504</span><span class="p">):</span>
+                <span class="n">delay</span> <span class="o">=</span> <span class="n">initial_backoff</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">attempt</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">delay</span><span class="p">)</span>
+                <span class="k">continue</span>
+
+            <span class="n">resp</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">delay</span> <span class="o">=</span> <span class="n">initial_backoff</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">attempt</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+            <span class="n">errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">delay</span><span class="p">)</span>
+
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Overpass requests failed after retries:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">errors</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>Interprétation :</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Si tu vois des temps d’attente, c’est normal.</p></li>
+<li><p>Si ça échoue malgré tout : réduis max_edge_deg (requêtes plus petites).</p></li>
+</ul>
+</section>
+<section id="transformer-le-json-en-points-sauvegarder">
+<h2>Transformer le JSON en points &amp; sauvegarder<a class="headerlink" href="#transformer-le-json-en-points-sauvegarder" title="Link to this heading">#</a></h2>
+<p>On veut un format homogène (points) pour tous types OSM (nodes, ways, relations).
+out center garantit un centre pour ways/relations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">extract_elements</span><span class="p">(</span><span class="n">osm_json</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+    <span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">osm_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;elements&quot;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="n">osm_type</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">)</span>  <span class="c1"># &quot;node&quot; | &quot;way&quot; | &quot;relation&quot;</span>
+        <span class="n">osm_id</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s2">&quot;lat&quot;</span> <span class="ow">in</span> <span class="n">elem</span> <span class="ow">and</span> <span class="s2">&quot;lon&quot;</span> <span class="ow">in</span> <span class="n">elem</span><span class="p">:</span>
+            <span class="n">geometry</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">elem</span><span class="p">[</span><span class="s2">&quot;lon&quot;</span><span class="p">],</span> <span class="n">elem</span><span class="p">[</span><span class="s2">&quot;lat&quot;</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="s2">&quot;center&quot;</span> <span class="ow">in</span> <span class="n">elem</span><span class="p">:</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">elem</span><span class="p">[</span><span class="s2">&quot;center&quot;</span><span class="p">]</span>
+            <span class="n">geometry</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="s2">&quot;lon&quot;</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="s2">&quot;lat&quot;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">row</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="n">geometry</span><span class="p">,</span>
+            <span class="s2">&quot;osm_type&quot;</span><span class="p">:</span> <span class="n">osm_type</span><span class="p">,</span>
+            <span class="s2">&quot;osm_id&quot;</span><span class="p">:</span> <span class="n">osm_id</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">tags</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="k">if</span> <span class="n">tags</span><span class="p">:</span>
+            <span class="n">row</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">tags</span><span class="p">)</span>
+        <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">elements</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">save_elements</span><span class="p">(</span><span class="n">elements</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span> <span class="n">output_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">motive_value</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">elements</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No data for </span><span class="si">{</span><span class="n">output_path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="s2">&quot;geometry&quot;</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="n">epsg</span><span class="p">)</span>
+    <span class="n">gdf</span><span class="p">[</span><span class="s2">&quot;motive_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">motive_value</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+    <span class="c1"># Dédup par (osm_type, osm_id)</span>
+    <span class="k">if</span> <span class="p">{</span><span class="s2">&quot;osm_type&quot;</span><span class="p">,</span> <span class="s2">&quot;osm_id&quot;</span><span class="p">}</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">gdf</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+        <span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;osm_type&quot;</span><span class="p">,</span> <span class="s2">&quot;osm_id&quot;</span><span class="p">])</span>
+
+    <span class="n">output_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ Data saved: </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">  (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gdf</span><span class="p">)</span><span class="si">}</span><span class="s2"> features)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>Interprétation :</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">motive_id</span></code> te permet de filtrer par type d’équipement ensuite.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">.to_crs(epsg=epsg)</span></code> → tu travailles directement dans ton CRS de référence (ex : 2154).</p></li>
+</ul>
+</section>
+<section id="collecte-sur-toutes-les-tuiles">
+<h2>Collecte sur toutes les tuiles<a class="headerlink" href="#collecte-sur-toutes-les-tuiles" title="Link to this heading">#</a></h2>
+<p>C’est le cœur de la collecte pour un tag donné : on parcourt les tuiles, on déduplique au fur et à mesure.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">collect_elements_for_tag</span><span class="p">(</span>
+    <span class="n">bbox</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">max_edge_deg</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.25</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+    <span class="n">seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>  <span class="c1"># (osm_type, osm_id)</span>
+    <span class="n">all_rows</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">tile</span> <span class="ow">in</span> <span class="n">tile_bbox</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">max_edge_deg</span><span class="o">=</span><span class="n">max_edge_deg</span><span class="p">):</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="n">build_query</span><span class="p">(</span><span class="n">tile</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">timeout_s</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span>
+        <span class="n">osm_json</span> <span class="o">=</span> <span class="n">fetch_osm_data</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="n">extract_elements</span><span class="p">(</span><span class="n">osm_json</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+            <span class="n">ot</span><span class="p">,</span> <span class="n">oid</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;osm_type&quot;</span><span class="p">),</span> <span class="n">r</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;osm_id&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ot</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">oid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">key_</span> <span class="o">=</span> <span class="p">(</span><span class="n">ot</span><span class="p">,</span> <span class="n">oid</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">key_</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">key_</span><span class="p">)</span>
+            <span class="n">all_rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">all_rows</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>Interprétation :</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>La déduplication évite d’écrire deux fois le même objet si une entité chevauche deux tuiles.</p></li>
+<li><p>Le retour = liste de dicts prêts à transformer en GeoDataFrame.</p></li>
+</ul>
+</section>
+<section id="dry-run-1-tuile-1-tag-markdown">
+<h2>Dry-run : 1 tuile + 1 tag (Markdown)<a class="headerlink" href="#dry-run-1-tuile-1-tag-markdown" title="Link to this heading">#</a></h2>
+<p>Avant de lancer le “vrai” téléchargement, on teste :</p>
+<ul class="simple">
+<li><p>la connexion Overpass,</p></li>
+<li><p>un tag réel,</p></li>
+<li><p>le format de sortie,</p></li>
+<li><p>la chaîne requête → JSON → points → GPKG.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Charger bbox</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="n">load_bbox_from_shapefile</span><span class="p">(</span><span class="n">cadre_file</span><span class="p">)</span>
+
+<span class="c1"># Lire la config</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">CONFIG_PATH</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">conf</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="n">max_edge_deg</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;overpass&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;max_edge_deg&quot;</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="n">conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">,</span> <span class="p">[])</span>
+<span class="k">assert</span> <span class="n">tags</span><span class="p">,</span> <span class="s2">&quot;La config ne contient pas de tags.&quot;</span>
+
+<span class="c1"># 1ère tuile + 1er tag</span>
+<span class="n">first_tile</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">tile_bbox</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">max_edge_deg</span><span class="o">=</span><span class="n">max_edge_deg</span><span class="p">))</span>
+<span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">tags</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;key&quot;</span><span class="p">],</span> <span class="n">tags</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tile:&quot;</span><span class="p">,</span> <span class="n">first_tile</span><span class="p">,</span> <span class="s2">&quot;| Tag:&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+<span class="c1"># Requête → fetch → extraction</span>
+<span class="n">q</span> <span class="o">=</span> <span class="n">build_query</span><span class="p">(</span><span class="n">first_tile</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">timeout_s</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span>
+<span class="n">osm_json</span> <span class="o">=</span> <span class="n">fetch_osm_data</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">extract_elements</span><span class="p">(</span><span class="n">osm_json</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Éléments récupérés:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">))</span>
+
+<span class="c1"># Sauvegarde temporaire pour voir le format</span>
+<span class="n">tmp_out</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">)</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;__SAMPLE__</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">city</span><span class="si">}</span><span class="s2">.gpkg&quot;</span>
+<span class="n">save_elements</span><span class="p">(</span><span class="n">rows</span><span class="p">,</span> <span class="n">tmp_out</span><span class="p">,</span> <span class="n">motive_value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+
+<span class="c1"># Aperçu</span>
+<span class="k">if</span> <span class="n">tmp_out</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="n">gdf_tmp</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">tmp_out</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">gdf_tmp</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tile: (5.124256045405729, 43.13326966157955, 5.307748201187553, 43.2945089992285) | Tag: highway = bus_stop
+Éléments récupérés: 0
+No data for __SAMPLE__highway_bus_stop_Marseille.gpkg
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>Interprétation :</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Si len(rows) == 0, soit le tag est rare sur ta zone, soit il faut diminuer max_edge_deg.</p></li>
+<li><p>Tu vois la structure des colonnes (tags OSM) et la géométrie.</p></li>
+</ul>
+</section>
+<section id="un-tag-complet-toutes-les-tuiles">
+<h2>Un tag complet (toutes les tuiles)<a class="headerlink" href="#un-tag-complet-toutes-les-tuiles" title="Link to this heading">#</a></h2>
+<p>On passe du test au téléchargement d’un tag pour toute la zone.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Choisir un tag par index (ex: 0)</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">tags</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;key&quot;</span><span class="p">],</span> <span class="n">tags</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tag choisi:&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+<span class="n">elements</span> <span class="o">=</span> <span class="n">collect_elements_for_tag</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">max_edge_deg</span><span class="o">=</span><span class="n">max_edge_deg</span><span class="p">)</span>
+<span class="n">outfile</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">)</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">city</span><span class="si">}</span><span class="s2">.gpkg&quot;</span>
+<span class="n">save_elements</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="n">outfile</span><span class="p">,</span> <span class="n">motive_value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tag choisi: highway = bus_stop
+✓ Data saved: ..\proxy\data\processed\overpass_results_Marseille\highway_bus_stop_Marseille.gpkg  (4650 features)
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>Interprétation :</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Observe le nombre de features.</p></li>
+<li><p>Ouvre le <code class="docutils literal notranslate"><span class="pre">.gpkg</span></code> dans QGIS pour un premier regard spatial si besoin.</p></li>
+</ul>
+</section>
+<section id="extraction-complete-securisee">
+<h2>Extraction complète (sécurisée)<a class="headerlink" href="#extraction-complete-securisee" title="Link to this heading">#</a></h2>
+<p>On ne retélécharge pas ce qui existe déjà → relançable sans surcoût.
+Tu peux couper puis relancer → il reprendra où il en est.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">extract_osm_elements</span><span class="p">():</span>
+    <span class="n">Path</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">bbox</span> <span class="o">=</span> <span class="n">load_bbox_from_shapefile</span><span class="p">(</span><span class="n">cadre_file</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">CONFIG_PATH</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="n">max_edge_deg</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;overpass&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;max_edge_deg&quot;</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;tags&quot;</span><span class="p">]:</span>
+        <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">tag</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">],</span> <span class="n">tag</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span>
+        <span class="n">fname</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">city</span><span class="si">}</span><span class="s2">.gpkg&quot;</span>
+        <span class="n">output_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">)</span> <span class="o">/</span> <span class="n">fname</span>
+
+        <span class="k">if</span> <span class="n">output_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File already exists, skipping download: </span><span class="si">{</span><span class="n">output_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extraction </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+        <span class="n">elements</span> <span class="o">=</span> <span class="n">collect_elements_for_tag</span><span class="p">(</span><span class="n">bbox</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">max_edge_deg</span><span class="o">=</span><span class="n">max_edge_deg</span><span class="p">)</span>
+        <span class="n">save_elements</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span> <span class="n">output_path</span><span class="p">,</span> <span class="n">motive_value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+
+<span class="c1"># Décommente pour lancer la collecte complète :</span>
+<span class="c1"># extract_osm_elements()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="verifier-les-sorties">
+<h2>Vérifier les sorties<a class="headerlink" href="#verifier-les-sorties" title="Link to this heading">#</a></h2>
+<p>On s’assure que les fichiers sont bien produits, et on jette un œil au contenu.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">glob</span><span class="w"> </span><span class="kn">import</span> <span class="n">glob</span>
+
+<span class="n">files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">)</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;*_</span><span class="si">{</span><span class="n">city</span><span class="si">}</span><span class="s2">.gpkg&quot;</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span><span class="si">}</span><span class="s2"> fichier(s) généré(s) dans </span><span class="si">{</span><span class="n">OUTPUT_DIR</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+<span class="n">files</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>59 fichier(s) généré(s) dans ..\proxy\data\processed\overpass_results_Marseille:
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;..\\proxy\\data\\processed\\overpass_results_Marseille\\amenity_bar_Marseille.gpkg&#39;,
+ &#39;..\\proxy\\data\\processed\\overpass_results_Marseille\\amenity_bicycle_parking_Marseille.gpkg&#39;,
+ &#39;..\\proxy\\data\\processed\\overpass_results_Marseille\\amenity_bicycle_rental_Marseille.gpkg&#39;,
+ &#39;..\\proxy\\data\\processed\\overpass_results_Marseille\\amenity_bus_station_Marseille.gpkg&#39;,
+ &#39;..\\proxy\\data\\processed\\overpass_results_Marseille\\amenity_cafe_Marseille.gpkg&#39;,
+ &#39;..\\proxy\\data\\processed\\overpass_results_Marseille\\amenity_childcare_Marseille.gpkg&#39;,
+ &#39;..\\proxy\\data\\processed\\overpass_results_Marseille\\amenity_cinema_Marseille.gpkg&#39;,
+ &#39;..\\proxy\\data\\processed\\overpass_results_Marseille\\amenity_clinic_Marseille.gpkg&#39;,
+ &#39;..\\proxy\\data\\processed\\overpass_results_Marseille\\amenity_college_Marseille.gpkg&#39;,
+ &#39;..\\proxy\\data\\processed\\overpass_results_Marseille\\amenity_community_centre_Marseille.gpkg&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>Interprétation :</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Si certains tags manquent → vérifie la config ou relance extract_osm_elements() (il traitera seulement les manquants).</p></li>
+<li><p>Si un fichier est vide → pas forcément un bug, peut être un tag absent de ta zone.</p></li>
+</ul>
+</section>
+<section id="affichage-d-un-fichier">
+<h2>Affichage d’un fichier<a class="headerlink" href="#affichage-d-un-fichier" title="Link to this heading">#</a></h2>
+<p>On peut visualiser un des fichiers extraits pour vérifier le contenu.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ouvrir un fichier au hasard et regarder quelques lignes</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="k">if</span> <span class="n">files</span><span class="p">:</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exemple :&quot;</span><span class="p">,</span> <span class="n">sample</span><span class="p">)</span>
+    <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">gdf</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Aucun fichier trouvé.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Exemple : ..\proxy\data\processed\overpass_results_Marseille\amenity_bicycle_rental_Marseille.gpkg
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>osm_type</th>
+      <th>osm_id</th>
+      <th>amenity</th>
+      <th>bicycle_rental</th>
+      <th>capacity</th>
+      <th>name</th>
+      <th>name:oc</th>
+      <th>network</th>
+      <th>operator</th>
+      <th>ref</th>
+      <th>...</th>
+      <th>survey:date</th>
+      <th>covered</th>
+      <th>operator:type</th>
+      <th>payment:app</th>
+      <th>note</th>
+      <th>brand</th>
+      <th>brand:wikidata</th>
+      <th>network:wikidata</th>
+      <th>motive_id</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>node</td>
+      <td>391558891</td>
+      <td>bicycle_rental</td>
+      <td>docking_station</td>
+      <td>20</td>
+      <td>Prado - Paradis</td>
+      <td>Pradòt - Paradís</td>
+      <td>levélo</td>
+      <td>Inurba Mobility</td>
+      <td>ce4bhh92rcd13ifvqfh0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>BICYCLE_RENTAL</td>
+      <td>POINT (893833.938 6244075.413)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>node</td>
+      <td>391828560</td>
+      <td>bicycle_rental</td>
+      <td>docking_station</td>
+      <td>20</td>
+      <td>Prado - Gabès</td>
+      <td>Pradòt - Gàbes</td>
+      <td>levélo</td>
+      <td>Inurba Mobility</td>
+      <td>ce4bhg92rcd13ifvqf90</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>BICYCLE_RENTAL</td>
+      <td>POINT (893536.723 6243767.036)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>node</td>
+      <td>393138363</td>
+      <td>bicycle_rental</td>
+      <td>docking_station</td>
+      <td>40</td>
+      <td>Prado - Michelet</td>
+      <td>Pradòt - Michelet</td>
+      <td>levélo</td>
+      <td>Inurba Mobility</td>
+      <td>ce4bhhp2rcd13ifvqfm0</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>BICYCLE_RENTAL</td>
+      <td>POINT (894253.095 6244382.594)</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>node</td>
+      <td>406255275</td>
+      <td>bicycle_rental</td>
+      <td>docking_station</td>
+      <td>20</td>
+      <td>Livon - Vieux-Port</td>
+      <td>Livon - Pòrt Vièlh</td>
+      <td>levélo</td>
+      <td>Inurba Mobility</td>
+      <td>ce4bhbh2rcd13ifvqeqg</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>BICYCLE_RENTAL</td>
+      <td>POINT (891666.580 6246547.828)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>node</td>
+      <td>619870850</td>
+      <td>bicycle_rental</td>
+      <td>docking_station</td>
+      <td>20</td>
+      <td>Place aux Huiles</td>
+      <td>NaN</td>
+      <td>levélo</td>
+      <td>Inurba Mobility</td>
+      <td>ce4bgh92rcd13ifvqb40</td>
+      <td>...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>BICYCLE_RENTAL</td>
+      <td>POINT (892545.055 6246689.056)</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 30 columns</p>
+</div></div></div>
+</div>
+</section>
+<section id="bonnes-pratiques-depannage">
+<h2>Bonnes pratiques &amp; dépannage<a class="headerlink" href="#bonnes-pratiques-depannage" title="Link to this heading">#</a></h2>
+<p>Respect de l’API : <code class="docutils literal notranslate"><span class="pre">User-Agent</span></code>, délai, tailles raisonnables, retries → tu es un “bon citoyen”.</p>
+<p><strong>Paramètres clés</strong> :</p>
+<p><code class="docutils literal notranslate"><span class="pre">max_edge_deg</span></code> (plus petit = requêtes plus petites, plus sûres),</p>
+<p><code class="docutils literal notranslate"><span class="pre">timeout_s</span></code> (zones denses),</p>
+<p><code class="docutils literal notranslate"><span class="pre">POLITE_DELAY</span></code> (évite de déranger).</p>
+<p><strong>Erreurs courantes</strong> :</p>
+<ul class="simple">
+<li><p>429 = surcharge → normal → attends, réessaie, réduis <code class="docutils literal notranslate"><span class="pre">max_edge_deg</span></code>.</p></li>
+<li><p>Timeout = requêtes trop lourdes → idem.</p></li>
+<li><p>Fichier vide = tag rare → pas un bug.</p></li>
+</ul>
+<p><strong>Reproductibilité</strong> :</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">extract_osm_elements()</span></code> saute les fichiers déjà présents → tu peux relancer sans tout refaire.</p></li>
+<li><p>GeoPackage en EPSG local → prêt pour des analyses/rendus.</p></li>
+</ul>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<p>Dans cette section, nous avons exploré comment extraire efficacement des données d’OpenStreetMap en utilisant l’API Overpass. Nous avons couvert les étapes essentielles, de la préparation des paramètres à la gestion des erreurs courantes, en passant par le tuilage de l’emprise et la sauvegarde des données dans un format utilisable.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./10_Donnees"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="osm_label.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Les équipements rétenus dans OpenStreetMap</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="reseau-pieton-intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Construction d’un réseau piéton pour l’analyse</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preparation">Préparation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overpass-endpoints-session-http">Overpass : endpoints &amp; session HTTP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#emprise-tuilage">Emprise &amp; tuilage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#construire-la-requete-overpass">Construire la requête Overpass</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fetch-robuste">Fetch robuste</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformer-le-json-en-points-sauvegarder">Transformer le JSON en points &amp; sauvegarder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#collecte-sur-toutes-les-tuiles">Collecte sur toutes les tuiles</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dry-run-1-tuile-1-tag-markdown">Dry-run : 1 tuile + 1 tag (Markdown)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#un-tag-complet-toutes-les-tuiles">Un tag complet (toutes les tuiles)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extraction-complete-securisee">Extraction complète (sécurisée)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verifier-les-sorties">Vérifier les sorties</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#affichage-d-un-fichier">Affichage d’un fichier</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bonnes-pratiques-depannage">Bonnes pratiques &amp; dépannage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By M. Hazim (CINaM/CNRS/AMU)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="font-size:0.9rem; line-height:1.4; margin-top:0.5rem;">
+  Contact : <a href="mailto:moindze-boina.hazim@cnrs.fr">moindze-boina.hazim@cnrs.fr</a>
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

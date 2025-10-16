@@ -1,0 +1,935 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lixelisation et graphe du réseau &#8212; Proximité urbaine</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '10_Donnees/lixelization';</script>
+    <link rel="icon" href="../_static/carte.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Structure du projet" href="../50_Reproductibilite/structure_projet.html" />
+    <link rel="prev" title="Notebook d’exploration du graphe OSMnx" href="graph_OSMnx.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/carte.png" class="logo__image only-light" alt="Proximité urbaine - Home"/>
+    <script>document.write(`<img src="../_static/carte.png" class="logo__image only-dark" alt="Proximité urbaine - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    UrbanBook
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Environnement</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_Projet/environnement.html">Installation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Les équipements urbains</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="catalogue_donnees.html">Catalogue des données</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dictionnaire_variables.html">Dictionnaire des variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="osm_label.html">Les équipements rétenus dans OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="osm_overpass.html">Extraction et prétraitement des données OSM</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Réseau de route pièton</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="reseau-pieton-intro.html">Construction d’un réseau piéton pour l’analyse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pedestrian_roads.html">Extraction du réseau piéton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automatisation_roads.html">Automatisation du processus d’extraction du réseau</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph_OSMnx.html">Notebook d’exploration du graphe OSMnx</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lixelisation et graphe du réseau</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Calcul d'indicateur de proximité</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../50_Reproductibilite/structure_projet.html">Structure du projet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../50_Reproductibilite/comment_reproduire.html">Produire les indicateurs de proximité</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook/issues/new?title=Issue%20on%20page%20%2F10_Donnees/lixelization.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/10_Donnees/lixelization.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lixelisation et graphe du réseau</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lixelisation-du-reseau-routier">Lixelisation du réseau routier</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#methode-1-lixelisation-via-qgis-processing">Méthode 1 : Lixelisation via QGIS Processing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#methode-2-lixelisation-en-python">Méthode 2 : Lixelisation en Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-sur-les-limites-du-decoupage">Discussion sur les limites du découpage</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creation-d-un-graphe-du-reseau-lixelise">Creation d’un graphe du réseau lixelisé</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="lixelisation-et-graphe-du-reseau">
+<h1>Lixelisation et graphe du réseau<a class="headerlink" href="#lixelisation-et-graphe-du-reseau" title="Link to this heading">#</a></h1>
+<section id="lixelisation-du-reseau-routier">
+<h2>Lixelisation du réseau routier<a class="headerlink" href="#lixelisation-du-reseau-routier" title="Link to this heading">#</a></h2>
+<p>Cette étape consiste à <strong>lixeliser le réseau routier</strong>, c’est-à-dire à découper chaque tronçon en petits segments de longueur fixe (<em>lixels</em>). Cela permet d’obtenir un réseau régulier, mieux adapté aux calculs de distance, d’accessibilité ou de densité le long des voies.</p>
+<section id="methode-1-lixelisation-via-qgis-processing">
+<h3>Méthode 1 : Lixelisation via QGIS Processing<a class="headerlink" href="#methode-1-lixelisation-via-qgis-processing" title="Link to this heading">#</a></h3>
+<p>Dans une première version, la lixelisation était effectuée directement à l’aide de l’algorithme intégré de QGIS : <a class="reference external" href="https://docs.qgis.org/3.40/en/docs/user_manual/processing_algs/qgis/vectorgeometry.html#split-lines-by-maximum-length"><code class="docutils literal notranslate"><span class="pre">native:splitlinesbylength</span></code></a>
+.<br />
+Cette méthode repose sur le moteur <strong>Processing</strong>, qui exécute les outils géométriques de QGIS depuis un script Python.</p>
+<p><strong>Pseudo-code :</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+1. Initialiser l’environnement QGIS et les chemins nécessaires.
+2. Charger le réseau routier nettoyé (GeoPackage ou Shapefile).
+3. Exécuter l’algorithme &quot;Split Lines by Length&quot;
+   avec la taille de lixel souhaitée (ex. 10 m).
+4. Sauvegarder le réseau découpé dans un nouveau fichier.
+
+</pre></div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Afficher / masquer le code</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># # -*- coding: utf-8 -*-</span>
+<span class="c1"># # =============================================================================</span>
+<span class="c1"># # Author : Hazim</span>
+<span class="c1"># # Date of creation : March 2025</span>
+<span class="c1"># # -*- coding: utf-8 -*-</span>
+<span class="c1"># # =============================================================================</span>
+<span class="c1"># # Author : Hazim</span>
+<span class="c1"># # Date of creation : March 2025</span>
+
+<span class="c1"># # =============================================================================</span>
+<span class="c1"># # Description :</span>
+<span class="c1"># # This script contains functions for lixelising a road network using QGIS Processing tools.</span>
+<span class="c1"># # The lixelisation process involves splitting the road network into smaller segments (lixels) based on a specified size.</span>
+<span class="c1"># # =============================================================================</span>
+
+<span class="c1"># import os</span>
+<span class="c1"># import sys</span>
+<span class="c1"># from tqdm import tqdm</span>
+
+<span class="c1"># # Paths QGIS/Processing</span>
+<span class="c1"># PROCESSING_PATHS = [</span>
+<span class="c1">#     &#39;c:/Program Files (x86)/sDNA&#39;,</span>
+<span class="c1">#     &#39;C:/Users/hazim/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/sdna&#39;,</span>
+<span class="c1">#     &#39;C:/Users/hazim/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/morpheo/gui&#39;,</span>
+<span class="c1">#     &#39;C:/Users/hazim/AppData/Local/anaconda3/envs/pynkdv/Library/python&#39;,</span>
+<span class="c1">#     &#39;C:/Users/hazim/AppData/Roaming/QGIS/QGIS3/profiles/default/python&#39;,</span>
+<span class="c1">#     &#39;C:/Users/hazim/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins&#39;,</span>
+<span class="c1">#     &#39;C:/Users/hazim/AppData/Local/anaconda3/envs/pynkdv/Library/python/plugins&#39;,</span>
+<span class="c1">#     &#39;C:/Users/hazim/Desktop/TheseUrbanScience&#39;,</span>
+<span class="c1">#     &#39;C:/Users/hazim/AppData/Local/anaconda3/envs/pynkdv/python39.zip&#39;,</span>
+<span class="c1">#     &#39;C:/Users/hazim/AppData/Local/anaconda3/envs/pynkdv/DLLs&#39;,</span>
+<span class="c1">#     &#39;C:/Users/hazim/AppData/Local/anaconda3/envs/pynkdv/lib&#39;,</span>
+<span class="c1">#     &#39;C:/Users/hazim/AppData/Local/anaconda3/envs/pynkdv/Library/bin&#39;,</span>
+<span class="c1">#     &#39;C:/Users/hazim/AppData/Local/anaconda3/envs/pynkdv&#39;,</span>
+<span class="c1">#     &#39;C:/Users/hazim/AppData/Local/anaconda3/envs/pynkdv/lib/site-packages&#39;,</span>
+<span class="c1">#     &#39;C:/Users/hazim/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/HCMGIS/forms&#39;,</span>
+<span class="c1">#     &#39;C:/Users/hazim/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/mmqgis/forms&#39;</span>
+<span class="c1"># ]</span>
+
+<span class="c1"># def set_processing_path():</span>
+<span class="c1">#     for path in tqdm(PROCESSING_PATHS, desc=&quot;Adding QGIS paths&quot;):</span>
+<span class="c1">#         if path not in sys.path:</span>
+<span class="c1">#             sys.path.append(path)</span>
+
+<span class="c1"># def initialiser_processing():</span>
+<span class="c1">#     set_processing_path()</span>
+<span class="c1">#     import processing</span>
+<span class="c1">#     from processing.core.Processing import Processing</span>
+
+<span class="c1">#     print(&quot;Initializing QGIS Processing...&quot;)</span>
+<span class="c1">#     Processing.initialize()</span>
+<span class="c1">#     print(&quot;Processing initialized.&quot;)</span>
+
+<span class="c1"># def lixeliser_reseau(roads_simplify_file, roads_lixels_file, lixel_size):</span>
+<span class="c1">#     import processing</span>
+<span class="c1">#     if not os.path.exists(roads_simplify_file):</span>
+<span class="c1">#         raise FileNotFoundError(f&quot;File not found: {roads_simplify_file}&quot;)</span>
+
+<span class="c1">#     print(f&quot;Lixelisation on process (size: {lixel_size}m)...&quot;)</span>
+<span class="c1">#     processing.run(&quot;native:splitlinesbylength&quot;, {</span>
+<span class="c1">#         &#39;INPUT&#39;: roads_simplify_file,</span>
+<span class="c1">#         &#39;LENGTH&#39;: lixel_size,</span>
+<span class="c1">#         &#39;OUTPUT&#39;: roads_lixels_file</span>
+<span class="c1">#     })</span>
+<span class="c1">#     print(&quot;Lixelisation completed.&quot;)</span>
+
+</pre></div>
+</div>
+</div>
+</details><p>Cette approche donne de bons résultats, mais elle dépend d’une installation complète de QGIS et de sa configuration interne, ce qui la rend peu portable.</p>
+</section>
+<section id="methode-2-lixelisation-en-python">
+<h3>Méthode 2 : Lixelisation en Python<a class="headerlink" href="#methode-2-lixelisation-en-python" title="Link to this heading">#</a></h3>
+<p>Pour lever cette contrainte, je propose une version <strong>entièrement Python</strong>.<br />
+J’utilise les bibliothèques <strong>GeoPandas</strong> et <strong>Shapely</strong> pour les opérations géométriques,<br />
+et <strong>ProcessPoolExecutor</strong> pour paralléliser le traitement.</p>
+<p><strong>Pseudo-code :</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+1. Charger le réseau routier nettoyé.
+2. Vérifier que le CRS est projeté en mètres (ex. EPSG:2154).
+3. (Optionnel) Simplifier les lignes si elles sont très détaillées.
+4. Pour chaque ligne :
+
+   * Parcourir la géométrie à intervalles réguliers.
+   * Extraire chaque segment (lixel) de longueur définie.
+   * Conserver les attributs du tronçon d’origine.
+5. Exécuter ces opérations en parallèle sur plusieurs cœurs.
+6. Rassembler les lixels dans un GeoDataFrame.
+7. Enregistrer le résultat (au format GeoPackage).
+
+</pre></div>
+</div>
+<p>C’est <strong>plus portable</strong>, <strong>plus rapide</strong> et <strong>plus flexible</strong>.
+Le code Python détaillé de réaliser ce decoupage avec les étapes pré-cités peut etre consulter ci dessous :</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Afficher / masquer le code Python</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># # -*- coding: utf-8 -*-</span>
+<span class="c1"># # =============================================================================</span>
+<span class="c1"># # Author : Hazim</span>
+<span class="c1"># # Date of creation : March 2025</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span> 
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="c1"># from config import roads_lixels_file, roads_simplify_file</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">MultiLineString</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely.ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">substring</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely</span><span class="w"> </span><span class="kn">import</span> <span class="n">wkb</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">concurrent.futures</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProcessPoolExecutor</span><span class="p">,</span> <span class="n">as_completed</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">multiprocessing</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="c1"># utilitaires</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_parse_path_layer</span><span class="p">(</span><span class="n">p</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Accepts Path OR &#39;file.gpkg|layername=...&#39;. Returns (pure_path, layer_or_None).&quot;&quot;&quot;</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>  <span class="c1"># handle WindowsPath etc.</span>
+    <span class="k">if</span> <span class="s2">&quot;|layername=&quot;</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+        <span class="n">f</span><span class="p">,</span> <span class="n">layer</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|layername=&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="n">layer</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="kc">None</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_check_projected</span><span class="p">(</span><span class="n">gdf</span><span class="p">:</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">gdf</span><span class="o">.</span><span class="n">crs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;CRS manquant. Reprojetez en mètres (ex: EPSG:2154) avant la lixelisation.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">gdf</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="s2">&quot;is_geographic&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">gdf</span><span class="o">.</span><span class="n">crs</span><span class="p">,</span> <span class="s2">&quot;is_geodetic&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;CRS géographique détecté (</span><span class="si">{</span><span class="n">gdf</span><span class="o">.</span><span class="n">crs</span><span class="o">.</span><span class="n">to_string</span><span class="p">()</span><span class="si">}</span><span class="s2">). &quot;</span>
+            <span class="s2">&quot;Utilisez un CRS projeté en mètres (ex: EPSG:2154).&quot;</span>
+        <span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_split_line</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">step</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">LineString</span><span class="p">]:</span>
+    <span class="n">L</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">length</span>
+    <span class="k">if</span> <span class="n">L</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    <span class="n">out</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="p">[],</span> <span class="mf">0.0</span>
+    <span class="c1"># boucle le long de la ligne par pas &quot;step&quot;</span>
+    <span class="k">while</span> <span class="n">d</span> <span class="o">&lt;</span> <span class="n">L</span><span class="p">:</span>
+        <span class="n">d2</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">d</span> <span class="o">+</span> <span class="n">step</span><span class="p">,</span> <span class="n">L</span><span class="p">)</span>
+        <span class="n">seg</span> <span class="o">=</span> <span class="n">substring</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">seg</span><span class="p">,</span> <span class="n">LineString</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">seg</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">seg</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">d2</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_split_any</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">step</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">LineString</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">LineString</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_split_line</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">MultiLineString</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ls</span> <span class="ow">in</span> <span class="n">geom</span><span class="o">.</span><span class="n">geoms</span><span class="p">:</span>
+            <span class="n">res</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_split_line</span><span class="p">(</span><span class="n">ls</span><span class="p">,</span> <span class="n">step</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">res</span>
+    <span class="k">return</span> <span class="p">[]</span>
+
+
+<span class="c1"># worker parallèle</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_worker_split_batch</span><span class="p">(</span><span class="n">tasks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="n">LineString</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Traite un paquet de géométries sérialisées en WKB.</span>
+<span class="sd">    tasks: liste de (wkb_geom, attrs, step, keep_attrs)</span>
+<span class="sd">    Return (records, geoms)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">recs</span><span class="p">,</span> <span class="n">geoms</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">wkb_geom</span><span class="p">,</span> <span class="n">attrs</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">keep_attrs</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
+        <span class="n">geom</span> <span class="o">=</span> <span class="n">wkb</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">wkb_geom</span><span class="p">)</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">_split_any</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="n">attrs</span> <span class="k">if</span> <span class="n">keep_attrs</span> <span class="k">else</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">seg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">parts</span><span class="p">):</span>
+            <span class="n">rec</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+            <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;lixel_idx&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;lx_len&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">seg</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
+            <span class="n">recs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rec</span><span class="p">)</span>
+            <span class="n">geoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">seg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">recs</span><span class="p">,</span> <span class="n">geoms</span>
+
+
+<span class="c1"># fonction principale </span>
+<span class="k">def</span><span class="w"> </span><span class="nf">lixelize_roads</span><span class="p">(</span>
+    <span class="n">roads_simplify_file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span>
+    <span class="n">roads_lixels_file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span>
+    <span class="n">lixel_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">n_jobs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">chunk_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span>
+    <span class="n">keep_attrs</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">simplify_tolerance</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># ex: 0.2 à 1.0 m pour lisser les lignes (facultatif)</span>
+    <span class="n">progress</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Lixelisation parallèle d&#39;un réseau linéaire.</span>
+
+<span class="sd">    Paramètres</span>
+<span class="sd">    ----------</span>
+<span class="sd">    roads_simplify_file : str</span>
+<span class="sd">        Fichier d&#39;entrée (shp/geojson/gpkg...). Supporte &#39;file.gpkg|layername=roads&#39;.</span>
+<span class="sd">    roads_lixels_file : str</span>
+<span class="sd">        Fichier de sortie. Supporte &#39;file.gpkg|layername=lixels&#39;. Recommandé: .gpkg</span>
+<span class="sd">    lixel_size : float</span>
+<span class="sd">        Taille des lixels en mètres (le dernier segment d&#39;une ligne peut être plus court).</span>
+<span class="sd">    n_jobs : int | None</span>
+<span class="sd">        Nombre de processus. Par défaut, tous les cœurs dispo (os.cpu_count()).</span>
+<span class="sd">    chunk_size : int</span>
+<span class="sd">        Nombre de lignes source par paquet pour chaque worker (2000 est un bon compromis).</span>
+<span class="sd">    keep_attrs : bool</span>
+<span class="sd">        Conserver les attributs d&#39;origine sur chaque lixel.</span>
+<span class="sd">    simplify_tolerance : float | None</span>
+<span class="sd">        Tolérance Douglas-Peucker (mètres) pour simplifier les lignes AVANT découpe (accélère beaucoup si lignes très détaillées).</span>
+<span class="sd">    progress : bool</span>
+<span class="sd">        Afficher estimations et barres de progression.</span>
+
+<span class="sd">    Return</span>
+<span class="sd">    ------</span>
+<span class="sd">    GeoDataFrame des lixels, CRS conservé, avec colonnes ajoutées :</span>
+<span class="sd">      - src_id     : index de la géométrie source</span>
+<span class="sd">      - lixel_idx  : rang du lixel au sein de la source</span>
+<span class="sd">      - lx_len     : longueur du lixel (m)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">lixel_size</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`lixel_size` doit être &gt; 0 (mètres).&quot;</span><span class="p">)</span>
+    
+    <span class="n">in_path</span><span class="p">,</span> <span class="n">in_layer</span>   <span class="o">=</span> <span class="n">_parse_path_layer</span><span class="p">(</span><span class="n">roads_simplify_file</span><span class="p">)</span>
+    <span class="n">out_path</span><span class="p">,</span> <span class="n">out_layer</span> <span class="o">=</span> <span class="n">_parse_path_layer</span><span class="p">(</span><span class="n">roads_lixels_file</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">in_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fichier introuvable : </span><span class="si">{</span><span class="n">in_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Lecture entrée</span>
+    <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">in_path</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="n">in_layer</span><span class="p">)</span> <span class="k">if</span> <span class="n">in_layer</span> <span class="k">else</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">in_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">gdf</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Aucune géométrie en entrée.&quot;</span><span class="p">)</span>
+    <span class="n">_check_projected</span><span class="p">(</span><span class="n">gdf</span><span class="p">)</span>
+
+    <span class="c1"># Option : simplification géométrique (gain énorme si lignes très denses)</span>
+    <span class="k">if</span> <span class="n">simplify_tolerance</span> <span class="ow">and</span> <span class="n">simplify_tolerance</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># preserve_topology=True évite de casser les formes de façon agressive</span>
+        <span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="o">.</span><span class="n">set_geometry</span><span class="p">(</span><span class="n">gdf</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">simplify</span><span class="p">(</span><span class="n">simplify_tolerance</span><span class="p">,</span> <span class="n">preserve_topology</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+    <span class="c1"># Estimation du nombre de lixels</span>
+    <span class="n">total_len_m</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">gdf</span><span class="o">.</span><span class="n">length</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="n">est_lixels</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">total_len_m</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">lixel_size</span><span class="p">))</span> <span class="k">if</span> <span class="n">lixel_size</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Réseau ≈ </span><span class="si">{</span><span class="n">total_len_m</span><span class="o">/</span><span class="mi">1000</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> km ; pas = </span><span class="si">{</span><span class="n">lixel_size</span><span class="si">}</span><span class="s2"> m ; &quot;</span>
+              <span class="sa">f</span><span class="s2">&quot;estimation ≈ </span><span class="si">{</span><span class="n">est_lixels</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> lixels&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Préparer les tâches en WKB (picklable, rapide à passer aux workers)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">row_to_task</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bytes</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">_asdict</span><span class="p">()</span>
+        <span class="n">geom</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;geometry&quot;</span><span class="p">)</span>
+        <span class="n">src_id</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Index&quot;</span><span class="p">,</span> <span class="n">row</span><span class="o">.</span><span class="n">Index</span><span class="p">)</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="s2">&quot;Index&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">d</span><span class="p">[</span><span class="s2">&quot;src_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">src_id</span>
+        <span class="k">return</span> <span class="n">wkb</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">geom</span><span class="p">),</span> <span class="n">d</span> <span class="k">if</span> <span class="n">keep_attrs</span> <span class="k">else</span> <span class="p">{</span><span class="s2">&quot;src_id&quot;</span><span class="p">:</span> <span class="n">src_id</span><span class="p">},</span> <span class="nb">float</span><span class="p">(</span><span class="n">lixel_size</span><span class="p">),</span> <span class="n">keep_attrs</span>
+
+    <span class="n">rows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">gdf</span><span class="o">.</span><span class="n">itertuples</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">row_to_task</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span>
+
+    <span class="c1"># Parallélisation</span>
+    <span class="k">if</span> <span class="n">n_jobs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">n_jobs</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span> <span class="ow">or</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># tous les cœurs</span>
+
+    <span class="c1"># Découper en paquets pour limiter l’overhead d’ordonnancement</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">chunks</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">seq</span><span class="p">),</span> <span class="n">size</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">seq</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">size</span><span class="p">]</span>
+
+    <span class="n">recs_all</span><span class="p">,</span> <span class="n">geoms_all</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">batches</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">chunks</span><span class="p">(</span><span class="n">tasks</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
+        <span class="n">pbar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">batches</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Découpage parallèle (</span><span class="si">{</span><span class="n">n_jobs</span><span class="si">}</span><span class="s2"> workers)&quot;</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">ProcessPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="n">n_jobs</span><span class="p">)</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+        <span class="n">futures</span> <span class="o">=</span> <span class="p">[</span><span class="n">ex</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">_worker_split_batch</span><span class="p">,</span> <span class="n">batch</span><span class="p">)</span> <span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">batches</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">fut</span> <span class="ow">in</span> <span class="n">as_completed</span><span class="p">(</span><span class="n">futures</span><span class="p">):</span>
+            <span class="n">recs</span><span class="p">,</span> <span class="n">geoms</span> <span class="o">=</span> <span class="n">fut</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+            <span class="n">recs_all</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">recs</span><span class="p">)</span>
+            <span class="n">geoms_all</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">geoms</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
+                <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
+        <span class="n">pbar</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">recs_all</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Aucun lixel produit : vérifiez le CRS projeté et la taille.&quot;</span><span class="p">)</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">recs_all</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="n">geoms_all</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="n">gdf</span><span class="o">.</span><span class="n">crs</span><span class="p">)</span>
+
+    <span class="c1"># Écriture</span>
+    <span class="k">if</span> <span class="n">out_path</span><span class="o">.</span><span class="n">suffix</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;.gpkg&quot;</span><span class="p">:</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="p">(</span><span class="n">out_layer</span> <span class="ow">or</span> <span class="s2">&quot;lixels&quot;</span><span class="p">),</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">out_path</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">progress</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Le réseau à </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> lixels sauvegardés dans </span><span class="si">{</span><span class="n">out_path</span><span class="si">}</span><span class="s2"> (couche: </span><span class="si">{</span><span class="n">out_layer</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;lixels&#39;</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Lixel moyen: </span><span class="si">{</span><span class="n">out</span><span class="p">[</span><span class="s1">&#39;lx_len&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> m&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="k">return</span> <span class="n">out</span>
+
+<span class="c1"># if __name__ == &quot;__main__&quot;:</span>
+<span class="c1">#     lixelize_roads(roads_simplify_file=roads_simplify_file, roads_lixels_file=roads_lixels_file, lixel_size=10)</span>
+</pre></div>
+</div>
+</div>
+</details></section>
+<section id="discussion-sur-les-limites-du-decoupage">
+<h3>Discussion sur les limites du découpage<a class="headerlink" href="#discussion-sur-les-limites-du-decoupage" title="Link to this heading">#</a></h3>
+<p>Dans cette méthode, chaque tronçon est découpé en segments de longueur fixe, ce qui rend le réseau plus homogène.<br />
+Mais ce choix n’est pas sans conséquences.</p>
+<ul class="simple">
+<li><p>Le <strong>dernier lixel</strong> de chaque ligne est souvent plus court que les autres, car la longueur totale du tronçon n’est pas toujours un multiple exact de la taille de découpe.<br />
+Ce “reste” est systématiquement attribué au dernier segment, ce qui crée de <strong>légères inégalités de longueur</strong> entre les lixels.</p></li>
+<li><p>Les <strong>tronçons plus courts que la taille du lixel</strong> ne sont pas découpés du tout : ils conservent leur longueur d’origine, parfois bien inférieure à celle des autres segments.<br />
+Cela introduit une petite hétérogénéité dans le réseau, mais qui reste acceptable (9.34m lixel moyen pour un pas de 10m).</p></li>
+<li><p>La lixelisation ne prend pas en compte la géométrie locale (courbures, intersections, type de voie).<br />
+Elle s’appuie uniquement sur la distance parcourue le long des lignes, ce qui peut légèrement décaler les points de coupure dans les zones très sinueuses.</p></li>
+</ul>
+</section>
+</section>
+<section id="creation-d-un-graphe-du-reseau-lixelise">
+<h2>Creation d’un graphe du réseau lixelisé<a class="headerlink" href="#creation-d-un-graphe-du-reseau-lixelise" title="Link to this heading">#</a></h2>
+<p>Pour exploiter le réseau lixelisé dans des analyses d’accessibilité, il est utile de le convertir en un <strong>graphe</strong>.
+Je propose une fonction simple pour créer un graphe NetworkX à partir du GeoDataFrame des lixels.</p>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header">
+<span class="sd-summary-text">Afficher le code Python</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_graph_from_lixels</span><span class="p">(</span><span class="n">lixels_gdf</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a graph from the lixelized network&quot;&quot;&quot;</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>  <span class="c1"># ou nx.DiGraph() si orienté</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">lixels_gdf</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;geometry&quot;</span><span class="p">]</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">line</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">line</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span>
+            <span class="n">start</span><span class="p">,</span>
+            <span class="n">end</span><span class="p">,</span>
+            <span class="n">length</span><span class="o">=</span><span class="n">line</span><span class="o">.</span><span class="n">length</span><span class="p">,</span>
+            <span class="n">lixel_id</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span>
+            <span class="c1"># geometry=line  </span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">G</span>
+</pre></div>
+</div>
+</div>
+</details><p>Je prends les lixels et pour chaque segment, j’ajoute une arête entre ses points de début et de fin grâce à la fonction <code class="docutils literal notranslate"><span class="pre">add_edge</span></code> de NetworkX.
+Ensuite, je stocke d’autres informations utiles dans le graphe (ID du lixel, longueur, type de voie,  etc.).
+L’argument <code class="docutils literal notranslate"><span class="pre">geometry=line</span></code> permet de conserver la géométrie du lixel dans le graphe, ce qui est utile pour des analyses spatiales (calculs de distances , visualisation, etc.).</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./10_Donnees"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="graph_OSMnx.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Notebook d’exploration du graphe OSMnx</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../50_Reproductibilite/structure_projet.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Structure du projet</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lixelisation-du-reseau-routier">Lixelisation du réseau routier</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#methode-1-lixelisation-via-qgis-processing">Méthode 1 : Lixelisation via QGIS Processing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#methode-2-lixelisation-en-python">Méthode 2 : Lixelisation en Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion-sur-les-limites-du-decoupage">Discussion sur les limites du découpage</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#creation-d-un-graphe-du-reseau-lixelise">Creation d’un graphe du réseau lixelisé</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By M. Hazim (CINaM/CNRS/AMU)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="font-size:0.9rem; line-height:1.4; margin-top:0.5rem;">
+  Contact : <a href="mailto:moindze-boina.hazim@cnrs.fr">moindze-boina.hazim@cnrs.fr</a>
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,688 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Structure du projet &#8212; Proximité urbaine</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '50_Reproductibilite/structure_projet';</script>
+    <link rel="icon" href="../_static/carte.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Produire les indicateurs de proximité" href="comment_reproduire.html" />
+    <link rel="prev" title="Lixelisation et graphe du réseau" href="../10_Donnees/lixelization.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/carte.png" class="logo__image only-light" alt="Proximité urbaine - Home"/>
+    <script>document.write(`<img src="../_static/carte.png" class="logo__image only-dark" alt="Proximité urbaine - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    UrbanBook
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Environnement</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_Projet/environnement.html">Installation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Les équipements urbains</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/catalogue_donnees.html">Catalogue des données</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/dictionnaire_variables.html">Dictionnaire des variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/osm_label.html">Les équipements rétenus dans OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/osm_overpass.html">Extraction et prétraitement des données OSM</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Réseau de route pièton</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/reseau-pieton-intro.html">Construction d’un réseau piéton pour l’analyse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/pedestrian_roads.html">Extraction du réseau piéton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/automatisation_roads.html">Automatisation du processus d’extraction du réseau</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/graph_OSMnx.html">Notebook d’exploration du graphe OSMnx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_Donnees/lixelization.html">Lixelisation et graphe du réseau</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Calcul d'indicateur de proximité</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Structure du projet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comment_reproduire.html">Produire les indicateurs de proximité</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook/issues/new?title=Issue%20on%20page%20%2F50_Reproductibilite/structure_projet.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/50_Reproductibilite/structure_projet.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Structure du projet</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arborescence-generale">Arborescence générale</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fichiers-essentiels">Fichiers essentiels</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#les-trois-fichiers-cles">Les trois fichiers clés</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etape-suivante">Étape suivante</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="structure-du-projet">
+<h1>Structure du projet<a class="headerlink" href="#structure-du-projet" title="Link to this heading">#</a></h1>
+<section id="arborescence-generale">
+<h2>Arborescence générale<a class="headerlink" href="#arborescence-generale" title="Link to this heading">#</a></h2>
+<p>Pour faciliter la reproductibilité et la compréhension du pipeline de traitement, je sépare les dossiers des <strong>données</strong>, des <strong>codes</strong>, des <strong>notebooks</strong> et de la <strong>configuration</strong> de l’environnement.</p>
+<style>
+/* ===== Couleurs adaptatives (clair/sombre) ===== */
+:root{
+  --bg: #ffffff;
+  --fg: #1f2937;         /* gris ardoise foncé */
+  --muted: #6b7280;      /* gris moyen pour les notes */
+  --line: #c7cdd4;       /* lignes d'arbre */
+  --badge-border:#d1d5db;
+  --badge-bg:#f9fafb;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #0b0f14;
+    --fg: #6480b8ff;       /* texte principal clair */
+    --muted: #9aa4b2;    /* notes lisibles en sombre */
+    --line: #3a4856;     /* lignes plus douces en sombre */
+    --badge-border:#334155;
+    --badge-bg:#0f172a;
+  }
+}
+
+/* ===== Reset léger pour ce bloc ===== */
+.tree, .tree ul { list-style: none; margin: 0; padding-left: 1rem; position: relative; color: var(--fg); }
+.kicker { margin:.5rem 0 .25rem; font-size:.95rem; color: var(--fg); }
+.badge { display:inline-block; font-size:.75rem; padding:.1rem .4rem; border:1px solid var(--badge-border); border-radius:.4rem; background: var(--badge-bg); color: var(--fg); }
+.note { color: var(--muted); font-style: italic; }
+.folder { font-weight: 600; color: var(--fg); }
+.file { font-weight: 500; color: var(--fg); }
+hr.soft { border:0; border-top:1px dashed var(--line); margin:1rem 0; }
+
+/* ===== Lignes de l'arbre ===== */
+.tree:before, .tree ul:before {
+  content: "";
+  position: absolute;
+  left: 0.5rem;
+  border-left: 1px solid var(--line);
+  top: 0; bottom: 0;
+}
+.tree li {
+  margin: .25rem 0 .25rem 1rem;
+  padding-left: .5rem;
+  position: relative;
+}
+.tree li:before {
+  content: "";
+  position: absolute;
+  left: -0.5rem;
+  top: 0.75rem;
+  width: 0.5rem;
+  border-top: 1px solid var(--line);
+}
+/* Masque la ligne verticale résiduelle au dernier enfant,
+   avec une couleur de fond adaptée au thème */
+.tree li:last-child:after {
+  content: "";
+  position: absolute;
+  left: 0.5rem;
+  bottom: -0.25rem;
+  height: calc(100% - 0.75rem);
+  background: var(--bg);
+  width: 2px;
+}
+
+</style>
+<div class="kicker">Voici la structure générale du projet :</div>
+<ul class="tree">
+  <li class="folder">📦 Dev
+    <ul>
+      <li class="folder">📂 Proximity <span class="badge">Indicateurs de proximité</span>
+        <ul>
+          <li class="folder">📂 data
+            <ul>
+              <li class="folder">📂 raw <span class="note">données brutes (INSEE, OSM, GTFS, etc.)</span></li>
+              <li class="folder">📂 processed <span class="note">données nettoyées et intermédiaires</span></li>
+              <li class="folder">📂 final <span class="note">résultats finaux : indicateurs, cartes, agrégats</span></li>
+            </ul>
+          </li>
+          <li class="folder">📂 envs <span class="note">environnements et dépendances (fichier <code>requirements.yml</code>)</span></li>
+          <li class="folder">📂 notebooks <span class="note">exploration, analyses et prototypage</span></li>
+          <li class="folder">📂 src <span class="note">scripts et modules Python du pipeline (préparation, traitement, calculs, etc.)</span></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<div class="success admonition">
+<p class="admonition-title">Résumé</p>
+<ul class="simple">
+<li><p><strong>data</strong> : stockage des données à chaque étape du processus ;</p></li>
+<li><p><strong>envs</strong> : configuration logicielle et gestion de l’environnement Conda ;</p></li>
+<li><p><strong>notebooks</strong> : travaux exploratoires et visualisations ;</p></li>
+<li><p><strong>src</strong> : code principal du pipeline, organisé par module fonctionnel.</p></li>
+</ul>
+</div>
+</section>
+<section id="fichiers-essentiels">
+<h2>Fichiers essentiels<a class="headerlink" href="#fichiers-essentiels" title="Link to this heading">#</a></h2>
+<div class="note admonition">
+<p class="admonition-title">Du cadre général à l’exécution du calcul</p>
+<p>La structure du projet que je vienss de présenter sépare les <strong>données</strong>, le <strong>code</strong> et les <strong>configurations</strong>.<br />
+Mais dans la pratique, seuls <strong>quelques fichiers</strong> sont nécessaires pour paramétrer et exécuter un calcul d’indicateurs de proximité.</p>
+</div>
+<section id="les-trois-fichiers-cles">
+<h3>Les trois fichiers clés<a class="headerlink" href="#les-trois-fichiers-cles" title="Link to this heading">#</a></h3>
+<p>Pour lancer un calcul, on utilisera seulement <strong>trois fichiers</strong> :</p>
+<ol class="arabic simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">data/raw/insee/services_features.xlsx</span></code></strong><br />
+Définit les <strong>catégories d’équipements</strong> et leurs <strong>poids</strong> dans les fonctions sociales de la ville du quart d’heure.</p>
+<ul class="simple">
+<li><p>Feuille : <em>Categories of Amenities</em></p></li>
+<li><p>Chaque ligne correspond à un type d’équipement (ex. école, boulangerie).</p></li>
+<li><p>Les colonnes décrivent la fonction sociale (<code class="docutils literal notranslate"><span class="pre">fs</span></code>), l’identifiant (<code class="docutils literal notranslate"><span class="pre">service_id</span></code>) et le poids (<code class="docutils literal notranslate"><span class="pre">wi</span></code>).<br />
+Vous pouvez modifier les poids ou ajouter de nouvelles catégories selon vos besoins d’analyse.</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">src/config.py</span></code></strong><br />
+Contient <strong>tous les paramètres de configuration</strong> du calcul :<br />
+chemins de fichiers, zone d’étude, rayon de diversité, largeur de bande, distance de marche, etc.<br />
+C’est le <strong>centre de contrôle</strong> du calcul.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">src/main.py</span></code></strong><br />
+Point d’entrée du pipeline : ce script orchestré l’ensemble du calcul, en lisant automatiquement les paramètres définis dans <code class="docutils literal notranslate"><span class="pre">config.py</span></code>.</p></li>
+</ol>
+</section>
+<section id="etape-suivante">
+<h3>Étape suivante<a class="headerlink" href="#etape-suivante" title="Link to this heading">#</a></h3>
+<p>La prochaine section (<a class="reference internal" href="comment_reproduire.html"><span class="std std-doc"><strong>Produire les indicateurs de proximité</strong></span></a>) détaillera la procédure pour <strong>exécuter un calcul complet</strong> à partir de ces fichiers, avec vos propres paramètres et zones d’étude.</p>
+<div class="success admonition">
+<p class="admonition-title">Astuce</p>
+<p>Une fois ces fichiers configurés, <strong>aucune modification du code interne n’est nécessaire</strong> :<br />
+tous les traitements se lancent depuis <code class="docutils literal notranslate"><span class="pre">main.py</span></code>. C’est une exécution reproductible et paramétrable.</p>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./50_Reproductibilite"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../10_Donnees/lixelization.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lixelisation et graphe du réseau</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="comment_reproduire.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Produire les indicateurs de proximité</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arborescence-generale">Arborescence générale</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fichiers-essentiels">Fichiers essentiels</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#les-trois-fichiers-cles">Les trois fichiers clés</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etape-suivante">Étape suivante</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By M. Hazim (CINaM/CNRS/AMU)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="font-size:0.9rem; line-height:1.4; margin-top:0.5rem;">
+  Contact : <a href="mailto:moindze-boina.hazim@cnrs.fr">moindze-boina.hazim@cnrs.fr</a>
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,938 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Extraction du réseau piéton &#8212; Proximité urbaine</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '10_Donnees/pedestrian_roads';</script>
+    <link rel="icon" href="../_static/carte.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Automatisation du processus d’extraction du réseau" href="automatisation_roads.html" />
+    <link rel="prev" title="Construction d’un réseau piéton pour l’analyse" href="reseau-pieton-intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/carte.png" class="logo__image only-light" alt="Proximité urbaine - Home"/>
+    <script>document.write(`<img src="../_static/carte.png" class="logo__image only-dark" alt="Proximité urbaine - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    UrbanBook
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Environnement</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_Projet/environnement.html">Installation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Les équipements urbains</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="catalogue_donnees.html">Catalogue des données</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dictionnaire_variables.html">Dictionnaire des variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="osm_label.html">Les équipements rétenus dans OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="osm_overpass.html">Extraction et prétraitement des données OSM</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Réseau de route pièton</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="reseau-pieton-intro.html">Construction d’un réseau piéton pour l’analyse</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Extraction du réseau piéton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automatisation_roads.html">Automatisation du processus d’extraction du réseau</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph_OSMnx.html">Notebook d’exploration du graphe OSMnx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lixelization.html">Lixelisation et graphe du réseau</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Calcul d'indicateur de proximité</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../50_Reproductibilite/structure_projet.html">Structure du projet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../50_Reproductibilite/comment_reproduire.html">Produire les indicateurs de proximité</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook/issues/new?title=Issue%20on%20page%20%2F10_Donnees/pedestrian_roads.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/10_Donnees/pedestrian_roads.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Extraction du réseau piéton</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notions-de-base-sur-les-graphes-et-leur-representation-geometrique">Notions de base sur les graphes et leur représentation géométrique</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-generale">Définition générale</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graphes-orientes-et-non-orientes">Graphes orientés et non orientés</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graphes-topologiques-et-geographiques">Graphes topologiques et géographiques</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application-le-reseau-pieton">Application : le réseau piéton</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outils-d-extraction-du-reseau">Outils d’extraction du réseau</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-du-reseau-pieton-a-partir-d-osmnx">construction du réseau piéton à partir d’OSMnx</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#les-filtres-du-profil-walk">Les filtres du profil “walk”</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verification-du-graphe-obtenu">Vérification du graphe obtenu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisation-du-graphe">Visualisation du graphe</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-graphe-topologique-oriente">a) Graphe topologique orienté</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-graphe-non-oriente">b) Graphe non orienté</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#c-graphe-geographique">c) Graphe géographique</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#export-du-reseau">Export du réseau</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-dun-filtre-pieton-personnalise">Définition d’un filtre piéton personnalisé</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#profil-pieton-osrm-foot-lua">Profil  piéton OSRM <code class="docutils literal notranslate"><span class="pre">foot.lua</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#positionnement">Positionnement</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="extraction-du-reseau-pieton">
+<h1>Extraction du réseau piéton<a class="headerlink" href="#extraction-du-reseau-pieton" title="Link to this heading">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Hypothèse de travail :</strong><br />
+<em>Tout segment de voie praticable à pied appartient au réseau piéton, qu’il soit public ou privé.</em></p>
+</div>
+<section id="notions-de-base-sur-les-graphes-et-leur-representation-geometrique">
+<h2>Notions de base sur les graphes et leur représentation géométrique<a class="headerlink" href="#notions-de-base-sur-les-graphes-et-leur-representation-geometrique" title="Link to this heading">#</a></h2>
+<p>Avant d’aborder la construction du réseau piéton à partir d’OpenStreetMap, il est utile de rappeler brièvement quelques notions fondamentales de <a class="reference external" href="https://fr.wikipedia.org/wiki/Th%C3%A9orie_des_graphes"><strong>théorie des graphes</strong></a>, afin de comprendre ce que représente concrètement un graphe urbain.</p>
+<section id="definition-generale">
+<h3>Définition générale<a class="headerlink" href="#definition-generale" title="Link to this heading">#</a></h3>
+<p>Un <strong>graphe</strong> est un objet mathématique formellement défini comme un couple :</p>
+<div class="math notranslate nohighlight">
+\[G = (V, E)\]</div>
+<p>où :</p>
+<ul class="simple">
+<li><p>(V) est l’ensemble des <strong>sommets</strong> (ou <em>nœuds</em>),</p></li>
+<li><p>(E) est l’ensemble des <strong>arêtes</strong> reliant ces sommets.</p></li>
+</ul>
+<p>Une arête ( (u, v) \in E ) indique simplement qu’il existe une <strong>connexion</strong> entre les nœuds (u) et (v).
+Le graphe décrit donc la <strong>structure des relations</strong>, sans aucune notion de distance ou de position.</p>
+<p><strong>Exemple simple :</strong></p>
+<div class="math notranslate nohighlight">
+\[V = \{A, B, C\}, \quad E = \{(A, B), (B, C)\}\]</div>
+<p>→ (A) est relié à (B), et (B) à (C).
+Cette structure peut se dessiner de multiples façons : le dessin n’a pas de valeur géométrique, seule la <strong>connectivité</strong> compte.</p>
+<blockquote>
+<div><p><em>Réf. :</em> Harary, F. (1969). <em>Graph Theory</em>. Addison-Wesley.</p>
+</div></blockquote>
+<blockquote>
+<div><p><em>Réf. :</em> West, D. B. (2001). <em>Introduction to Graph Theory</em>. Prentice Hall.</p>
+</div></blockquote>
+</section>
+<section id="graphes-orientes-et-non-orientes">
+<h3>Graphes orientés et non orientés<a class="headerlink" href="#graphes-orientes-et-non-orientes" title="Link to this heading">#</a></h3>
+<p>Un graphe peut être :</p>
+<ul class="simple">
+<li><p><strong>Non orienté</strong> : les liens sont symétriques ((A - B \equiv B - A)).</p></li>
+<li><p><strong>Orienté</strong> : chaque lien possède un <strong>sens</strong> ((A \to B)).
+Typique des réseaux routiers ou des flux dirigés (ex. circulation à sens unique).</p></li>
+</ul>
+<p>En Python, les graphes orientés sont souvent représentés par des objets <code class="docutils literal notranslate"><span class="pre">DiGraph</span></code> ou <code class="docutils literal notranslate"><span class="pre">MultiDiGraph</span></code> (NetworkX / OSMnx).</p>
+</section>
+<section id="graphes-topologiques-et-geographiques">
+<h3>Graphes topologiques et géographiques<a class="headerlink" href="#graphes-topologiques-et-geographiques" title="Link to this heading">#</a></h3>
+<p>La <strong>théorie des graphes</strong> est d’abord abstraite : elle décrit <em>qui relie qui</em>.
+Mais pour modéliser un réseau urbain, on ajoute une <strong>dimension géométrique</strong> :</p>
+<ul class="simple">
+<li><p>chaque nœud reçoit des <strong>coordonnées</strong> ((x, y)) (longitude, latitude),</p></li>
+<li><p>chaque arête reçoit une <strong>géométrie</strong> (souvent une courbe <code class="docutils literal notranslate"><span class="pre">LineString</span></code>),</p></li>
+<li><p>la distance entre deux nœuds peut alors être mesurée dans l’espace réel.</p></li>
+</ul>
+<p>Ainsi, un <strong>graphe géographique</strong> est un <strong>graphe topologique plongé dans l’espace</strong>.
+Il conserve la logique relationnelle du graphe abstrait, tout en permettant des analyses spatiales : calculs de distance, itinéraires, accessibilité, etc.</p>
+<blockquote>
+<div><p><em>Réf. :</em> Boeing, G. (2017). <em>OSMnx: New methods for acquiring, constructing, analyzing, and visualizing complex street networks.</em> <em>Computers, Environment and Urban Systems</em>, 65, 126–139.</p>
+</div></blockquote>
+</section>
+<section id="application-le-reseau-pieton">
+<h3>Application : le réseau piéton<a class="headerlink" href="#application-le-reseau-pieton" title="Link to this heading">#</a></h3>
+<p>Dans le cadre de cette étude, le graphe représente :</p>
+<ul class="simple">
+<li><p>les <strong>nœuds</strong> : intersections, bifurcations ou extrémités de voies ;</p></li>
+<li><p>les <strong>arêtes</strong> : segments de voie praticables à pied.</p></li>
+</ul>
+<p>Chaque arête possède à la fois :</p>
+<ul class="simple">
+<li><p>une <strong>structure topologique</strong> : connexion entre deux nœuds <code class="docutils literal notranslate"><span class="pre">u</span></code> et <code class="docutils literal notranslate"><span class="pre">v</span></code> ;</p></li>
+<li><p>une <strong>géométrie spatiale</strong> : forme de la voie.</p></li>
+</ul>
+<p>L’analyse du réseau repose donc sur une double lecture :</p>
+<ol class="arabic simple">
+<li><p><strong>Topologique</strong> : comprendre la structure du graphe (connectivité, continuité).</p></li>
+<li><p><strong>Géographique</strong> : interpréter le graphe dans l’espace réel (distances, tracés, accessibilité, etc.).</p></li>
+</ol>
+</section>
+</section>
+<section id="outils-d-extraction-du-reseau">
+<h2>Outils d’extraction du réseau<a class="headerlink" href="#outils-d-extraction-du-reseau" title="Link to this heading">#</a></h2>
+<p>Deux outils majeurs permettent de travailler sur un réseau piéton issu d’OpenStreetMap :</p>
+<ol class="arabic simple">
+<li><p><strong><a class="reference external" href="https://osmnx.readthedocs.io/en/stable/">OSMnx</a></strong>
+→ bibliothèque Python pour <strong>télécharger</strong>, <strong>construire</strong> et <strong>analyser</strong> des graphes urbains (piéton, vélo, voiture, etc.).</p></li>
+<li><p><strong><a class="reference external" href="https://project-osrm.org/">OSRM</a></strong>
+→ moteur de <strong>routage</strong> capable de calculer des itinéraires selon des profils (<code class="docutils literal notranslate"><span class="pre">car</span></code>, <code class="docutils literal notranslate"><span class="pre">bike</span></code>, <code class="docutils literal notranslate"><span class="pre">foot</span></code>, …).</p></li>
+</ol>
+<p>Ces outils utilisent des <strong>profils prédéfinis</strong> qui filtrent automatiquement les types de voies selon les modes de déplacement autorisés.</p>
+</section>
+<section id="construction-du-reseau-pieton-a-partir-d-osmnx">
+<h2>construction du réseau piéton à partir d’OSMnx<a class="headerlink" href="#construction-du-reseau-pieton-a-partir-d-osmnx" title="Link to this heading">#</a></h2>
+<p>OSMnx propose différents types de réseaux :
+<code class="docutils literal notranslate"><span class="pre">drive</span></code> (voitures), <code class="docutils literal notranslate"><span class="pre">bike</span></code> (vélos), <code class="docutils literal notranslate"><span class="pre">walk</span></code> (piétons) ou <code class="docutils literal notranslate"><span class="pre">all</span></code> (toutes voies).</p>
+<p>Nous utilisons ici le <strong>profil “walk”</strong>, qui conserve uniquement les voies accessibles aux piétons (trottoirs, allées, chemins, escaliers, etc).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">osmnx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ox</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+
+<span class="c1"># Chargement du périmètre d&#39;étude</span>
+<span class="n">cadre</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;../../Proximity/data/raw/personal/CadreMarseille.gpkg&quot;</span><span class="p">)</span>
+<span class="n">cadre</span> <span class="o">=</span> <span class="n">cadre</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">)</span>  <span class="c1"># Conversion en coordonnées WGS84</span>
+<span class="n">polygon</span> <span class="o">=</span> <span class="n">cadre</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Extraction du réseau piéton</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph_from_polygon</span><span class="p">(</span><span class="n">polygon</span><span class="p">,</span> <span class="n">network_type</span><span class="o">=</span><span class="s1">&#39;walk&#39;</span><span class="p">,</span> <span class="n">simplify</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">retain_all</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Ce code permet d’obtenir le graphe du réseau routier piéton dans notre zone d’analyses.
+Le graphe <code class="docutils literal notranslate"><span class="pre">G</span></code> obtenu est par defaut un <strong>MultiDiGraph</strong> : un graphe <strong>orienté</strong> où plusieurs arêtes peuvent relier les mêmes nœuds (ex. deux sens de circulation).</p>
+<p>Les arguments :</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">simplify=True</span></code> fusionne les segments redondants entre intersections.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">retain_all=False</span></code> conserve seulement le <strong>plus grand composant connexe</strong>, assurant la continuité du réseau.</p></li>
+</ul>
+<section id="les-filtres-du-profil-walk">
+<h3>Les filtres du profil “walk”<a class="headerlink" href="#les-filtres-du-profil-walk" title="Link to this heading">#</a></h3>
+<p>OSMnx applique automatiquement un filtre pour sélectionner les voies piétonnes :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s2">&quot;highway&quot;</span><span class="p">][</span><span class="s2">&quot;area&quot;</span><span class="err">!</span><span class="o">~</span><span class="s2">&quot;yes&quot;</span><span class="p">][</span><span class="s2">&quot;access&quot;</span><span class="err">!</span><span class="o">~</span><span class="s2">&quot;private&quot;</span><span class="p">]</span>
+<span class="p">[</span><span class="s2">&quot;highway&quot;</span><span class="err">!</span><span class="o">~</span><span class="s2">&quot;abandoned|bus_guideway|construction|cycleway|motor|no|planned|platform|proposed|raceway|razed&quot;</span><span class="p">]</span>
+<span class="p">[</span><span class="s2">&quot;foot&quot;</span><span class="err">!</span><span class="o">~</span><span class="s2">&quot;no&quot;</span><span class="p">][</span><span class="s2">&quot;service&quot;</span><span class="err">!</span><span class="o">~</span><span class="s2">&quot;private&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Ce filtre exclut les autoroutes, zones privées ou pistes cyclables isolées, et conserve les voies ouvertes aux piétons.</p>
+</section>
+<section id="verification-du-graphe-obtenu">
+<h3>Vérification du graphe obtenu<a class="headerlink" href="#verification-du-graphe-obtenu" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fonction pour afficher quelques infos sur le graphe</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">graph_info</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Type du graphe : </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Nombre de nœuds : </span><span class="si">{</span><span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Nombre d’arêtes : </span><span class="si">{</span><span class="n">G</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Est orienté : </span><span class="si">{</span><span class="n">G</span><span class="o">.</span><span class="n">is_directed</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Est connexe : </span><span class="si">{</span><span class="n">nx</span><span class="o">.</span><span class="n">is_weakly_connected</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">G</span><span class="o">.</span><span class="n">is_directed</span><span class="p">()</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">graph_info</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Type du graphe : MultiDiGraph
+Nombre de nœuds : 113230
+Nombre d’arêtes : 302816
+Est orienté : True
+Est connexe : True
+</pre></div>
+</div>
+<p><strong>À retenir :</strong></p>
+<ul class="simple">
+<li><p>Les arêtes possèdent des <strong>attributs</strong> : <code class="docutils literal notranslate"><span class="pre">oneway</span></code>, <code class="docutils literal notranslate"><span class="pre">length</span></code>, <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">highway</span></code>, <code class="docutils literal notranslate"><span class="pre">geometry</span></code>, etc.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">u</span></code> = nœud origine, <code class="docutils literal notranslate"><span class="pre">v</span></code> = nœud destination.</p>
+<ul>
+<li><p>Si <code class="docutils literal notranslate"><span class="pre">oneway=False</span></code>, deux arêtes sont créées (<code class="docutils literal notranslate"><span class="pre">u→v</span></code> et <code class="docutils literal notranslate"><span class="pre">v→u</span></code>).</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Astuce:</strong>
+On lit d’abord la <strong>structure topologique</strong> (qui relie quoi), puis la <strong>géométrie spatiale</strong> (où cela se trouve réellement).</p>
+</section>
+<section id="visualisation-du-graphe">
+<h3>Visualisation du graphe<a class="headerlink" href="#visualisation-du-graphe" title="Link to this heading">#</a></h3>
+<p>Pour la réprensation du graphe, je ne présente pas le graphe sur toute la zone d’étude (trop grand) mais j’extrais une petite
+partie pour l’illustration.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Trouver un nœud central</span>
+<span class="n">center_node</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">())[</span><span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="c1"># Extraire un sous-graphe dans un rayon de 1 km</span>
+<span class="n">subG</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">truncate</span><span class="o">.</span><span class="n">truncate_graph_dist</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">center_node</span><span class="p">,</span> <span class="n">max_dist</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Cela permet d’obtenir un sous graphe de rayon 600m centré au milieu de ma zone d’étude.</p>
+<section id="a-graphe-topologique-oriente">
+<h4>a) Graphe topologique orienté<a class="headerlink" href="#a-graphe-topologique-oriente" title="Link to this heading">#</a></h4>
+<p>Pour tracer le graphe topologique, la fonction <code class="docutils literal notranslate"><span class="pre">nx.draw()</span></code> le fait rapidement.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">subG</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/graph_topo.png"><img alt="Graphe topologique du réseau piéton à Marseille" src="../_images/graph_topo.png" style="width: 100%;" />
+</a>
+</figure>
+<p class="sd-card-text"><strong>Extrait du Graphe topologique (orienté) (OSMnx, “walk”)</strong></p>
+</div>
+</div>
+<p>Les points rouges représentent les intersections, les traits gris les connexions et leurs sens.</p>
+</section>
+<section id="b-graphe-non-oriente">
+<h4>b) Graphe non orienté<a class="headerlink" href="#b-graphe-non-oriente" title="Link to this heading">#</a></h4>
+<p>On peut ignorer les sens de circulation :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">subG_undirected</span> <span class="o">=</span> <span class="n">subG</span><span class="o">.</span><span class="n">to_undirected</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">subG_undirected</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/graph_undirect.png"><img alt="Graphe non orienté du réseau piéton à Marseille" src="../_images/graph_undirect.png" style="width: 100%;" />
+</a>
+</figure>
+<p class="sd-card-text"><strong>Extrait du Graphe topologique (non orienté) (OSMnx, “walk”)</strong></p>
+</div>
+</div>
+<p>Ici, les arêtes ne sont plus directionnelles : elles indiquent simplement qu’une connexion existe entre deux nœuds.</p>
+</section>
+<section id="c-graphe-geographique">
+<h4>c) Graphe géographique<a class="headerlink" href="#c-graphe-geographique" title="Link to this heading">#</a></h4>
+<p>De la meme manière, on peut representer le grpahe en prenant compte des coordonées GPS des nodes et des egdes.
+La fonction <code class="docutils literal notranslate"><span class="pre">ox.plot_graph</span></code> contient les outils necessaires pour cette tache.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+<span class="n">ox</span><span class="o">.</span><span class="n">plot_graph</span><span class="p">(</span><span class="n">subG</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/graph_geo.png"><img alt="Graphe géographique du réseau piéton à Marseille" src="../_images/graph_geo.png" style="width: 100%;" />
+</a>
+</figure>
+<p class="sd-card-text"><strong>Extrait du Graphe géographique (non orienté) (OSMnx, “walk”)</strong></p>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ox.plot_graph()</span></code> ne trace pas les flèches de direction sur les routes</p>
+</section>
+</section>
+<section id="export-du-reseau">
+<h3>Export du réseau<a class="headerlink" href="#export-du-reseau" title="Link to this heading">#</a></h3>
+<p>On peut extraire les nœuds et arêtes du graphe sous forme de GeoDataFrames.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nodes</span><span class="p">,</span> <span class="n">edges</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph_to_gdfs</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+
+<span class="c1"># Sauvegarde en GeoPackage (format compatible QGIS)</span>
+<span class="n">edges</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;marseille_walk_edges.gpkg&quot;</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;edges&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>
+<span class="n">nodes</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;marseille_walk_nodes.gpkg&quot;</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;nodes&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/omsnx_walk.png"><img alt="Extrait des arêtes du réseau piéton (profil “walk”)" src="../_images/omsnx_walk.png" style="width: 100%;" />
+</a>
+</figure>
+<p class="sd-card-text"><strong>Extrait des arêtes du réseau piéton (OSMnx, mode “walk”)</strong></p>
+</div>
+</div>
+<blockquote>
+<div><p>Le réseau obtenu, construit à partir du paramètre <code class="docutils literal notranslate"><span class="pre">network_type=&quot;walk&quot;</span></code> dans la fonction <code class="docutils literal notranslate"><span class="pre">ox.graph_from_polygon</span></code>, est <strong>géométriquement cohérent</strong>.
+Toutefois, il reste <strong>incomplet sur le plan topologique</strong>, car certaines voies semi-publiques ou internes ne sont pas incluses par ce filtre.
+Une phase d’enrichissement du réseau est donc nécessaire pour garantir la <strong>continuité du maillage piéton</strong>.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="definition-dun-filtre-pieton-personnalise">
+<h2>Définition d’un filtre piéton personnalisé<a class="headerlink" href="#definition-dun-filtre-pieton-personnalise" title="Link to this heading">#</a></h2>
+<section id="profil-pieton-osrm-foot-lua">
+<h3>Profil  piéton OSRM <code class="docutils literal notranslate"><span class="pre">foot.lua</span></code><a class="headerlink" href="#profil-pieton-osrm-foot-lua" title="Link to this heading">#</a></h3>
+<p>Le profil <code class="docutils literal notranslate"><span class="pre">foot.lua</span></code> d’OSRM définit trois listes principales pour construire le réseau piéton :</p>
+<p>Extrait (voir le profil complet : <a class="reference external" href="https://github.com/Project-OSRM/osrm-backend/blob/master/profiles/foot.lua">foot.lua</a>) :</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="nv">highway</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="nv">primary</span><span class="p">,</span><span class="nv">primary_link</span><span class="p">,</span><span class="nv">secondary</span><span class="p">,</span><span class="nv">secondary_link</span><span class="p">,</span><span class="nv">tertiary</span><span class="p">,</span><span class="nv">tertiary_link</span><span class="p">,</span><span class="nv">unclassified</span><span class="p">,</span><span class="nv">residential</span><span class="p">,</span><span class="nv">road</span><span class="p">,</span><span class="nv">living_street</span><span class="w"> </span><span class="p">,</span><span class="nv">service</span><span class="p">,</span><span class="nv">track</span><span class="p">,</span><span class="nv">path</span><span class="p">,</span><span class="nv">steps</span><span class="p">,</span><span class="nv">pedestrian</span><span class="p">,</span><span class="nv">platform</span><span class="p">,</span><span class="nv">footway</span><span class="p">,</span><span class="nv">pier</span><span class="p">}</span>
+
+<span class="nv">access_tag_whitelist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">&#39;yes&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;foot&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;permissive&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;designated&#39;</span><span class="w"> </span><span class="p">}</span>
+<span class="nv">access_tag_blacklist</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s1">&#39;no&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;private&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;delivery&#39;</span><span class="p">,</span><span class="s1">&#39;agricultural&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;forestry&#39;</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">highway</span></code></strong> : indique les types de routes considérées comme marchables, depuis les grands axes (<code class="docutils literal notranslate"><span class="pre">primary</span></code>, <code class="docutils literal notranslate"><span class="pre">secondary</span></code>) jusqu’aux voies locales (<code class="docutils literal notranslate"><span class="pre">residential</span></code>, <code class="docutils literal notranslate"><span class="pre">service</span></code>, <code class="docutils literal notranslate"><span class="pre">path</span></code>, <code class="docutils literal notranslate"><span class="pre">footway</span></code>, <code class="docutils literal notranslate"><span class="pre">pier</span></code>).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">access_tag_whitelist</span></code></strong> : répertorie les accès autorisés ou tolérés, comme les rues publiques (<code class="docutils literal notranslate"><span class="pre">yes</span></code>), les itinéraires piétons (<code class="docutils literal notranslate"><span class="pre">foot</span></code>), les accès libres (<code class="docutils literal notranslate"><span class="pre">permissive</span></code>) ou désignés (<code class="docutils literal notranslate"><span class="pre">designated</span></code>).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">access_tag_blacklist</span></code></strong> : regroupe les accès interdits ou restreints, tels que les propriétés privées (<code class="docutils literal notranslate"><span class="pre">private</span></code>), les zones de livraison (<code class="docutils literal notranslate"><span class="pre">delivery</span></code>), les chemins agricoles (<code class="docutils literal notranslate"><span class="pre">agricultural</span></code>) ou forestiers (<code class="docutils literal notranslate"><span class="pre">forestry</span></code>).</p></li>
+</ul>
+<p>En pratique, OSRM inclut une route si elle figure dans la liste <code class="docutils literal notranslate"><span class="pre">highway</span></code> et que son accès est autorisé (liste blanche). Elle l’exclut si elle correspond à un cas de la liste noire.</p>
+</section>
+<section id="positionnement">
+<h3>Positionnement<a class="headerlink" href="#positionnement" title="Link to this heading">#</a></h3>
+<blockquote>
+<div><p>Dans une logique d’<strong>accessibilité réelle</strong>, je m’intéresse à ce qu’il est <strong>physiquement possible de parcourir à pied</strong>, indépendamment des restrictions administratives.
+Le réseau piéton est donc construit à partir d’OpenStreetMap en suivant la logique du profil <code class="docutils literal notranslate"><span class="pre">foot.lua</span></code> d’OSRM : je conserve les types de voies habituellement praticables à pied, j’exclus celles explicitement interdites (<code class="docutils literal notranslate"><span class="pre">foot=no</span></code>), j’inclus les accès restreints mais franchissables (zones privées ou résidentielles), et j’écarte les objets non routables comme les quais ou les surfaces (<code class="docutils literal notranslate"><span class="pre">platform</span></code>, <code class="docutils literal notranslate"><span class="pre">area=yes</span></code>).</p>
+</div></blockquote>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Règle</p></th>
+<th class="head"><p>Décision</p></th>
+<th class="head"><p>Pourquoi</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Inclure la <strong>liste blanche OSRM</strong> <code class="docutils literal notranslate"><span class="pre">highway_whitelist</span></code></p></td>
+<td><p>OK</p></td>
+<td><p>Couverture des structures marchables (rues, sentiers, escaliers,…)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Exclure <code class="docutils literal notranslate"><span class="pre">foot=no</span></code></p></td>
+<td><p>OK</p></td>
+<td><p>Interdiction explicite aux piétons</p></td>
+</tr>
+<tr class="row-even"><td><p>Inclure <code class="docutils literal notranslate"><span class="pre">access=private</span></code> et <code class="docutils literal notranslate"><span class="pre">service=private</span></code></p></td>
+<td><p>OK</p></td>
+<td><p>Espaces résidentiels/semi-publics</p></td>
+</tr>
+<tr class="row-odd"><td><p>Exclure <code class="docutils literal notranslate"><span class="pre">platform</span></code> et <code class="docutils literal notranslate"><span class="pre">area=yes</span></code></p></td>
+<td><p>OK</p></td>
+<td><p>Surfaces non topologiques (quais, places) pour un graphe routable</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Implémentation technique (OSMnx)</strong></p>
+<p><strong>Mon filtre personnalisé</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">custom_filter</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;[&quot;highway&quot;~&quot;primary|primary_link|secondary|secondary_link|tertiary|tertiary_link|&#39;</span>
+    <span class="s1">&#39;unclassified|residential|road|living_street|service|track|path|steps|pedestrian|&#39;</span>
+    <span class="s1">&#39;footway|pier&quot;]&#39;</span>
+    <span class="s1">&#39;[&quot;highway&quot;!~&quot;platform&quot;]&#39;</span>
+    <span class="s1">&#39;[&quot;area&quot;!~&quot;yes&quot;][&quot;foot&quot;!~&quot;no&quot;]&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Construction du <strong>graphe</strong> pièton</strong></p>
+<p><strong>Implementation (extraction du graphe avec OSMnx)</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">osmnx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ox</span>
+
+<span class="n">G</span> <span class="o">=</span> <span class="n">graph_from_polygon</span><span class="p">(</span>
+    <span class="n">polygon</span><span class="p">,</span>
+    <span class="n">custom_filter</span><span class="o">=</span><span class="n">custom_filter</span><span class="p">,</span>
+    <span class="n">simplify</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">retain_all</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="n">nodes</span><span class="p">,</span> <span class="n">edges</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph_to_gdfs</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+<span class="n">edges</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;marseille_walk_edges.gpkg&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>  <span class="c1"># les arcs (tronçons)</span>
+<span class="n">nodes</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;marseille_walk_nodes.gpkg&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>  <span class="c1"># les nœuds (intersections)</span>
+</pre></div>
+</div>
+<p>A la fin, j’exporte les <code class="docutils literal notranslate"><span class="pre">nodes</span></code> et <code class="docutils literal notranslate"><span class="pre">egdes</span></code> que je peux visualiser dans QGIS.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/extr_nodes_egdes.png"><img alt="Extrait du graphe généré." src="../_images/extr_nodes_egdes.png" style="width: 100%;" />
+</a>
+</figure>
+<p class="sd-card-text"><strong>Extrait des noeuds et tronçons de route (OSMnx, filtre “personalisé”)</strong></p>
+</div>
+</div>
+<blockquote>
+<div><p>Ce profil personnalisé combine la logique des filtres d’OSMnx et d’OSRM afin de construire un <strong>réseau piéton cohérent avec la marche</strong>.
+Le réseau obtenu couvre la grande majorité des espaces accessibles, y compris certaines zones semi-privées, ce qui permet de réaliser des calculs d’accessibilité <strong>depuis n’importe quelle adresse de la ville</strong>. Je mets à dispostion dans section suivante, le notebook exploratoire <a class="reference internal" href="graph_OSMnx.html"><span class="std std-doc">graph_OSMnx.ipynb</span></a> qui détaille la structure du graphe.</p>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./10_Donnees"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="reseau-pieton-intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Construction d’un réseau piéton pour l’analyse</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="automatisation_roads.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Automatisation du processus d’extraction du réseau</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notions-de-base-sur-les-graphes-et-leur-representation-geometrique">Notions de base sur les graphes et leur représentation géométrique</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-generale">Définition générale</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graphes-orientes-et-non-orientes">Graphes orientés et non orientés</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#graphes-topologiques-et-geographiques">Graphes topologiques et géographiques</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application-le-reseau-pieton">Application : le réseau piéton</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outils-d-extraction-du-reseau">Outils d’extraction du réseau</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-du-reseau-pieton-a-partir-d-osmnx">construction du réseau piéton à partir d’OSMnx</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#les-filtres-du-profil-walk">Les filtres du profil “walk”</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verification-du-graphe-obtenu">Vérification du graphe obtenu</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisation-du-graphe">Visualisation du graphe</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#a-graphe-topologique-oriente">a) Graphe topologique orienté</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#b-graphe-non-oriente">b) Graphe non orienté</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#c-graphe-geographique">c) Graphe géographique</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#export-du-reseau">Export du réseau</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-dun-filtre-pieton-personnalise">Définition d’un filtre piéton personnalisé</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#profil-pieton-osrm-foot-lua">Profil  piéton OSRM <code class="docutils literal notranslate"><span class="pre">foot.lua</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#positionnement">Positionnement</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By M. Hazim (CINaM/CNRS/AMU)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="font-size:0.9rem; line-height:1.4; margin-top:0.5rem;">
+  Contact : <a href="mailto:moindze-boina.hazim@cnrs.fr">moindze-boina.hazim@cnrs.fr</a>
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

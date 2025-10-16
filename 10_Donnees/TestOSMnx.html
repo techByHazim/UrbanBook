@@ -1,0 +1,1942 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>&lt;no title&gt; &#8212; Proximité urbaine</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '10_Donnees/TestOSMnx';</script>
+    <link rel="icon" href="../_static/carte.png"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/carte.png" class="logo__image only-light" alt="Proximité urbaine - Home"/>
+    <script>document.write(`<img src="../_static/carte.png" class="logo__image only-dark" alt="Proximité urbaine - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    UrbanBook
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Environnement</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../00_Projet/environnement.html">Installation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Les équipements urbains</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="catalogue_donnees.html">Catalogue des données</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dictionnaire_variables.html">Dictionnaire des variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="osm_label.html">Les équipements rétenus dans OpenStreetMap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="osm_overpass.html">Extraction et prétraitement des données OSM</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Réseau de route pièton</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="reseau-pieton-intro.html">Construction d’un réseau piéton pour l’analyse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pedestrian_roads.html">Extraction du réseau piéton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="automatisation_roads.html">Automatisation du processus d’extraction du réseau</a></li>
+<li class="toctree-l1"><a class="reference internal" href="graph_OSMnx.html">Notebook d’exploration du graphe OSMnx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lixelization.html">Lixelisation et graphe du réseau</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Calcul d'indicateur de proximité</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../50_Reproductibilite/structure_projet.html">Structure du projet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../50_Reproductibilite/comment_reproduire.html">Produire les indicateurs de proximité</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/techByHazim/UrbanBook/issues/new?title=Issue%20on%20page%20%2F10_Donnees/TestOSMnx.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/10_Donnees/TestOSMnx.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1><no title></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">osmnx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ox</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lecture de la zone d&#39;étude</span>
+<span class="n">cadre</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;../../Proximity/data/raw/personal/CadreMarseille.gpkg&quot;</span><span class="p">)</span>
+
+<span class="c1"># Le fichier est Lambert 93 (EPSG:2154), on le convertit en WGS84 pour osmnx</span>
+<span class="k">if</span> <span class="n">cadre</span><span class="o">.</span><span class="n">crs</span> <span class="o">!=</span> <span class="s2">&quot;EPSG:4326&quot;</span><span class="p">:</span>
+    <span class="n">cadre</span> <span class="o">=</span> <span class="n">cadre</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">)</span>
+
+<span class="n">polygon</span> <span class="o">=</span> <span class="n">cadre</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Création du graphe à partir de OSM </span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph_from_polygon</span><span class="p">(</span><span class="n">polygon</span><span class="p">,</span> <span class="n">network_type</span><span class="o">=</span><span class="s1">&#39;walk&#39;</span><span class="p">,</span> <span class="n">simplify</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">retain_all</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>Le graphe a été généré à partir des données OpenStreetMap à l’aide de la fonction <code class="docutils literal notranslate"><span class="pre">ox.graph_from_polygon()</span></code>, limitée à l’emprise géographique de Marseille.
+Le paramètre <code class="docutils literal notranslate"><span class="pre">network_type='walk'</span></code> permet de ne conserver que les voies accessibles aux piétons, tandis que <code class="docutils literal notranslate"><span class="pre">simplify=True</span></code> fusionne les segments linéaires entre deux intersections afin d’obtenir une topologie plus lisible.</p>
+<p>Le paramètre <code class="docutils literal notranslate"><span class="pre">retain_all=False</span></code> garantit la <strong>connectivité du réseau</strong> en ne conservant que le <strong>plus grand composant connexe</strong>, c’est-à-dire le sous-ensemble du graphe dans lequel tous les nœuds sont atteignables les uns depuis les autres.
+Le graphe résultant est de type <strong><code class="docutils literal notranslate"><span class="pre">MultiDiGraph</span></code></strong>, ce qui permet de représenter à la fois les <strong>sens de circulation</strong> et la présence de <strong>plusieurs arêtes entre deux mêmes nœuds</strong> (par exemple des rues parallèles ou des voies distinctes pour chaque sens).</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Type d&#39;objet</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>networkx.classes.multidigraph.MultiDiGraph
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>Le graphe obtenu à partir de la fonction <code class="docutils literal notranslate"><span class="pre">ox.graph_from_polygon()</span></code> est un objet de type <strong><code class="docutils literal notranslate"><span class="pre">networkx.classes.multidigraph.MultiDiGraph</span></code></strong>.
+Ce format correspond à un <strong>graphe orienté et multi-arêtes</strong>, c’est-à-dire une structure dans laquelle les nœuds représentent les intersections du réseau et les arêtes correspondent aux tronçons de rue reliant ces nœuds.</p>
+<p>L’orientation du graphe permet de prendre en compte les <strong>sens de circulation</strong> (par exemple les rues à sens unique ou les escaliers à sens descendant), tandis que la possibilité d’avoir plusieurs arêtes entre deux mêmes nœuds reflète la présence de <strong>voies parallèles ou superposées</strong> (comme une voie de service et une voie principale).</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Affiche trois premiers noeuds</span>
+<span class="nb">list</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="kc">True</span><span class="p">))[:</span><span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[(12116512, {&#39;y&#39;: 43.2948921, &#39;x&#39;: 5.6357888, &#39;street_count&#39;: 3}),
+ (12116520, {&#39;y&#39;: 43.2962654, &#39;x&#39;: 5.6347066, &#39;street_count&#39;: 3}),
+ (12116524, {&#39;y&#39;: 43.2963012, &#39;x&#39;: 5.6338106, &#39;street_count&#39;: 3})]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Quelques infos utiles</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">graph_info</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Type du graphe : </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Nombre de nœuds : </span><span class="si">{</span><span class="n">G</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Nombre d’arêtes : </span><span class="si">{</span><span class="n">G</span><span class="o">.</span><span class="n">number_of_edges</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Est orienté : </span><span class="si">{</span><span class="n">G</span><span class="o">.</span><span class="n">is_directed</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Est connexe : </span><span class="si">{</span><span class="n">nx</span><span class="o">.</span><span class="n">is_weakly_connected</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">G</span><span class="o">.</span><span class="n">is_directed</span><span class="p">()</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">nx</span><span class="o">.</span><span class="n">is_connected</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">graph_info</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Type du graphe : MultiDiGraph
+Nombre de nœuds : 113230
+Nombre d’arêtes : 302816
+Est orienté : True
+Est connexe : True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Trouver un nœud central (géométriquement au milieu)</span>
+<span class="n">center_node</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">())[</span><span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="c1"># Extraire un sous-graphe autour du centre, dans un rayon de 600 m</span>
+<span class="n">subG</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">truncate</span><span class="o">.</span><span class="n">truncate_graph_dist</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">center_node</span><span class="p">,</span> <span class="n">max_dist</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span>
+<span class="n">ox</span><span class="o">.</span><span class="n">plot_graph</span><span class="p">(</span>
+    <span class="n">subG</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">node_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+    <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span>
+    <span class="n">bgcolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/51a25b1ac33c09f91f7c38f18706a73e2940465a982a4064fe6bba0a8cd10682.png" src="../_images/51a25b1ac33c09f91f7c38f18706a73e2940465a982a4064fe6bba0a8cd10682.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">subG</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/20e1c3df8bc0612cef320e3816e7ee8df4bd9c074b3c5c324acbb6a03e80795a.png" src="../_images/20e1c3df8bc0612cef320e3816e7ee8df4bd9c074b3c5c324acbb6a03e80795a.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># conversion en Graphe non orienté</span>
+<span class="n">subG_undirected</span> <span class="o">=</span> <span class="n">subG</span><span class="o">.</span><span class="n">to_undirected</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">subG_undirected</span><span class="p">,</span> <span class="n">node_size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/664f20f885a52937f116b5629d5d2ea301d577b3a3cf23251cf4c3480a7f8550.png" src="../_images/664f20f885a52937f116b5629d5d2ea301d577b3a3cf23251cf4c3480a7f8550.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes</span><span class="p">,</span> <span class="n">edges</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph_to_gdfs</span><span class="p">(</span><span class="n">subG</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>y</th>
+      <th>x</th>
+      <th>street_count</th>
+      <th>highway</th>
+      <th>geometry</th>
+    </tr>
+    <tr>
+      <th>osmid</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>307995439</th>
+      <td>43.223974</td>
+      <td>5.404080</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>POINT (5.40408 43.22397)</td>
+    </tr>
+    <tr>
+      <th>307995441</th>
+      <td>43.225115</td>
+      <td>5.403621</td>
+      <td>4</td>
+      <td>NaN</td>
+      <td>POINT (5.40362 43.22512)</td>
+    </tr>
+    <tr>
+      <th>307995446</th>
+      <td>43.227355</td>
+      <td>5.402922</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>POINT (5.40292 43.22735)</td>
+    </tr>
+    <tr>
+      <th>308240131</th>
+      <td>43.231875</td>
+      <td>5.400467</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>POINT (5.40047 43.23187)</td>
+    </tr>
+    <tr>
+      <th>308240132</th>
+      <td>43.231895</td>
+      <td>5.400530</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>POINT (5.40053 43.2319)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edges</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>osmid</th>
+      <th>highway</th>
+      <th>oneway</th>
+      <th>reversed</th>
+      <th>length</th>
+      <th>geometry</th>
+      <th>lanes</th>
+      <th>name</th>
+      <th>junction</th>
+      <th>service</th>
+      <th>maxspeed</th>
+      <th>access</th>
+      <th>bridge</th>
+    </tr>
+    <tr>
+      <th>u</th>
+      <th>v</th>
+      <th>key</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">307995439</th>
+      <th>1811860738</th>
+      <th>0</th>
+      <td>170028245</td>
+      <td>track</td>
+      <td>False</td>
+      <td>True</td>
+      <td>49.717</td>
+      <td>LINESTRING (5.40408 43.22397, 5.40454 43.22407...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>307995441</th>
+      <th>0</th>
+      <td>1097560336</td>
+      <td>unclassified</td>
+      <td>False</td>
+      <td>False</td>
+      <td>132.310</td>
+      <td>LINESTRING (5.40408 43.22397, 5.40377 43.22469...</td>
+      <td>2</td>
+      <td>Chemin de Sormiou</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">307995441</th>
+      <th>1739340029</th>
+      <th>0</th>
+      <td>162097600</td>
+      <td>residential</td>
+      <td>False</td>
+      <td>True</td>
+      <td>76.997</td>
+      <td>LINESTRING (5.40362 43.22512, 5.40273 43.22488)</td>
+      <td>NaN</td>
+      <td>Impasse de l'Aspic</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1740315362</th>
+      <th>0</th>
+      <td>161981629</td>
+      <td>unclassified</td>
+      <td>False</td>
+      <td>False</td>
+      <td>199.676</td>
+      <td>LINESTRING (5.40362 43.22512, 5.40363 43.22524...</td>
+      <td>2</td>
+      <td>Chemin de Sormiou</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1811860738</th>
+      <th>0</th>
+      <td>453094611</td>
+      <td>path</td>
+      <td>False</td>
+      <td>False</td>
+      <td>138.016</td>
+      <td>LINESTRING (5.40362 43.22512, 5.40424 43.22434...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes_und</span><span class="p">,</span> <span class="n">edges_und</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph_to_gdfs</span><span class="p">(</span><span class="n">subG_undirected</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes_und</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>y</th>
+      <th>x</th>
+      <th>street_count</th>
+      <th>highway</th>
+      <th>geometry</th>
+    </tr>
+    <tr>
+      <th>osmid</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>307995439</th>
+      <td>43.223974</td>
+      <td>5.404080</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>POINT (5.40408 43.22397)</td>
+    </tr>
+    <tr>
+      <th>307995441</th>
+      <td>43.225115</td>
+      <td>5.403621</td>
+      <td>4</td>
+      <td>NaN</td>
+      <td>POINT (5.40362 43.22512)</td>
+    </tr>
+    <tr>
+      <th>307995446</th>
+      <td>43.227355</td>
+      <td>5.402922</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>POINT (5.40292 43.22735)</td>
+    </tr>
+    <tr>
+      <th>308240131</th>
+      <td>43.231875</td>
+      <td>5.400467</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>POINT (5.40047 43.23187)</td>
+    </tr>
+    <tr>
+      <th>308240132</th>
+      <td>43.231895</td>
+      <td>5.400530</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>POINT (5.40053 43.2319)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edges_und</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>osmid</th>
+      <th>highway</th>
+      <th>oneway</th>
+      <th>reversed</th>
+      <th>length</th>
+      <th>geometry</th>
+      <th>lanes</th>
+      <th>name</th>
+      <th>junction</th>
+      <th>service</th>
+      <th>maxspeed</th>
+      <th>access</th>
+      <th>bridge</th>
+    </tr>
+    <tr>
+      <th>u</th>
+      <th>v</th>
+      <th>key</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">307995439</th>
+      <th>1811860738</th>
+      <th>0</th>
+      <td>170028245</td>
+      <td>track</td>
+      <td>False</td>
+      <td>False</td>
+      <td>49.717</td>
+      <td>LINESTRING (5.40463 43.22414, 5.40454 43.22407...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>307995441</th>
+      <th>0</th>
+      <td>1097560336</td>
+      <td>unclassified</td>
+      <td>False</td>
+      <td>True</td>
+      <td>132.310</td>
+      <td>LINESTRING (5.40362 43.22512, 5.40367 43.22496...</td>
+      <td>2</td>
+      <td>Chemin de Sormiou</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">307995441</th>
+      <th>1739340029</th>
+      <th>0</th>
+      <td>162097600</td>
+      <td>residential</td>
+      <td>False</td>
+      <td>False</td>
+      <td>76.997</td>
+      <td>LINESTRING (5.40362 43.22512, 5.40273 43.22488)</td>
+      <td>NaN</td>
+      <td>Impasse de l'Aspic</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1740315362</th>
+      <th>0</th>
+      <td>161981629</td>
+      <td>unclassified</td>
+      <td>False</td>
+      <td>True</td>
+      <td>199.676</td>
+      <td>LINESTRING (5.40329 43.22687, 5.40335 43.22676...</td>
+      <td>2</td>
+      <td>Chemin de Sormiou</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1811860738</th>
+      <th>0</th>
+      <td>453094611</td>
+      <td>path</td>
+      <td>False</td>
+      <td>True</td>
+      <td>138.016</td>
+      <td>LINESTRING (5.40463 43.22414, 5.40424 43.22434...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes</span><span class="p">,</span> <span class="n">edges</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph_to_gdfs</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edges</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>osmid</th>
+      <th>ref</th>
+      <th>name</th>
+      <th>highway</th>
+      <th>oneway</th>
+      <th>reversed</th>
+      <th>length</th>
+      <th>geometry</th>
+      <th>lanes</th>
+      <th>maxspeed</th>
+      <th>junction</th>
+      <th>access</th>
+      <th>service</th>
+      <th>bridge</th>
+      <th>tunnel</th>
+      <th>width</th>
+      <th>est_width</th>
+    </tr>
+    <tr>
+      <th>u</th>
+      <th>v</th>
+      <th>key</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="3" valign="top">12116512</th>
+      <th>1062102835</th>
+      <th>0</th>
+      <td>1185889490</td>
+      <td>D 2</td>
+      <td>Route de Saint-Pons</td>
+      <td>secondary</td>
+      <td>False</td>
+      <td>True</td>
+      <td>19.065</td>
+      <td>LINESTRING (5.63579 43.29489, 5.63563 43.29502)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>12116520</th>
+      <th>0</th>
+      <td>2682531</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>service</td>
+      <td>False</td>
+      <td>False</td>
+      <td>289.179</td>
+      <td>LINESTRING (5.63579 43.29489, 5.63641 43.29524...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>12116535</th>
+      <th>0</th>
+      <td>1185889490</td>
+      <td>D 2</td>
+      <td>Route de Saint-Pons</td>
+      <td>secondary</td>
+      <td>False</td>
+      <td>False</td>
+      <td>77.251</td>
+      <td>LINESTRING (5.63579 43.29489, 5.63618 43.29461...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">12116520</th>
+      <th>1846672547</th>
+      <th>0</th>
+      <td>3626015</td>
+      <td>D 2</td>
+      <td>Route de Saint-Pons</td>
+      <td>secondary</td>
+      <td>False</td>
+      <td>True</td>
+      <td>7.443</td>
+      <td>LINESTRING (5.63471 43.29627, 5.63464 43.29631)</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>12116512</th>
+      <th>0</th>
+      <td>2682531</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>service</td>
+      <td>False</td>
+      <td>True</td>
+      <td>289.179</td>
+      <td>LINESTRING (5.63471 43.29627, 5.63477 43.29633...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>y</th>
+      <th>x</th>
+      <th>street_count</th>
+      <th>highway</th>
+      <th>ref</th>
+      <th>geometry</th>
+    </tr>
+    <tr>
+      <th>osmid</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>12116512</th>
+      <td>43.294892</td>
+      <td>5.635789</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (5.63579 43.29489)</td>
+    </tr>
+    <tr>
+      <th>12116520</th>
+      <td>43.296265</td>
+      <td>5.634707</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (5.63471 43.29627)</td>
+    </tr>
+    <tr>
+      <th>12116524</th>
+      <td>43.296301</td>
+      <td>5.633811</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (5.63381 43.2963)</td>
+    </tr>
+    <tr>
+      <th>12116526</th>
+      <td>43.296415</td>
+      <td>5.633292</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (5.63329 43.29641)</td>
+    </tr>
+    <tr>
+      <th>12116535</th>
+      <td>43.294384</td>
+      <td>5.636438</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>POINT (5.63644 43.29438)</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">Kernel</span> <span class="n">crashed</span> <span class="k">while</span> <span class="n">executing</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">current</span> <span class="n">cell</span> <span class="ow">or</span> <span class="n">a</span> <span class="n">previous</span> <span class="n">cell</span><span class="o">.</span> 
+
+<span class="n">Please</span> <span class="n">review</span> <span class="n">the</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">cell</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">to</span> <span class="n">identify</span> <span class="n">a</span> <span class="n">possible</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">failure</span><span class="o">.</span> 
+
+<span class="n">Click</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;https://aka.ms/vscodeJupyterKernelCrash&#39;</span><span class="o">&gt;</span><span class="n">here</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">info</span><span class="o">.</span> 
+
+<span class="n">View</span> <span class="n">Jupyter</span> <span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s1">&#39;command:jupyter.viewOutput&#39;</span><span class="o">&gt;</span><span class="n">log</span><span class="o">&lt;/</span><span class="n">a</span><span class="o">&gt;</span> <span class="k">for</span> <span class="n">further</span> <span class="n">details</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sauvegarder en GeoPackage (format parfait pour QGIS)</span>
+<span class="n">edges</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;marseille_walk_edges.gpkg&quot;</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;edges&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>
+<span class="n">nodes</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;marseille_walk_nodes.gpkg&quot;</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;nodes&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">LineString</span>
+
+<span class="n">edges_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;../../Proximity/data/processed/roads_network/osm_foot_network_Marseille_2025-10-06.gpkg&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">edges_gdf</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>osm_id</th>
+      <th>highway</th>
+      <th>name</th>
+      <th>access</th>
+      <th>foot</th>
+      <th>surface</th>
+      <th>incline</th>
+      <th>smoothness</th>
+      <th>width</th>
+      <th>sidewalk</th>
+      <th>crossing</th>
+      <th>lit</th>
+      <th>bridge</th>
+      <th>tunnel</th>
+      <th>layer</th>
+      <th>oneway</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2682531</td>
+      <td>service</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>no</td>
+      <td>LINESTRING (913982.648 6247541.048, 914032.152...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2699768</td>
+      <td>path</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>no</td>
+      <td>LINESTRING (909518.351 6239066.723, 909533.383...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2699769</td>
+      <td>path</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>no</td>
+      <td>LINESTRING (909448.07 6239122.435, 909435.263 ...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3617343</td>
+      <td>primary</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>asphalt</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>no</td>
+      <td>LINESTRING (910535.741 6250520.857, 910540.587...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>3617344</td>
+      <td>primary</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>0</td>
+      <td>no</td>
+      <td>LINESTRING (910571.976 6250128.531, 910573.41 ...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">edges_gdf</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">geom</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">geometry</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">LineString</span><span class="p">):</span>
+        <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">geom</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">geom</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="n">geom</span><span class="o">.</span><span class="n">length</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Graphe créé : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span><span class="si">}</span><span class="s2"> nœuds et </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">)</span><span class="si">}</span><span class="s2"> arêtes&quot;</span><span class="p">)</span>
+
+<span class="n">edges_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;edges_export.gpkg&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Graphe créé : 139735 nœuds et 96402 arêtes
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">momepy</span> 
+
+<span class="n">edges_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;../../Proximity/data/processed/roads_network/osm_foot_network_Marseille_2025-10-06.gpkg&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; Réseau chargé : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">edges_gdf</span><span class="p">)</span><span class="si">}</span><span class="s2"> tronçons&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">edges_gdf</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># Construire un graphe topologique (reconnaissance des intersections)</span>
+<span class="c1"># approach=&quot;primal&quot; : un nœud = intersection, une arête = tronçon</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">momepy</span><span class="o">.</span><span class="n">gdf_to_nx</span><span class="p">(</span><span class="n">edges_gdf</span><span class="p">,</span> <span class="n">approach</span><span class="o">=</span><span class="s2">&quot;primal&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; Graphe construit : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span><span class="si">}</span><span class="s2"> nœuds, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">)</span><span class="si">}</span><span class="s2"> arêtes&quot;</span><span class="p">)</span>
+
+<span class="c1"># (Optionnel) Extraire à nouveau les arêtes sous forme GeoDataFrame</span>
+<span class="n">edges_out</span> <span class="o">=</span> <span class="n">momepy</span><span class="o">.</span><span class="n">nx_to_gdf</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">points</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># (Optionnel) Exporter le graphe au format GeoPackage</span>
+<span class="n">edges_out</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;osm_foot_network_Marseille_graph_topo.gpkg&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Fichier exporté avec topologie reconstruite.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Réseau chargé : 96901 tronçons
+    osm_id  highway name access foot  surface incline smoothness width  \
+0  2682531  service                                                      
+1  2699768     path                                                      
+2  2699769     path                                                      
+3  3617343  primary                   asphalt                            
+4  3617344  primary                                                      
+
+  sidewalk crossing lit bridge tunnel layer oneway  \
+0                                         0     no   
+1                                         0     no   
+2                                         0     no   
+3                                         0     no   
+4                                         0     no   
+
+                                            geometry  
+0  LINESTRING (913982.648 6247541.048, 914032.152...  
+1  LINESTRING (909518.351 6239066.723, 909533.383...  
+2  LINESTRING (909448.07 6239122.435, 909435.263 ...  
+3  LINESTRING (910535.741 6250520.857, 910540.587...  
+4  LINESTRING (910571.976 6250128.531, 910573.41 ...  
+ Graphe construit : 139735 nœuds, 96901 arêtes
+ Fichier exporté avec topologie reconstruite.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">momepy</span> 
+
+<span class="n">edges_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="s2">&quot;../../Proximity/data/processed/roads_network/osm_foot_network_Marseille_2025-10-06.gpkg&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; Réseau chargé : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">edges_gdf</span><span class="p">)</span><span class="si">}</span><span class="s2"> tronçons&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">edges_gdf</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+
+<span class="c1"># Construire un graphe topologique (reconnaissance des intersections)</span>
+<span class="c1"># approach=&quot;primal&quot; : un nœud = intersection, une arête = tronçon</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">momepy</span><span class="o">.</span><span class="n">gdf_to_nx</span><span class="p">(</span><span class="n">edges_gdf</span><span class="p">,</span> <span class="n">approach</span><span class="o">=</span><span class="s2">&quot;dual&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; Graphe construit : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">)</span><span class="si">}</span><span class="s2"> nœuds, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">)</span><span class="si">}</span><span class="s2"> arêtes&quot;</span><span class="p">)</span>
+
+<span class="c1"># (Optionnel) Extraire à nouveau les arêtes sous forme GeoDataFrame</span>
+<span class="n">edges_out</span> <span class="o">=</span> <span class="n">momepy</span><span class="o">.</span><span class="n">nx_to_gdf</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">points</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># (Optionnel) Exporter le graphe au format GeoPackage</span>
+<span class="n">edges_out</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;osm_foot_network_Marseille_graph_topo_dual.gpkg&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Fichier exporté avec topologie reconstruite.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Réseau chargé : 96901 tronçons
+    osm_id  highway name access foot  surface incline smoothness width  \
+0  2682531  service                                                      
+1  2699768     path                                                      
+2  2699769     path                                                      
+3  3617343  primary                   asphalt                            
+4  3617344  primary                                                      
+
+  sidewalk crossing lit bridge tunnel layer oneway  \
+0                                         0     no   
+1                                         0     no   
+2                                         0     no   
+3                                         0     no   
+4                                         0     no   
+
+                                            geometry  
+0  LINESTRING (913982.648 6247541.048, 914032.152...  
+1  LINESTRING (909518.351 6239066.723, 909533.383...  
+2  LINESTRING (909448.07 6239122.435, 909435.263 ...  
+3  LINESTRING (910535.741 6250520.857, 910540.587...  
+4  LINESTRING (910571.976 6250128.531, 910573.41 ...  
+ Graphe construit : 96901 nœuds, 74475 arêtes
+ Fichier exporté avec topologie reconstruite.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">osmium</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shapely.wkb</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">wkblib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gpd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_reseau_topologique</span><span class="p">(</span><span class="n">input_pbf</span><span class="p">):</span>
+    <span class="n">wkbfab</span> <span class="o">=</span> <span class="n">osmium</span><span class="o">.</span><span class="n">geom</span><span class="o">.</span><span class="n">WKBFactory</span><span class="p">()</span>
+    <span class="n">ways</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">nodes_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">total_ways</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">WayCounter</span><span class="p">(</span><span class="n">osmium</span><span class="o">.</span><span class="n">SimpleHandler</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">way</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+            <span class="k">nonlocal</span> <span class="n">total_ways</span>
+            <span class="n">total_ways</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Counting ways...&quot;</span><span class="p">)</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="n">WayCounter</span><span class="p">()</span>
+    <span class="n">counter</span><span class="o">.</span><span class="n">apply_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">input_pbf</span><span class="p">),</span> <span class="n">locations</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total number of ways: </span><span class="si">{</span><span class="n">total_ways</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extracting pedestrian network...&quot;</span><span class="p">)</span>
+    <span class="n">pbar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">total</span><span class="o">=</span><span class="n">total_ways</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Processing ways&quot;</span><span class="p">)</span>
+
+    <span class="k">class</span><span class="w"> </span><span class="nc">FootwayHandler</span><span class="p">(</span><span class="n">osmium</span><span class="o">.</span><span class="n">SimpleHandler</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">way</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">tags</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">tags</span>
+                <span class="n">highway</span> <span class="o">=</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;highway&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">access</span> <span class="o">=</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;access&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+                <span class="n">foot</span> <span class="o">=</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;foot&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+                <span class="c1"># Liste des types de routes piétonnes autorisées</span>
+                <span class="n">highway_whitelist</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="s1">&#39;primary&#39;</span><span class="p">,</span> <span class="s1">&#39;primary_link&#39;</span><span class="p">,</span> <span class="s1">&#39;secondary&#39;</span><span class="p">,</span> <span class="s1">&#39;secondary_link&#39;</span><span class="p">,</span> <span class="s1">&#39;tertiary&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;tertiary_link&#39;</span><span class="p">,</span> <span class="s1">&#39;unclassified&#39;</span><span class="p">,</span> <span class="s1">&#39;residential&#39;</span><span class="p">,</span> <span class="s1">&#39;road&#39;</span><span class="p">,</span> <span class="s1">&#39;living_street&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;service&#39;</span><span class="p">,</span> <span class="s1">&#39;track&#39;</span><span class="p">,</span> <span class="s1">&#39;path&#39;</span><span class="p">,</span> <span class="s1">&#39;steps&#39;</span><span class="p">,</span> <span class="s1">&#39;pedestrian&#39;</span><span class="p">,</span> <span class="s1">&#39;platform&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;footway&#39;</span><span class="p">,</span> <span class="s1">&#39;pier&#39;</span>
+                <span class="p">]</span>
+                <span class="k">if</span> <span class="n">highway</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">highway_whitelist</span><span class="p">:</span>
+                    <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="k">return</span>
+                <span class="k">if</span> <span class="n">foot</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span> <span class="ow">or</span> <span class="n">highway</span> <span class="o">==</span> <span class="s1">&#39;platform&#39;</span><span class="p">:</span>
+                    <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="k">return</span>
+
+                <span class="n">wkb</span> <span class="o">=</span> <span class="n">wkbfab</span><span class="o">.</span><span class="n">create_linestring</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+                <span class="n">geom</span> <span class="o">=</span> <span class="n">wkblib</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">wkb</span><span class="p">,</span> <span class="nb">hex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+                <span class="c1"># --- Création des nœuds u/v (extrémités du tronçon)</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">end</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+                <span class="c1"># Ajout des nœuds uniques</span>
+                <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="p">[</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">]:</span>
+                    <span class="n">coord</span> <span class="o">=</span> <span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">coord</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nodes_dict</span><span class="p">:</span>
+                        <span class="n">nodes_dict</span><span class="p">[</span><span class="n">coord</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes_dict</span><span class="p">)</span>
+
+                <span class="n">u</span> <span class="o">=</span> <span class="n">nodes_dict</span><span class="p">[(</span><span class="n">start</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">start</span><span class="o">.</span><span class="n">y</span><span class="p">)]</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="n">nodes_dict</span><span class="p">[(</span><span class="n">end</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">end</span><span class="o">.</span><span class="n">y</span><span class="p">)]</span>
+
+                <span class="n">way_info</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">&#39;osm_id&#39;</span><span class="p">:</span> <span class="n">w</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                    <span class="s1">&#39;u&#39;</span><span class="p">:</span> <span class="n">u</span><span class="p">,</span>
+                    <span class="s1">&#39;v&#39;</span><span class="p">:</span> <span class="n">v</span><span class="p">,</span>
+                    <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">geom</span><span class="p">,</span>
+                    <span class="s1">&#39;highway&#39;</span><span class="p">:</span> <span class="n">highway</span><span class="p">,</span>
+                    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;access&#39;</span><span class="p">:</span> <span class="n">access</span><span class="p">,</span>
+                    <span class="s1">&#39;foot&#39;</span><span class="p">:</span> <span class="n">foot</span><span class="p">,</span>
+                    <span class="s1">&#39;surface&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;surface&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;incline&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;incline&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;smoothness&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;smoothness&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;sidewalk&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sidewalk&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;crossing&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;crossing&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;lit&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lit&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;bridge&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;bridge&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;tunnel&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tunnel&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;layer&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;layer&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">),</span>
+                    <span class="s1">&#39;oneway&#39;</span><span class="p">:</span> <span class="n">tags</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;oneway&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">)</span>
+                <span class="p">}</span>
+                <span class="n">ways</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">way_info</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error processing way </span><span class="si">{</span><span class="n">w</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">handler</span> <span class="o">=</span> <span class="n">FootwayHandler</span><span class="p">()</span>
+    <span class="n">handler</span><span class="o">.</span><span class="n">apply_file</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">input_pbf</span><span class="p">),</span> <span class="n">locations</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">pbar</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="c1"># Création des GeoDataFrames</span>
+    <span class="n">edges_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">ways</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">)</span>
+    <span class="n">nodes_list</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;node_id&#39;</span><span class="p">:</span> <span class="n">nid</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span><span class="p">:</span> <span class="n">Point</span><span class="p">(</span><span class="n">xy</span><span class="p">)}</span> <span class="k">for</span> <span class="n">xy</span><span class="p">,</span> <span class="n">nid</span> <span class="ow">in</span> <span class="n">nodes_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+    <span class="n">nodes_gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">nodes_list</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Réseau extrait : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">edges_gdf</span><span class="p">)</span><span class="si">}</span><span class="s2"> arêtes, </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes_gdf</span><span class="p">)</span><span class="si">}</span><span class="s2"> nœuds&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">nodes_gdf</span><span class="p">,</span> <span class="n">edges_gdf</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes_gdf</span><span class="p">,</span> <span class="n">edges_gdf</span> <span class="o">=</span> <span class="n">extract_reseau_topologique</span><span class="p">(</span><span class="s2">&quot;../../Proximity/data/raw/osm/provence-alpes-cote-d-azur-latest.osm.pbf&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Counting ways...
+Total number of ways: 5184783
+Extracting pedestrian network...
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Processing ways: 9522720it [01:49, 87176.22it/s]                              
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Réseau extrait : 846846 arêtes, 1227394 nœuds
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Export en deux couches</span>
+<span class="n">output_path_nodes</span> <span class="o">=</span> <span class="s2">&quot;../../Proximity/data/processed/roads_network/osrm_foot_nodes_network_Marseille.gpkg&quot;</span>
+<span class="n">output_path_edges</span> <span class="o">=</span> <span class="s2">&quot;../../Proximity/data/processed/roads_network/osrm_foot_edges_network_Marseille.gpkg&quot;</span>
+<span class="n">nodes_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">output_path_nodes</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;nodes&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>
+<span class="n">edges_gdf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">output_path_edges</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;edges&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Réseau piéton exporté avec topologie (nodes + edges).&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Réseau piéton exporté avec topologie (nodes + edges).
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">custom_filter</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">&#39;[&quot;highway&quot;~&quot;primary|primary_link|secondary|secondary_link|tertiary|tertiary_link|&#39;</span>
+    <span class="s1">&#39;unclassified|residential|road|living_street|service|track|path|steps|pedestrian|footway|pier&quot;]&#39;</span>
+    <span class="s1">&#39;[&quot;foot&quot;!~&quot;no&quot;]&#39;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">osmnx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ox</span>
+
+<span class="c1"># Exemple : réseau piéton complet de Marseille</span>
+<span class="n">G</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph_from_place</span><span class="p">(</span>
+    <span class="s2">&quot;Marseille, France&quot;</span><span class="p">,</span>
+    <span class="n">custom_filter</span><span class="o">=</span><span class="n">custom_filter</span><span class="p">,</span>
+    <span class="n">simplify</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">retain_all</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="c1"># Convertir en GeoDataFrame si tu veux inspecter</span>
+<span class="n">nodes</span><span class="p">,</span> <span class="n">edges</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph_to_gdfs</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes</span><span class="p">,</span> <span class="n">edges</span> <span class="o">=</span> <span class="n">ox</span><span class="o">.</span><span class="n">graph_to_gdfs</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sauvegarder en GeoPackage (format parfait pour QGIS)</span>
+<span class="n">edges</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;marseille_walk_edges.gpkg&quot;</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;edges&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>
+<span class="n">nodes</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;marseille_walk_nodes.gpkg&quot;</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;nodes&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./10_Donnees"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By M. Hazim (CINaM/CNRS/AMU)
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div style="font-size:0.9rem; line-height:1.4; margin-top:0.5rem;">
+  Contact : <a href="mailto:moindze-boina.hazim@cnrs.fr">moindze-boina.hazim@cnrs.fr</a>
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
